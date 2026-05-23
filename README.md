@@ -1,2 +1,83 @@
-# teryt-spring-boot-starter
-Modern Spring Boot starter for seamless integration with the Polish national TERYT registry (GUS). Maps legacy SOAP/XML API into clean objects based on Java Records and enums.
+# TERYT Spring Boot Starter
+
+[![Java Version](https://img.shields.io/badge/Java-25-blue.svg)](https://adoptium.net/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.6-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**TERYT Spring Boot Starter** to lekka biblioteka ułatwiająca integrację aplikacji Spring Boot z rejestrem TERYT
+udostępnianym przez Główny Urząd Statystyczny (Usługa sieciowa TERYT ws1).
+
+Zdejmuje z barków programisty konieczność ręcznej obsługi protokołu SOAP, generowania klas z WSDL oraz konfiguracji
+nagłówków zabezpieczeń WS-Security. Udostępnia czyste, współczesne API oparte na rekordach i enumach. Minimum wysiłku.
+
+## Główne cechy
+
+* **Zero Boilerplate'u:** Podajesz swój login i hasło w `application.yml` i gotowe. Klient jest wstrzykiwany
+  automatycznie.
+* **Hermetyzacja:** Brzydkie klasy wygenerowane przez JAXB/CXF nigdy nie wyciekają do Twojego kodu biznesowego. API
+  udostępnia wyłącznie czyste obiekty `Record` i `Enum`.
+* **Lekkość:** Biblioteka nie ciągnie za sobą zbędnych zależności. Opiera się na natywnym
+  `spring-boot-starter-webservices`. Nie potrzebujesz JAXB/CXF ani własnego mappera.
+* **Języka wszechobecny**: Tłumaczenie na siłę pojęć, które nie mają idealnych odpowiedników 1:1 za granicą, często
+  prowadzi do nieporozumień. Wolisz pobierać municipality, commune czy district?
+* **Nowoczesność:** Wykorzystuje możliwości **Javy 25**.
+
+## Wymagania
+
+* Java 25+
+* Spring Boot 4.0+
+
+## Quick Start
+
+### 1. Dodaj zależność
+
+Do pliku `pom.xml` w swoim projekcie dodaj:
+
+```xml
+
+<dependency>
+    <groupId>pl.bajty.teryt</groupId>
+    <artifactId>teryt-spring-boot-starter</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+</dependency>
+```
+
+### 2. W pliku application.yml (lub application.properties) Twojej aplikacji dodaj konfigurację połączenia z TERYT ws1:
+
+```yaml
+teryt:
+  username: twoj_login_ws1
+  password: twoje_haslo_ws1
+```
+
+### 3. Używaj API w kodzie, np.:
+
+```java
+
+@RestController
+@RequestMapping("/api/teryt")
+@RequiredArgsConstructor
+class LocationController {
+
+    private final TerytClient terytClient;
+
+    @GetMapping("/wojewodztwa")
+    public List<Wojewodztwo> getWojewodztwa() {
+        return terytClient.getWojewodztwa();
+    }
+}
+```
+
+## Licencja
+
+Projekt udostępniany jest na licencji MIT, co oznacza, że możesz go używać za darmo zarówno w projektach open-source,
+jak i komercyjnych, z pewnymi zastrzeżeniami. Szczegóły w pliku LICENSE.
+
+---
+
+> **Uwaga:** Ten projekt jest niezależną inicjatywą open-source tworzoną przez [bajty.pl](https://bajty.pl) i 
+> **nie jest** oficjalnym oprogramowaniem Głównego Urzędu Statystycznego (GUS).
+
+> 💡 **Wsparcie i kontakt:** Znalazłeś błąd lub masz propozycję nowej funkcji? Najszybszą drogą kontaktu jest utworzenie
+> zgłoszenia w zakładce [GitHub Issues](https://github.com/bajty-pl/teryt-spring-boot-starter/issues). W pozostałych
+> sprawach zapraszamy do kontaktu na adres [kontakt@bajty.pl](mailto:kontakt@bajty.pl).
