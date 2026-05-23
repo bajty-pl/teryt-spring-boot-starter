@@ -18,8 +18,12 @@ nagłówków zabezpieczeń WS-Security. Udostępnia czyste, współczesne API op
   udostępnia wyłącznie czyste obiekty `Record` i `Enum`.
 * **Lekkość:** Biblioteka nie ciągnie za sobą zbędnych zależności. Opiera się na natywnym
   `spring-boot-starter-webservices`. Nie potrzebujesz JAXB/CXF ani własnego mappera.
-* **Języka wszechobecny**: Tłumaczenie na siłę pojęć, które nie mają idealnych odpowiedników 1:1 za granicą, często
-  prowadzi do nieporozumień. Wolisz pobierać municipality, commune czy district?
+* **Prostota obsługi:** Przejdź do sekcji [Quick Start](#quick-start) i przekonaj się, że włożyliśmy w to wysiłek, abyś
+  Ty nie musiał.
+* **Język wszechobecny:** Świadomie zrezygnowaliśmy z tłumaczenia jednostek administracyjnych i innych oficjalnych nazw
+  na język angielski. Zamiast tracić czas na domysły, czy gmina to w kodzie municipality, commune czy district (a
+  województwo to state czy province), biblioteka używa pojęć prosto z oficjalnej dokumentacji GUS. W kodzie znajdziesz
+  po prostu obiekty Wojewodztwo, Powiat, Gmina, Miejscowosc oraz Ulica.
 * **Nowoczesność:** Wykorzystuje możliwości **Javy 25**.
 
 ## Wymagania
@@ -75,7 +79,7 @@ jak i komercyjnych, z pewnymi zastrzeżeniami. Szczegóły w pliku LICENSE.
 
 ---
 
-> **Uwaga:** Ten projekt jest niezależną inicjatywą open-source tworzoną przez [bajty.pl](https://bajty.pl) i 
+> **Uwaga:** Ten projekt jest niezależną inicjatywą open-source tworzoną przez [bajty.pl](https://bajty.pl) i
 > **nie jest** oficjalnym oprogramowaniem Głównego Urzędu Statystycznego (GUS).
 
 > 💡 **Wsparcie i kontakt:** Znalazłeś błąd lub masz propozycję nowej funkcji? Najszybszą drogą kontaktu jest utworzenie
