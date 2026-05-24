@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 public class Simc {
     private final String value;
 
-    private static final Pattern TERC_PATTERN = Pattern.compile("\\d{7}");
-    private static final String BLANK_TERC_MESSAGE = "SIMC code must not be blank.";
-    private static final String INVALID_TERC_FORMAT_MESSAGE = "Invalid SIMC code format.";
+    private static final Pattern SIMC_PATTERN = Pattern.compile("\\d{7}");
+    private static final String BLANK_SIMC_MESSAGE = "SIMC code must not be blank.";
+    private static final String INVALID_SIMC_FORMAT_MESSAGE = "Invalid SIMC code format.";
 
     public Simc(String value) {
         if (value == null || value.isBlank()) {
