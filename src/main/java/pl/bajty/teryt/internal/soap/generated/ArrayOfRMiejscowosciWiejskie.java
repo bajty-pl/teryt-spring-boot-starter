@@ -1,0 +1,69 @@
+
+package pl.bajty.teryt.internal.soap.generated;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for ArrayOfRMiejscowosciWiejskie complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="ArrayOfRMiejscowosciWiejskie">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="RMiejscowosciWiejskie" type="{http://schemas.datacontract.org/2004/07/TerytUslugaWs1}RMiejscowosciWiejskie" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ArrayOfRMiejscowosciWiejskie", namespace = "http://schemas.datacontract.org/2004/07/TerytUslugaWs1", propOrder = {
+    "rMiejscowosciWiejskie"
+})
+public class ArrayOfRMiejscowosciWiejskie {
+
+    @XmlElement(name = "RMiejscowosciWiejskie", nillable = true)
+    protected List<RMiejscowosciWiejskie> rMiejscowosciWiejskie;
+
+    /**
+     * Gets the value of the rMiejscowosciWiejskie property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the rMiejscowosciWiejskie property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getRMiejscowosciWiejskie().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link RMiejscowosciWiejskie }
+     * 
+     * 
+     */
+    public List<RMiejscowosciWiejskie> getRMiejscowosciWiejskie() {
+        if (rMiejscowosciWiejskie == null) {
+            rMiejscowosciWiejskie = new ArrayList<RMiejscowosciWiejskie>();
+        }
+        return this.rMiejscowosciWiejskie;
+    }
+
+}
