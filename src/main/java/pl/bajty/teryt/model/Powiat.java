@@ -21,6 +21,6 @@ public record Powiat(
 
     @Override
     public PoziomJednostkiTerytorialnej poziomJednostkiTerytorialnej() {
-        return id.getPoziomJednostkiTerytorialnej();
+        return PoziomJednostkiTerytorialnej.POWIAT;
     }
 }
