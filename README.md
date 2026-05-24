@@ -22,7 +22,7 @@ nagłówków zabezpieczeń WS-Security. Udostępnia czyste, współczesne API op
   Ty nie musiał.
 * **Język wszechobecny:** Świadomie zrezygnowaliśmy z tłumaczenia jednostek administracyjnych i innych oficjalnych nazw
   na język angielski. Zamiast tracić czas na domysły, czy gmina to w kodzie municipality, commune czy district (a
-  województwo to state czy province), biblioteka używa pojęć prosto z oficjalnej dokumentacji GUS. W kodzie znajdziesz
+  województwo to voivodeship, state czy province), biblioteka używa pojęć prosto z oficjalnej dokumentacji GUS. W kodzie znajdziesz
   po prostu obiekty Wojewodztwo, Powiat, Gmina, Miejscowosc oraz Ulica.
 * **Nowoczesność:** Wykorzystuje możliwości **Javy 25**.
 
