@@ -2,7 +2,7 @@ package pl.bajty.teryt.internal;
 
 import jakarta.xml.bind.JAXBElement;
 import pl.bajty.teryt.internal.soap.generated.JednostkaTerytorialna;
-import pl.bajty.teryt.model.TercCode;
+import pl.bajty.teryt.model.Terc;
 import pl.bajty.teryt.model.Wojewodztwo;
 
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ class TerytMapper {
 
     static Wojewodztwo toWojewodztwo(JednostkaTerytorialna soap) {
         return new Wojewodztwo(
-                TercCode.wojewodztwo(unwrap(soap.getWOJ())),
+                new Terc(unwrap(soap.getWOJ())),
                 unwrap(soap.getNAZWA()),
                 parseDate(unwrap(soap.getSTANNA()))
         );
