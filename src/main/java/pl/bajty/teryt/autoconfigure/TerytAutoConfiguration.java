@@ -1,18 +1,20 @@
 package pl.bajty.teryt.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.soap.security.wss4j2.Wss4jSecurityInterceptor;
 
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(TerytProperties.class)
 public class TerytAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean
     public Wss4jSecurityInterceptor terytSecurityInterceptor(TerytProperties properties) {
         Wss4jSecurityInterceptor interceptor = new Wss4jSecurityInterceptor();
 
@@ -27,6 +29,7 @@ public class TerytAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public Jaxb2Marshaller terytMarshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
@@ -35,6 +38,7 @@ public class TerytAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public WebServiceTemplate terytWebServiceTemplate(
             Jaxb2Marshaller terytMarshaller,
             Wss4jSecurityInterceptor terytSecurityInterceptor,
