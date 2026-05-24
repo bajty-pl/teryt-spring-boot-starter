@@ -112,6 +112,24 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>4.0.4</version>
+                <configuration>
+                    <sourceRoot>${basedir}/src/main/java</sourceRoot>
+                    <wsdlOptions>
+                        <wsdlOption>
+                            <wsdl>${basedir}/src/main/resources/wsdl/teryt.wsdl</wsdl>
+                            <wsdlLocation>classpath:wsdl/teryt.wsdl</wsdlLocation>
+                            <extraargs>
+                                <extraarg>-p</extraarg>
+                                <extraarg>pl.bajty.teryt.internal.soap.generated</extraarg>
+                            </extraargs>
+                        </wsdlOption>
+                    </wsdlOptions>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
