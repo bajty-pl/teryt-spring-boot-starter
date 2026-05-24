@@ -121,6 +121,7 @@
                     <wsdlOptions>
                         <wsdlOption>
                             <wsdl>${basedir}/src/main/resources/wsdl/teryt.wsdl</wsdl>
+                            <wsdlLocation>classpath:wsdl/teryt.wsdl</wsdlLocation>
                             <extraargs>
                                 <extraarg>-p</extraarg>
                                 <extraarg>pl.bajty.teryt.internal.soap.generated</extraarg>
