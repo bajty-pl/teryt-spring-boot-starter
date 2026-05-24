@@ -1,26 +1,22 @@
 package pl.bajty.teryt.model;
 
-import lombok.Getter;
-
 import java.util.regex.Pattern;
 
-@Getter
-public class Simc {
-    private final String value;
+public record Simc(String value) implements KodTeryt {
 
-    private static final Pattern SIMC_PATTERN = Pattern.compile("\\d{7}");
+    private static final Pattern SIMC_PATTERN = Pattern.compile("^\\d{7}$");
     private static final String BLANK_SIMC_MESSAGE = "SIMC code must not be blank.";
-    private static final String INVALID_SIMC_FORMAT_MESSAGE = "Invalid SIMC code format.";
+    private static final String INVALID_SIMC_FORMAT_MESSAGE = "Invalid SIMC code format. Must be exactly 7 digits.";
 
-    public Simc(String value) {
+    public Simc {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException(BLANK_TERC_MESSAGE);
+            throw new IllegalArgumentException(BLANK_SIMC_MESSAGE);
         }
 
-        if (!TERC_PATTERN.matcher(value).matches()) {
-            throw new IllegalArgumentException(INVALID_TERC_FORMAT_MESSAGE);
-        }
+        value = value.trim();
 
-        this.value = value;
+        if (!SIMC_PATTERN.matcher(value).matches()) {
+            throw new IllegalArgumentException(INVALID_SIMC_FORMAT_MESSAGE);
+        }
     }
 }

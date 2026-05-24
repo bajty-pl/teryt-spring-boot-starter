@@ -1,31 +1,30 @@
 package pl.bajty.teryt.model;
 
-import lombok.Getter;
-
 import java.util.regex.Pattern;
 
-@Getter
-public class Ulic {
+public record Ulic(String value) implements KodTeryt {
 
-    private final String value;
+    private static final Pattern ULIC_PATTERN = Pattern.compile("^\\d{5}$");
 
-    private static final Pattern ULIC_PATTERN = Pattern.compile("\\d{7}");
     private static final String BLANK_ULIC_MESSAGE = "ULIC code must not be blank.";
-    private static final String INVALID_ULIC_FORMAT_MESSAGE = "Invalid SIMC code format.";
+    private static final String INVALID_ULIC_FORMAT_MESSAGE = "Invalid ULIC code format. Must be exactly 5 digits.";
 
-    public Ulic(String value) {
+    public Ulic {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(BLANK_ULIC_MESSAGE);
         }
 
+        value = value.trim();
+
         if (!ULIC_PATTERN.matcher(value).matches()) {
             throw new IllegalArgumentException(INVALID_ULIC_FORMAT_MESSAGE);
         }
-
-        this.value = value;
     }
 
-    static boolean isCorrectCode(String value) {
-        return ULIC_PATTERN.matcher(value).matches();
+    public static boolean isCorrectCode(String value) {
+        if (value == null || value.isBlank()) {
+            return false;
+        }
+        return ULIC_PATTERN.matcher(value.trim()).matches();
     }
 }
