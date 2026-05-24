@@ -1,12 +1,12 @@
 
 package pl.bajty.teryt.internal.soap.generated;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
@@ -15,32 +15,32 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PlacUlica">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="IdentyfikatorTERC" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="NazwaMiejscowosci" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="RodzajMiejscowosci" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="IdentyfikatorSIMC" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="IdentyfikatorPRNG" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="NazwaPelnaUlic" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="RodzajObiektu" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Nazwa1Ulic" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Nazwa2Ulic" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="IdentyfikatorULIC" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="NumerUchwaly" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="DataUchwaly" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="OpisUchwaly" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="LinkDoDokumentu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="GeometriaObiektu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="IIp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="PoczatekWersjiObiektu" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="KoniecWersjiObiektu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="PlacUlica"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="IdentyfikatorTERC" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="NazwaMiejscowosci" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="RodzajMiejscowosci" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="IdentyfikatorSIMC" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="IdentyfikatorPRNG" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="NazwaPelnaUlic" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="RodzajObiektu" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Nazwa1Ulic" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="Nazwa2Ulic" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="IdentyfikatorULIC" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="NumerUchwaly" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="DataUchwaly" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="OpisUchwaly" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="LinkDoDokumentu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="GeometriaObiektu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="IIp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="PoczatekWersjiObiektu" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="KoniecWersjiObiektu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
