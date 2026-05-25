@@ -1,5 +1,6 @@
 # TERYT Spring Boot Starter
 
+![Status](https://img.shields.io/badge/Status-Work_in_Progress-orange.svg)
 [![Java Version](https://img.shields.io/badge/Java-25-blue.svg)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.6-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
