@@ -1,7 +1,6 @@
 package pl.bajty.teryt.internal;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.ws.client.core.WebServiceTemplate;
 import pl.bajty.teryt.api.TerytClient;
 import pl.bajty.teryt.model.*;
 
@@ -9,12 +8,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
-class TerytClientImpl implements TerytClient {
-    private final WebServiceTemplate webServiceTemplate;
+public class TerytClientImpl implements TerytClient {
+    private final AuthService authService;
+    private final TercService tercService;
 
     @Override
     public boolean isLoggedIn() {
-        return false;
+        return authService.isLoggedIn();
     }
 
     @Override
@@ -44,12 +44,12 @@ class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Wojewodztwo> getWojewodztwa() {
-        return List.of();
+        return tercService.getWojewodztwa(LocalDate.now());
     }
 
     @Override
     public List<Wojewodztwo> getWojewodztwa(LocalDate date) {
-        return List.of();
+        return tercService.getWojewodztwa(date);
     }
 
     @Override

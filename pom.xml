@@ -135,6 +135,12 @@
                     </wsdlOptions>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludedGroups>integration-teryt</excludedGroups>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

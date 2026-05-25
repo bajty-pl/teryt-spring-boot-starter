@@ -1,11 +1,9 @@
 package pl.bajty.teryt.autoconfigure;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.validation.annotation.Validated;
 
-@Slf4j
-@Validated
 @ConfigurationProperties(prefix = "teryt")
 public record TerytProperties(
         String url,
@@ -13,20 +11,27 @@ public record TerytProperties(
         String password,
         boolean testEnvironment
 ) {
+    private static final Logger log = LoggerFactory.getLogger(TerytProperties.class);
+
     private static final String PRODUCTION_URL = "https://uslugaterytws1.stat.gov.pl/TerytWs1.svc";
     private static final String TEST_URL = "https://uslugaterytws1test.stat.gov.pl/TerytWs1.svc";
     private static final String TEST_USERNAME = "TestPubliczny";
     private static final String TEST_PASSWORD = "1234abcd";
 
     public TerytProperties {
+        if (isBlank(url) && isBlank(username) && isBlank(password) && !testEnvironment) {
+            log.warn("TERYT credentials are not set. Auto-enabling test environment. Set your credentials or 'teryt.test-environment=true' to hide this warning.");
+            testEnvironment = true;
+        }
+
         if (testEnvironment) {
-            log.info("TERYT test environment is enabled. Using public test credentials.");
-            username = TEST_USERNAME;
-            password = TEST_PASSWORD;
+            if (isBlank(username)) username = TEST_USERNAME;
+            if (isBlank(password)) password = TEST_PASSWORD;
+            log.info("TERYT test environment is active.");
         } else {
             if (isBlank(username) || isBlank(password)) {
                 throw new IllegalStateException(
-                        "TERYT username and password must be configured unless teryt.test-environment=true."
+                        "TERYT username and password must be configured unless 'teryt.test-environment=true' is set."
                 );
             }
         }
