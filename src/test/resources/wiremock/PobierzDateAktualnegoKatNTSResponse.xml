@@ -1,0 +1,10 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzDateAktualnegoKatNTSResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzDateAktualnegoKatNTSResponse xmlns="http://tempuri.org/">
+            <PobierzDateAktualnegoKatNTSResult>2024-08-25T00:00:00</PobierzDateAktualnegoKatNTSResult>
+        </PobierzDateAktualnegoKatNTSResponse>
+    </s:Body>
+</s:Envelope>

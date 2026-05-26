@@ -15,7 +15,8 @@ public interface TerytClient {
     // ==========================================
     // 2. Obsługa plików katalogowych i zmianowych
     // ==========================================
-    LocalDate getCurrentDate(RodzajKatalogu type);
+
+    LocalDate getCatalogDate(RodzajKatalogu type);
 
     PlikKatalogu downloadCatalogFile(RodzajKatalogu type);
 
