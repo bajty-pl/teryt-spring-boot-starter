@@ -11,6 +11,7 @@ import java.util.List;
 public class TerytClientImpl implements TerytClient {
     private final AuthService authService;
     private final TercService tercService;
+    private final FilesService filesService;
 
     @Override
     public boolean isLoggedIn() {
@@ -18,8 +19,8 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
-    public LocalDate getCurrentDate(RodzajKatalogu type) {
-        return null;
+    public LocalDate getCatalogDate(RodzajKatalogu type) {
+        return filesService.getCatalogDate(type);
     }
 
     @Override

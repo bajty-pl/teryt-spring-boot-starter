@@ -28,7 +28,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  * i łatwe w rozwoju.
  */
 @SpringBootTest
-public abstract class AbstractTerytClientWireMockTest {
+abstract class AbstractTerytClientWireMockTest {
 
     // ---------- Konfiguracja środowiska ----------
     protected static final String SERVICE_PATH = "/TerytWs1.svc";

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.bajty.teryt.model.RodzajKatalogu;
 import pl.bajty.teryt.model.Wojewodztwo;
 
 import java.time.LocalDate;
@@ -46,5 +47,19 @@ class TerytClientIntegrationTest {
         assertThat(hasMazowieckie)
                 .as("Na liście powinno znajdować się województwo mazowieckie (kod 14)")
                 .isTrue();
+    }
+
+    @Test
+    void shouldFetchCatalogDateForEachRodzajKatalogu() {
+        for (RodzajKatalogu type : RodzajKatalogu.values()) {
+            LocalDate date = terytClient.getCatalogDate(type);
+
+            assertThat(date)
+                    .as("Data aktualnego katalogu dla %s powinna być zwrócona przez API GUS", type)
+                    .isNotNull();
+            assertThat(date)
+                    .as("Data aktualnego katalogu dla %s powinna być sensowna (po 2000-01-01)", type)
+                    .isAfter(LocalDate.of(2000, 1, 1));
+        }
     }
 }
