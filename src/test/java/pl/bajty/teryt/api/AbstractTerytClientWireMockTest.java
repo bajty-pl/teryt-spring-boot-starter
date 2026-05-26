@@ -6,9 +6,7 @@ import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -42,24 +40,23 @@ public abstract class AbstractTerytClientWireMockTest {
     protected static final String WS_SECURITY_USERNAME_TOKEN = "UsernameToken";
     protected static final String SOAP_FAULT_TEMPLATE = "SoapFault.xml";
 
-    protected static WireMockServer wireMockServer;
+    /**
+     * Jeden, współdzielony serwer WireMock dla wszystkich klas testowych. Dzięki temu Spring
+     * może bezpiecznie cache'ować kontekst testowy między klasami — port pozostaje stabilny przez
+     * cały bieg JVM, a {@link org.springframework.ws.client.core.WebServiceTemplate#setDefaultUri}
+     * nie wskazuje na zamknięty port (co skutkowało "Connection refused" w CI).
+     */
+    protected static final WireMockServer wireMockServer;
 
-    @Autowired
-    protected TerytClient terytClient;
-
-    @BeforeAll
-    static void startWireMock() {
+    static {
         wireMockServer = new WireMockServer(WireMockConfiguration.options().dynamicPort());
         wireMockServer.start();
         WireMock.configureFor("localhost", wireMockServer.port());
+        Runtime.getRuntime().addShutdownHook(new Thread(wireMockServer::stop));
     }
 
-    @AfterAll
-    static void stopWireMock() {
-        if (wireMockServer != null) {
-            wireMockServer.stop();
-        }
-    }
+    @Autowired
+    protected TerytClient terytClient;
 
     @AfterEach
     void resetWireMock() {
