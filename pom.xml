@@ -47,6 +47,7 @@
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>4.0.6</spring-boot.version>
+        <org.wiremock.version>3.13.2</org.wiremock.version>
     </properties>
 
     <dependencyManagement>
@@ -97,8 +98,8 @@
 
         <dependency>
             <groupId>org.wiremock</groupId>
-            <artifactId>wiremock</artifactId>
-            <version>3.13.2</version>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>${org.wiremock.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,0 +1,21 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzListeWojewodztwResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzListeWojewodztwResponse xmlns="http://tempuri.org/">
+            <PobierzListeWojewodztwResult xmlns:d="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <d:JednostkaTerytorialna>
+                    <d:NAZWA>MAZOWIECKIE</d:NAZWA>
+                    <d:STAN_NA>2024-01-01</d:STAN_NA>
+                    <d:WOJ>14</d:WOJ>
+                </d:JednostkaTerytorialna>
+                <d:JednostkaTerytorialna>
+                    <d:NAZWA>MAŁOPOLSKIE</d:NAZWA>
+                    <d:STAN_NA>2024-01-01</d:STAN_NA>
+                    <d:WOJ>12</d:WOJ>
+                </d:JednostkaTerytorialna>
+            </PobierzListeWojewodztwResult>
+        </PobierzListeWojewodztwResponse>
+    </s:Body>
+</s:Envelope>
