@@ -50,7 +50,7 @@ W celu uzyskania dostępu dodaj poniższą sekcję do swojego pliku pom.xml (lub
 
 <repositories>
     <repository>
-        <id>github-bajty</id>
+        <id>github</id>
         <name>GitHub Bajty Apache Maven Packages</name>
         <url>https://maven.pkg.github.com/bajty-pl/teryt-spring-boot-starter</url>
     </repository>
