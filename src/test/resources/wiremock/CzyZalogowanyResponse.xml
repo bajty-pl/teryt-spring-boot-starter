@@ -1,0 +1,10 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action s:mustUnderstand="1">http://tempuri.org/ITerytWs1/CzyZalogowanyResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <CzyZalogowanyResponse xmlns="http://tempuri.org/">
+            <CzyZalogowanyResult>true</CzyZalogowanyResult>
+        </CzyZalogowanyResponse>
+    </s:Body>
+</s:Envelope>
