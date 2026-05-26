@@ -52,7 +52,7 @@ W celu uzyskania dostępu dodaj poniższą sekcję do swojego pliku pom.xml (lub
     <repository>
         <id>github-bajty</id>
         <name>GitHub Bajty Apache Maven Packages</name>
-        <url>https://maven.pkg.github.com/TWOJA_NAZWA_UZYTKOWNIKA/teryt-spring-boot-starter</url>
+        <url>https://maven.pkg.github.com/bajty-pl/teryt-spring-boot-starter</url>
     </repository>
 </repositories>
 ```
