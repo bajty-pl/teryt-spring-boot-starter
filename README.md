@@ -9,7 +9,8 @@
 udostępnianym przez Główny Urząd Statystyczny (Usługa sieciowa TERYT ws1).
 
 Zdejmuje z barków programisty konieczność ręcznej obsługi protokołu SOAP, generowania klas z WSDL oraz konfiguracji
-nagłówków zabezpieczeń WS-Security. Udostępnia czyste, współczesne API oparte na rekordach i enumach. Minimum wysiłku.
+nagłówków zabezpieczeń WS-Security, specyficznych ustawień certyfikatów i wielu innych trudności. Udostępnia czyste,
+współczesne API oparte na rekordach i enumach. Minimum wysiłku.
 
 ## Główne cechy
 
@@ -23,8 +24,13 @@ nagłówków zabezpieczeń WS-Security. Udostępnia czyste, współczesne API op
   Ty nie musiał.
 * **Język wszechobecny:** Świadomie zrezygnowaliśmy z tłumaczenia jednostek administracyjnych i innych oficjalnych nazw
   na język angielski. Zamiast tracić czas na domysły, czy gmina to w kodzie municipality, commune czy district (a
-  województwo to voivodeship, state czy province), biblioteka używa pojęć prosto z oficjalnej dokumentacji GUS. W kodzie znajdziesz
+  województwo to voivodeship, state czy province), biblioteka używa pojęć prosto z oficjalnej dokumentacji GUS. W kodzie
+  znajdziesz
   po prostu obiekty Wojewodztwo, Powiat, Gmina, Miejscowosc oraz Ulica.
+* **Przyjazność dla testów**: Projektowanie z myślą o testowalności to priorytet. Dzięki architekturze opartej na
+  interfejsach, bez trudu zamockujesz klienta w swoich testach (TerytClient mock = mock(TerytClient.class);). Dodatkowo
+  biblioteka zawiera gotowe testy integracyjne, które możesz wykorzystać do weryfikacji połączenia z API Teryt w swoim
+  środowisku.
 * **Nowoczesność:** Wykorzystuje możliwości **Javy 25**.
 
 ## Wymagania
@@ -35,6 +41,21 @@ nagłówków zabezpieczeń WS-Security. Udostępnia czyste, współczesne API op
 ## Quick Start
 
 ### 1. Dodaj zależność
+
+Do czasu opracowania wersji 1.0.0 biblioteka będzie hostowana tylko w GitHub Packages.
+
+W celu uzyskania dostępu dodaj poniższą sekcję do swojego pliku pom.xml (lub settings.xml):
+
+```xml
+
+<repositories>
+    <repository>
+        <id>github-bajty</id>
+        <name>GitHub Bajty Apache Maven Packages</name>
+        <url>https://maven.pkg.github.com/TWOJA_NAZWA_UZYTKOWNIKA/teryt-spring-boot-starter</url>
+    </repository>
+</repositories>
+```
 
 Do pliku `pom.xml` w swoim projekcie dodaj:
 
