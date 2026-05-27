@@ -1,0 +1,26 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzListeUlicDlaMiejscowosciResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzListeUlicDlaMiejscowosciResponse xmlns="http://tempuri.org/">
+            <PobierzListeUlicDlaMiejscowosciResult xmlns:d="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <d:UlicaDrzewo>
+                    <d:Cecha>ul.</d:Cecha>
+                    <d:Gmi>01</d:Gmi>
+                    <d:IdentyfikatorMiejscowosci>0928525</d:IdentyfikatorMiejscowosci>
+                    <d:IdentyfikatorMiejscowosciPodstawowej>0928525</d:IdentyfikatorMiejscowosciPodstawowej>
+                    <d:IndeksKlucza>1</d:IndeksKlucza>
+                    <d:Nazwa1>Akacjowa</d:Nazwa1>
+                    <d:Nazwa2 i:nil="true"/>
+                    <d:NazwaCechy>ulica</d:NazwaCechy>
+                    <d:Pow>02</d:Pow>
+                    <d:RodzGmi>1</d:RodzGmi>
+                    <d:StanNa>2024-01-01</d:StanNa>
+                    <d:SymbolUlicy>00012</d:SymbolUlicy>
+                    <d:Woj>14</d:Woj>
+                </d:UlicaDrzewo>
+            </PobierzListeUlicDlaMiejscowosciResult>
+        </PobierzListeUlicDlaMiejscowosciResponse>
+    </s:Body>
+</s:Envelope>

@@ -1,0 +1,25 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/WyszukajUliceResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <WyszukajUliceResponse xmlns="http://tempuri.org/">
+            <WyszukajUliceResult xmlns:d="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <d:Ulica>
+                    <d:Cecha>ul.</d:Cecha>
+                    <d:GmiRodzaj>1</d:GmiRodzaj>
+                    <d:GmiSymbol>01</d:GmiSymbol>
+                    <d:Gmina>Ciechanów</d:Gmina>
+                    <d:IdentyfikatorMiejscowosci>0928525</d:IdentyfikatorMiejscowosci>
+                    <d:IdentyfikatorUlicy>00012</d:IdentyfikatorUlicy>
+                    <d:Nazwa>Akacjowa</d:Nazwa>
+                    <d:NazwaMiejscowosci>Ciechanów</d:NazwaMiejscowosci>
+                    <d:PowSymbol>02</d:PowSymbol>
+                    <d:Powiat>ciechanowski</d:Powiat>
+                    <d:WojSymbol>14</d:WojSymbol>
+                    <d:Wojewodztwo>MAZOWIECKIE</d:Wojewodztwo>
+                </d:Ulica>
+            </WyszukajUliceResult>
+        </WyszukajUliceResponse>
+    </s:Body>
+</s:Envelope>
