@@ -12,6 +12,7 @@ public class TerytClientImpl implements TerytClient {
     private final AuthService authService;
     private final TercService tercService;
     private final SimcService simcService;
+    private final UlicService ulicService;
     private final FilesService filesService;
 
     @Override
@@ -186,12 +187,12 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Ulica> getUlice(Miejscowosc miejscowosc, LocalDate stanNa) {
-        return List.of();
+        return ulicService.getUlice(miejscowosc.id(), stanNa);
     }
 
     @Override
     public List<Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa) {
-        return List.of();
+        return ulicService.getUlice(miejscowoscId, stanNa);
     }
 
     @Override
@@ -256,17 +257,17 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Ulica> wyszukajUlice(String nazwa) {
-        return List.of();
+        return ulicService.wyszukajUlice(nazwa);
     }
 
     @Override
     public List<Ulica> wyszukajUlice(Ulic id) {
-        return List.of();
+        return ulicService.wyszukajUlice(id);
     }
 
     @Override
     public List<Ulica> wyszukajUlice(String nazwa, Terc id) {
-        return List.of();
+        return ulicService.wyszukajUlice(nazwa, id);
     }
 
     @Override
