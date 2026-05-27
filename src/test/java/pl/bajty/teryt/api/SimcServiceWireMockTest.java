@@ -21,11 +21,11 @@ class SimcServiceWireMockTest extends AbstractTerytClientWireMockTest {
     private static final String RESPONSE_POBIERZ_LISTE_STANOW_SIMC = "PobierzListeStanowSimcResponse.xml";
 
     @Test
-    @DisplayName("getStanSimc(date) zwraca listę stanów")
+    @DisplayName("getStanSimc() zwraca listę stanów")
     void getStanSimcShouldReturnList() {
         stubSoapOk(ACTION_POBIERZ_LISTE_STANOW_SIMC, RESPONSE_POBIERZ_LISTE_STANOW_SIMC);
 
-        List<StanSimc> stany = terytClient.getStanSimc(LocalDate.now());
+        List<StanSimc> stany = terytClient.getStanSimc();
 
         assertThat(stany).hasSize(2);
         assertThat(stany).extracting(StanSimc::data)

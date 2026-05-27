@@ -22,7 +22,7 @@ public class SimcService {
     private final WebServiceTemplate webServiceTemplate;
     private final ObjectFactory objectFactory = new ObjectFactory();
 
-    List<StanSimc> getStanSimc(LocalDate stanNa) {
+    public List<StanSimc> getStanSimc() {
         var request = new PobierzListeStanowSimc();
 
         var response = (PobierzListeStanowSimcResponse) webServiceTemplate.marshalSendAndReceive(

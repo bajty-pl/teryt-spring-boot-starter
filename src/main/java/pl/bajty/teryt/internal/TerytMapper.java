@@ -111,8 +111,9 @@ public class TerytMapper {
             }
 
             if (trimmedDate.contains("/")) {
-                DateTimeFormatter weirdGusFormatter = DateTimeFormatter.ofPattern("M/d/yyyy h:mm:ss a", Locale.US);
-                return LocalDate.parse(trimmedDate, weirdGusFormatter);
+                String dateOnly = trimmedDate.split(" ")[0];
+                DateTimeFormatter weirdGusFormatter = DateTimeFormatter.ofPattern("M/d/yyyy", Locale.US);
+                return LocalDate.parse(dateOnly, weirdGusFormatter);
             }
 
         } catch (DateTimeParseException e) {

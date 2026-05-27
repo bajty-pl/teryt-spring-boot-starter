@@ -220,8 +220,8 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
-    public List<StanSimc> getStanSimc(LocalDate stanNa) {
-        return simcService.getStanSimc(stanNa);
+    public List<StanSimc> getStanSimc() {
+        return simcService.getStanSimc();
     }
 
     @Override

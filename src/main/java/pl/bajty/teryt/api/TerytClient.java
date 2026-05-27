@@ -119,7 +119,7 @@ public interface TerytClient {
     // ==========================================
     // 6. Raporty i stany
     // ==========================================
-    List<StanSimc> getStanSimc(LocalDate stanNa);
+    List<StanSimc> getStanSimc();
 
     PlikKatalogu getStanTerc(LocalDate stanNa);
 

@@ -99,4 +99,12 @@ class TerytClientIntegrationTest {
 
         assertThat(miejscowosci).isNotNull();
     }
+
+    @Test
+    void shouldFetchStanySimc() {
+        List<StanSimc> stany = terytClient.getStanSimc();
+
+        assertThat(stany).isNotNull().isNotEmpty();
+        assertThat(stany.getFirst().data()).isNotNull();
+    }
 }
