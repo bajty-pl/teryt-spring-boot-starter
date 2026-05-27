@@ -11,6 +11,7 @@ import java.util.List;
 public class TerytClientImpl implements TerytClient {
     private final AuthService authService;
     private final TercService tercService;
+    private final SimcService simcService;
     private final FilesService filesService;
 
     @Override
@@ -140,47 +141,47 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Gmina gmina) {
-        return List.of();
+        return simcService.getMiejscowosci(gmina);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa) {
-        return List.of();
+        return simcService.getMiejscowosci(gmina, stanNa);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Gmina gmina, boolean zSymbolem) {
-        return List.of();
+        return simcService.getMiejscowosci(gmina, zSymbolem);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa, boolean zSymbolem) {
-        return List.of();
+        return simcService.getMiejscowosci(gmina, stanNa, zSymbolem);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Terc gminaId) {
-        return List.of();
+        return simcService.getMiejscowosci(gminaId);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa) {
-        return List.of();
+        return simcService.getMiejscowosci(gminaId, stanNa);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Terc gminaId, boolean zSymbolem) {
-        return List.of();
+        return simcService.getMiejscowosci(gminaId, zSymbolem);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa, boolean zSymbolem) {
-        return List.of();
+        return simcService.getMiejscowosci(gminaId, stanNa, zSymbolem);
     }
 
     @Override
     public List<Miejscowosc> getMiejscowosci(RodzajGminy rodzajGminy, LocalDate stanNa) {
-        return List.of();
+        return simcService.getMiejscowosci(rodzajGminy, stanNa);
     }
 
     @Override
@@ -219,8 +220,8 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
-    public List<StanSimc> getStanSimc(LocalDate stanNa) {
-        return List.of();
+    public List<StanSimc> getStanSimc() {
+        return simcService.getStanSimc();
     }
 
     @Override
@@ -240,17 +241,17 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Miejscowosc> wyszukajMiejscowosc(String nazwa) {
-        return List.of();
+        return simcService.wyszukajMiejscowosc(nazwa);
     }
 
     @Override
     public List<Miejscowosc> wyszukajMiejscowosc(Terc id) {
-        return List.of();
+        return simcService.wyszukajMiejscowosc(id);
     }
 
     @Override
     public List<Miejscowosc> wyszukajMiejscowosc(String nazwa, Terc id) {
-        return List.of();
+        return simcService.wyszukajMiejscowosc(nazwa, id);
     }
 
     @Override
