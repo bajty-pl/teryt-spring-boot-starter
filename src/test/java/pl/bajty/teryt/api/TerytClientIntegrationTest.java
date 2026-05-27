@@ -107,4 +107,25 @@ class TerytClientIntegrationTest {
         assertThat(stany).isNotNull().isNotEmpty();
         assertThat(stany.getFirst().data()).isNotNull();
     }
+
+    @Test
+    void shouldFetchUliceForMiejscowosc() {
+        LocalDate safeDate = LocalDate.of(2024, 1, 1);
+        var mscId = new Simc("0928525"); // Ciechanów
+
+        List<Ulica> ulice = terytClient.getUlice(mscId, safeDate);
+
+        assertThat(ulice).isNotNull();
+        if (!ulice.isEmpty()) {
+            assertThat(ulice.getFirst().miejscowosc().id().value()).isEqualTo("0928525");
+        }
+    }
+
+    @Test
+    void shouldSearchUliceByName() {
+        List<Ulica> ulice = terytClient.wyszukajUlice("Akacjowa");
+
+        assertThat(ulice).isNotNull().isNotEmpty();
+        assertThat(ulice.stream().anyMatch(u -> u.nazwa().contains("Akacjowa"))).isTrue();
+    }
 }

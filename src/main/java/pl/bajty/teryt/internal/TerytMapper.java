@@ -105,6 +105,106 @@ public class TerytMapper {
         );
     }
 
+    public static Ulica toUlica(pl.bajty.teryt.internal.soap.generated.Ulica soap) {
+        Gmina gmina = toGmina(
+                unwrap(soap.getWojSymbol()),
+                unwrap(soap.getWojewodztwo()),
+                unwrap(soap.getPowSymbol()),
+                unwrap(soap.getPowiat()),
+                unwrap(soap.getGmiSymbol()),
+                unwrap(soap.getGmina()),
+                unwrap(soap.getGmiRodzaj())
+        );
+
+        Miejscowosc miejscowosc = new Miejscowosc(
+                new Simc(unwrap(soap.getIdentyfikatorMiejscowosci())),
+                unwrap(soap.getNazwaMiejscowosci()),
+                null,
+                null,
+                gmina,
+                gmina != null ? gmina.powiat() : null,
+                gmina != null ? gmina.wojewodztwo() : null
+        );
+
+        return new Ulica(
+                new Ulic(unwrap(soap.getIdentyfikatorUlicy())),
+                unwrap(soap.getNazwa()),
+                unwrap(soap.getCecha()),
+                miejscowosc,
+                gmina,
+                gmina != null ? gmina.powiat() : null,
+                gmina != null ? gmina.wojewodztwo() : null
+        );
+    }
+
+    public static Ulica toUlica(pl.bajty.teryt.internal.soap.generated.UlicaDrzewo soap) {
+        Gmina gmina = toGmina(
+                unwrap(soap.getWoj()),
+                null,
+                unwrap(soap.getPow()),
+                null,
+                unwrap(soap.getGmi()),
+                null,
+                unwrap(soap.getRodzGmi())
+        );
+
+        Miejscowosc miejscowosc = new Miejscowosc(
+                new Simc(unwrap(soap.getIdentyfikatorMiejscowosci())),
+                null,
+                null,
+                null,
+                gmina,
+                gmina != null ? gmina.powiat() : null,
+                gmina != null ? gmina.wojewodztwo() : null
+        );
+
+        String nazwa1 = unwrap(soap.getNazwa1());
+        String nazwa2 = unwrap(soap.getNazwa2());
+        String nazwaPelna = (nazwa2 != null && !nazwa2.isBlank()) ? nazwa2 + " " + nazwa1 : nazwa1;
+
+        return new Ulica(
+                new Ulic(unwrap(soap.getSymbolUlicy())),
+                nazwaPelna,
+                unwrap(soap.getCecha()),
+                miejscowosc,
+                gmina,
+                gmina != null ? gmina.powiat() : null,
+                gmina != null ? gmina.wojewodztwo() : null
+        );
+    }
+
+    public static Ulica toUlica(pl.bajty.teryt.internal.soap.generated.WyszukanaUlica soap) {
+        Gmina gmina = toGmina(
+                unwrap(soap.getWoj()),
+                unwrap(soap.getWojewodztwo()),
+                unwrap(soap.getPow()),
+                unwrap(soap.getPowiat()),
+                unwrap(soap.getGmi()),
+                unwrap(soap.getGmina()),
+                unwrap(soap.getRodzajGminy())
+        );
+
+        Miejscowosc miejscowosc = new Miejscowosc(
+                new Simc(unwrap(soap.getSymbolSimc())),
+                unwrap(soap.getMiejscowosc()),
+                null,
+                null,
+                gmina,
+                gmina != null ? gmina.powiat() : null,
+                gmina != null ? gmina.wojewodztwo() : null
+        );
+
+        return new Ulica(
+                new Ulic(unwrap(soap.getSymbol())),
+                unwrap(soap.getNazwa()),
+                unwrap(soap.getCecha()),
+                miejscowosc,
+                gmina,
+                gmina != null ? gmina.powiat() : null,
+                gmina != null ? gmina.wojewodztwo() : null
+        );
+    }
+
     private static Gmina toGmina(String woj, String wojNazwa, String pow, String powNazwa, String gmi, String gmiNazwa, String rodz) {
         Wojewodztwo wojewodztwo = woj != null ? new Wojewodztwo(new Terc(woj), wojNazwa, null) : null;
         Powiat powiat = (woj != null && pow != null) ? new Powiat(new Terc(woj + pow), powNazwa, null, wojewodztwo, null) : null;
