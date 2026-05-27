@@ -49,6 +49,50 @@ public class TerytMapper {
         );
     }
 
+    public static Miejscowosc toMiejscowosc(pl.bajty.teryt.internal.soap.generated.Miejscowosc soap) {
+        String woj = unwrap(soap.getWojSymbol());
+        String pow = unwrap(soap.getPowSymbol());
+        String gmi = unwrap(soap.getGmiSymbol());
+        String rodz = unwrap(soap.getGmiRodzaj());
+
+        Wojewodztwo wojewodztwo = woj != null ? new Wojewodztwo(new Terc(woj), unwrap(soap.getWojewodztwo()), null) : null;
+        Powiat powiat = (woj != null && pow != null) ? new Powiat(new Terc(woj + pow), unwrap(soap.getPowiat()), null, wojewodztwo, null) : null;
+        Gmina gmina = (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : "")), unwrap(soap.getGmina()), RodzajGminy.fromValue(rodz), powiat, wojewodztwo, null) : null;
+
+        return new Miejscowosc(
+                new Simc(unwrap(soap.getSymbol())),
+                unwrap(soap.getNazwa()),
+                null,
+                null,
+                gmina,
+                powiat,
+                wojewodztwo
+        );
+    }
+
+    public static Miejscowosc toMiejscowosc(pl.bajty.teryt.internal.soap.generated.MiejscowoscPelna soap) {
+        String woj = unwrap(soap.getWojSymbol());
+        String pow = unwrap(soap.getPowSymbol());
+        String gmi = unwrap(soap.getGmiSymbol());
+        String rodz = unwrap(soap.getGmiRodzaj());
+
+        Wojewodztwo wojewodztwo = woj != null ? new Wojewodztwo(new Terc(woj), unwrap(soap.getWojewodztwo()), null) : null;
+        Powiat powiat = (woj != null && pow != null) ? new Powiat(new Terc(woj + pow), unwrap(soap.getPowiat()), null, wojewodztwo, null) : null;
+        Gmina gmina = (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : "")), unwrap(soap.getGmina()), RodzajGminy.fromValue(rodz), powiat, wojewodztwo, null) : null;
+
+        String symPodst = unwrap(soap.getSymbolPodst());
+
+        return new Miejscowosc(
+                new Simc(unwrap(soap.getSymbol())),
+                unwrap(soap.getNazwa()),
+                RodzajMiejscowosci.fromValue(unwrap(soap.getRM())),
+                symPodst != null ? new Simc(symPodst) : null,
+                gmina,
+                powiat,
+                wojewodztwo
+        );
+    }
+
     public static String unwrap(JAXBElement<String> element) {
         return (element == null || element.isNil()) ? null : element.getValue();
     }

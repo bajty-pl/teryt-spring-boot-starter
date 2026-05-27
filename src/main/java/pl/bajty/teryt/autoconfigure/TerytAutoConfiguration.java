@@ -11,10 +11,7 @@ import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.soap.security.wss4j2.Wss4jSecurityInterceptor;
 import org.springframework.ws.transport.http.HttpsUrlConnectionMessageSender;
 import pl.bajty.teryt.api.TerytClient;
-import pl.bajty.teryt.internal.AuthService;
-import pl.bajty.teryt.internal.FilesService;
-import pl.bajty.teryt.internal.TercService;
-import pl.bajty.teryt.internal.TerytClientImpl;
+import pl.bajty.teryt.internal.*;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -103,8 +100,9 @@ public class TerytAutoConfiguration {
     public TerytClient terytClient(WebServiceTemplate webServiceTemplate) {
         AuthService authService = new AuthService(webServiceTemplate);
         TercService tercService = new TercService(webServiceTemplate);
+        SimcService simcService = new SimcService(webServiceTemplate);
         FilesService filesService = new FilesService(webServiceTemplate);
 
-        return new TerytClientImpl(authService, tercService, filesService);
+        return new TerytClientImpl(authService, tercService, simcService, filesService);
     }
 }

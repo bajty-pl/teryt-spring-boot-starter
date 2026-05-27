@@ -26,4 +26,20 @@ public record Terc(String value) implements KodTeryt {
             default -> throw new IllegalStateException(UNREACHABLE_STATE_MESSAGE);
         };
     }
+
+    public String getWojewodztwoId() {
+        return value.substring(0, 2);
+    }
+
+    public String getPowiatId() {
+        return value.length() >= 4 ? value.substring(2, 4) : null;
+    }
+
+    public String getGminaId() {
+        return value.length() >= 6 ? value.substring(4, 6) : null;
+    }
+
+    public String getRodzajGminyId() {
+        return value.length() >= 7 ? value.substring(6, 7) : null;
+    }
 }

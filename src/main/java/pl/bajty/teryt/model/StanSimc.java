@@ -1,4 +1,6 @@
 package pl.bajty.teryt.model;
 
-public record StanSimc() {
+import java.time.LocalDate;
+
+public record StanSimc(LocalDate data) {
 }

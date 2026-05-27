@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.bajty.teryt.model.RodzajKatalogu;
-import pl.bajty.teryt.model.Wojewodztwo;
+import pl.bajty.teryt.model.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -66,9 +65,9 @@ class TerytClientIntegrationTest {
     @Test
     void shouldFetchPowiatyForWojewodztwo() {
         LocalDate safeDate = LocalDate.of(2024, 1, 1);
-        var wojId = new pl.bajty.teryt.model.Terc("14"); // Mazowieckie
+        var wojId = new Terc("14"); // Mazowieckie
 
-        List<pl.bajty.teryt.model.Powiat> powiaty = terytClient.getPowiaty(wojId, safeDate);
+        List<Powiat> powiaty = terytClient.getPowiaty(wojId, safeDate);
 
         assertThat(powiaty)
                 .isNotNull()
@@ -80,15 +79,24 @@ class TerytClientIntegrationTest {
     @Test
     void shouldFetchGminyForPowiat() {
         LocalDate safeDate = LocalDate.of(2024, 1, 1);
-        var wojId = new pl.bajty.teryt.model.Terc("14");
-        var powId = new pl.bajty.teryt.model.Terc("1402"); // ciechanowski
+        var wojId = new Terc("14");
+        var powId = new Terc("1402"); // ciechanowski
 
-        List<pl.bajty.teryt.model.Gmina> gminy = terytClient.getGminy(powId, wojId, safeDate);
+        List<Gmina> gminy = terytClient.getGminy(powId, wojId, safeDate);
 
         assertThat(gminy)
                 .isNotNull()
                 .isNotEmpty();
-
         assertThat(gminy.getFirst().powiat().id().value()).isEqualTo("1402");
+    }
+
+    @Test
+    void shouldFetchMiejscowosciForGmina() {
+        LocalDate safeDate = LocalDate.of(2024, 1, 1);
+        var gminaId = new Terc("1402011"); // m. Ciechanów
+
+        List<Miejscowosc> miejscowosci = terytClient.getMiejscowosci(gminaId, safeDate);
+
+        assertThat(miejscowosci).isNotNull();
     }
 }

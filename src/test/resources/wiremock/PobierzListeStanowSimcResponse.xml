@@ -1,0 +1,13 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzListeStanowSimcResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzListeStanowSimcResponse xmlns="http://tempuri.org/">
+            <PobierzListeStanowSimcResult xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:string>2024-01-01</b:string>
+                <b:string>2024-05-15</b:string>
+            </PobierzListeStanowSimcResult>
+        </PobierzListeStanowSimcResponse>
+    </s:Body>
+</s:Envelope>
