@@ -1,4 +1,11 @@
 package pl.bajty.teryt.model;
 
-public record StanTerc() {
+import java.time.LocalDate;
+
+public record StanTerc(
+        Terc id,
+        String nazwa,
+        String nazwaDodatkowa,
+        LocalDate stanNa
+) {
 }

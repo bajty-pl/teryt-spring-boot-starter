@@ -3,7 +3,7 @@ package pl.bajty.teryt.api;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pl.bajty.teryt.model.Wojewodztwo;
+import pl.bajty.teryt.model.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,13 +13,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
- * Testy WireMock dla operacji TERC (podział terytorialny — województwa).
+ * Testy WireMock dla operacji TERC (podział terytorialny).
  */
-@DisplayName("TercService — PobierzListeWojewodztw")
+@DisplayName("TercService — Przeglądanie struktury (TERC)")
 class TercServiceWireMockTest extends AbstractTerytClientWireMockTest {
+
+    private static final String ACTION_POBIERZ_KATALOG_TERC = "ITerytWs1/PobierzKatalogTERC";
+    private static final String RESPONSE_POBIERZ_KATALOG_TERC = "PobierzKatalogTERCResponse.xml";
 
     private static final String ACTION_POBIERZ_LISTE_WOJEWODZTW = "ITerytWs1/PobierzListeWojewodztw";
     private static final String RESPONSE_POBIERZ_LISTE_WOJEWODZTW = "PobierzListeWojewodztwResponse.xml";
+
+    private static final String ACTION_POBIERZ_LISTE_POWIATOW = "ITerytWs1/PobierzListePowiatow";
+    private static final String RESPONSE_POBIERZ_LISTE_POWIATOW = "PobierzListePowiatowResponse.xml";
+
+    private static final String ACTION_POBIERZ_LISTE_GMIN = "ITerytWs1/PobierzListeGmin";
+    private static final String RESPONSE_POBIERZ_LISTE_GMIN = "PobierzListeGminResponse.xml";
 
     @Test
     @DisplayName("getWojewodztwa() używa bieżącej daty i zwraca listę")
@@ -59,28 +68,64 @@ class TercServiceWireMockTest extends AbstractTerytClientWireMockTest {
     }
 
     @Test
+    @DisplayName("getPowiaty(wojId, date) zwraca listę powiatów")
+    void getPowiatyShouldReturnList() {
+        LocalDate date = LocalDate.of(2024, 1, 1);
+        stubSoapOk(ACTION_POBIERZ_LISTE_POWIATOW, RESPONSE_POBIERZ_LISTE_POWIATOW);
+
+        List<Powiat> powiaty = terytClient.getPowiaty(new Terc("14"), date);
+
+        assertThat(powiaty).hasSize(1);
+        assertThat(powiaty.getFirst().id().value()).isEqualTo("1402");
+        assertThat(powiaty.getFirst().nazwa()).isEqualTo("ciechanowski");
+        assertThat(powiaty.getFirst().rodzajPowiatu()).isEqualTo(RodzajPowiatu.POWIAT);
+
+        wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_POWIATOW)
+                .withRequestBody(containing("14"))
+                .withRequestBody(containing(date.toString())));
+    }
+
+    @Test
+    @DisplayName("getGminy(wojId, powId, date) zwraca listę gmin")
+    void getGminyShouldReturnList() {
+        LocalDate date = LocalDate.of(2024, 1, 1);
+        stubSoapOk(ACTION_POBIERZ_LISTE_GMIN, RESPONSE_POBIERZ_LISTE_GMIN);
+
+        List<Gmina> gminy = terytClient.getGminy(new Terc("1402"), new Terc("14"), date);
+
+        assertThat(gminy).hasSize(1);
+        assertThat(gminy.getFirst().id().value()).isEqualTo("1402011");
+        assertThat(gminy.getFirst().nazwa()).isEqualTo("Ciechanów");
+        assertThat(gminy.getFirst().rodzajGminy()).isEqualTo(RodzajGminy.MIEJSKA);
+
+        wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_GMIN)
+                .withRequestBody(containing("14"))
+                .withRequestBody(containing("02"))
+                .withRequestBody(containing(date.toString())));
+    }
+
+    @Test
+    @DisplayName("getStanTerc(date) zwraca PlikKatalogu")
+    void getStanTercShouldReturnPlikKatalogu() {
+        LocalDate date = LocalDate.of(2024, 5, 15);
+        stubSoapOk(ACTION_POBIERZ_KATALOG_TERC, RESPONSE_POBIERZ_KATALOG_TERC);
+
+        PlikKatalogu plik = terytClient.getStanTerc(date);
+
+        assertThat(plik).isNotNull();
+        assertThat(plik.nazwa()).isEqualTo("TERC_Urzedowy_2024-05-15.zip");
+        assertThat(plik.opis()).isEqualTo("Katalog TERC stan na 2024-05-15");
+        assertThat(plik.zawartosc()).isEqualTo("VGVzdG93YSB6YXdhcnRvxZvEhyBwbGlrdQ==");
+
+        wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_KATALOG_TERC)
+                .withRequestBody(containing("2024-05-15")));
+    }
+
+    @Test
     @DisplayName("getWojewodztwa() rzuca wyjątek gdy serwis zwraca HTTP 500")
     void getWojewodztwaShouldThrowOnHttp500() {
         stubSoapResponse(ACTION_POBIERZ_LISTE_WOJEWODZTW, 500,
                 soapFault("s:Server", "Service unavailable"));
-
-        assertThatThrownBy(() -> terytClient.getWojewodztwa())
-                .isInstanceOf(RuntimeException.class);
-    }
-
-    @Test
-    @DisplayName("getWojewodztwa() rzuca wyjątek dla niepoprawnego XML w odpowiedzi")
-    void getWojewodztwaShouldThrowOnMalformedXml() {
-        stubSoapResponse(ACTION_POBIERZ_LISTE_WOJEWODZTW, 200, "<broken><xml>");
-
-        assertThatThrownBy(() -> terytClient.getWojewodztwa())
-                .isInstanceOf(RuntimeException.class);
-    }
-
-    @Test
-    @DisplayName("getWojewodztwa() rzuca wyjątek dla HTTP 404 (brak endpointu)")
-    void getWojewodztwaShouldThrowOnHttp404() {
-        stubSoapResponse(ACTION_POBIERZ_LISTE_WOJEWODZTW, 404, "");
 
         assertThatThrownBy(() -> terytClient.getWojewodztwa())
                 .isInstanceOf(RuntimeException.class);

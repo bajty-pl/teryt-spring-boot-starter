@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public record Gmina(
         Terc id,
-        String name,
+        String nazwa,
         RodzajGminy rodzajGminy,
         Powiat powiat,
         Wojewodztwo wojewodztwo,
-        LocalDate stateDate) {
+        LocalDate stanNa) {
 }

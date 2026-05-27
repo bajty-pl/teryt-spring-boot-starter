@@ -1,4 +1,10 @@
 package pl.bajty.teryt.model;
 
-public record Region() {
+import java.time.LocalDate;
+
+public record Region(
+        String id,
+        String nazwa,
+        LocalDate stanNa
+) {
 }

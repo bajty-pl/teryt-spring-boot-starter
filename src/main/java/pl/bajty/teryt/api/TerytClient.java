@@ -121,7 +121,7 @@ public interface TerytClient {
     // ==========================================
     List<StanSimc> getStanSimc(LocalDate stanNa);
 
-    List<StanTerc> getStanTerc(LocalDate stanNa);
+    PlikKatalogu getStanTerc(LocalDate stanNa);
 
     List<StanUlic> getStanUlic(LocalDate stanNa);
 

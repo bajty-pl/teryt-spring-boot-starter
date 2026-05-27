@@ -55,87 +55,87 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Wojewodztwo> getWojewodztwa(Region region, LocalDate stanNa) {
-        return List.of();
+        return tercService.getWojewodztwa(region, stanNa);
     }
 
     @Override
     public List<Powiat> getPowiaty() {
-        return List.of();
+        return tercService.getPowiaty();
     }
 
     @Override
     public List<Powiat> getPowiaty(LocalDate stanNa) {
-        return List.of();
+        return tercService.getPowiaty(stanNa);
     }
 
     @Override
     public List<Powiat> getPowiaty(Wojewodztwo wojewodztwo, LocalDate stanNa) {
-        return List.of();
+        return tercService.getPowiaty(wojewodztwo, stanNa);
     }
 
     @Override
     public List<Powiat> getPowiaty(Terc wojewodztwoId, LocalDate stanNa) {
-        return List.of();
+        return tercService.getPowiaty(wojewodztwoId, stanNa);
     }
 
     @Override
     public List<Powiat> getPowiaty(Podregion podregion, LocalDate stanNa) {
-        return List.of();
+        return tercService.getPowiaty(podregion, stanNa);
     }
 
     @Override
     public List<Powiat> getPowiaty(String podregionId, LocalDate stanNa) {
-        return List.of();
+        return tercService.getPowiaty(podregionId, stanNa);
     }
 
     @Override
     public List<Gmina> getGminy() {
-        return List.of();
+        return tercService.getGminy();
     }
 
     @Override
     public List<Gmina> getGminy(LocalDate stanNa) {
-        return List.of();
+        return tercService.getGminy(stanNa);
     }
 
     @Override
     public List<Gmina> getGminy(Wojewodztwo wojewodztwo, LocalDate stanNa) {
-        return List.of();
+        return tercService.getGminy(wojewodztwo, stanNa);
     }
 
     @Override
     public List<Gmina> getGminy(Wojewodztwo wojewodztwo) {
-        return List.of();
+        return tercService.getGminy(wojewodztwo);
     }
 
     @Override
     public List<Gmina> getGminy(Terc wojewodztwoId, LocalDate stanNa) {
-        return List.of();
+        return tercService.getGminy(wojewodztwoId, stanNa);
     }
 
     @Override
     public List<Gmina> getGminy(Terc wojewodztwoId) {
-        return List.of();
+        return tercService.getGminy(wojewodztwoId);
     }
 
     @Override
     public List<Gmina> getGminy(Powiat powiat, LocalDate stanNa) {
-        return List.of();
+        return tercService.getGminy(powiat, stanNa);
     }
 
     @Override
     public List<Gmina> getGminy(Powiat powiat) {
-        return List.of();
+        return tercService.getGminy(powiat);
     }
 
     @Override
     public List<Gmina> getGminy(Terc powiatId, Terc wojewodztwoId, LocalDate stanNa) {
-        return List.of();
+        return tercService.getGminy(wojewodztwoId, powiatId, stanNa);
     }
 
     @Override
     public List<Gmina> getGminy(Terc powiatId, Terc wojewodztwoId) {
-        return List.of();
+        return tercService.getGminy(powiatId, wojewodztwoId);
     }
 
     @Override
@@ -224,8 +224,8 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
-    public List<StanTerc> getStanTerc(LocalDate stanNa) {
-        return List.of();
+    public PlikKatalogu getStanTerc(LocalDate stanNa) {
+        return tercService.getStanTerc(stanNa);
     }
 
     @Override
