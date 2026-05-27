@@ -1,0 +1,14 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzKatalogTERCResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzKatalogTERCResponse xmlns="http://tempuri.org/">
+            <PobierzKatalogTERCResult xmlns:b="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:nazwa_pliku>TERC_Urzedowy_2024-05-15.zip</b:nazwa_pliku>
+                <b:opis>Katalog TERC stan na 2024-05-15</b:opis>
+                <b:plik_zawartosc>VGVzdG93YSB6YXdhcnRvxZvEhyBwbGlrdQ==</b:plik_zawartosc>
+            </PobierzKatalogTERCResult>
+        </PobierzKatalogTERCResponse>
+    </s:Body>
+</s:Envelope>

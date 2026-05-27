@@ -1,0 +1,19 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzListeGminResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzListeGminResponse xmlns="http://tempuri.org/">
+            <PobierzListeGminResult xmlns:d="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <d:JednostkaTerytorialna>
+                    <d:NAZWA>Ciechanów</d:NAZWA>
+                    <d:STAN_NA>2024-01-01</d:STAN_NA>
+                    <d:WOJ>14</d:WOJ>
+                    <d:POW>02</d:POW>
+                    <d:GMI>01</d:GMI>
+                    <d:RODZ>1</d:RODZ>
+                </d:JednostkaTerytorialna>
+            </PobierzListeGminResult>
+        </PobierzListeGminResponse>
+    </s:Body>
+</s:Envelope>

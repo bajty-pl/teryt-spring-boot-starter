@@ -2,8 +2,7 @@ package pl.bajty.teryt.internal;
 
 import jakarta.xml.bind.JAXBElement;
 import pl.bajty.teryt.internal.soap.generated.JednostkaTerytorialna;
-import pl.bajty.teryt.model.Terc;
-import pl.bajty.teryt.model.Wojewodztwo;
+import pl.bajty.teryt.model.*;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
@@ -14,11 +13,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-class TerytMapper {
+public class TerytMapper {
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_DATE;
-
-    static Wojewodztwo toWojewodztwo(JednostkaTerytorialna soap) {
+    public static Wojewodztwo toWojewodztwo(JednostkaTerytorialna soap) {
         return new Wojewodztwo(
                 new Terc(unwrap(soap.getWOJ())),
                 unwrap(soap.getNAZWA()),
@@ -26,11 +23,37 @@ class TerytMapper {
         );
     }
 
-    private static String unwrap(JAXBElement<String> element) {
+    public static Powiat toPowiat(JednostkaTerytorialna soap) {
+        return new Powiat(
+                new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
+                unwrap(soap.getNAZWA()),
+                RodzajPowiatu.fromValue(unwrap(soap.getRODZ())),
+                toWojewodztwo(soap),
+                parseDate(unwrap(soap.getSTANNA()))
+        );
+    }
+
+    public static Gmina toGmina(JednostkaTerytorialna soap) {
+        String woj = unwrap(soap.getWOJ());
+        String pow = unwrap(soap.getPOW());
+        String gmi = unwrap(soap.getGMI());
+        String rodz = unwrap(soap.getRODZ());
+
+        return new Gmina(
+                new Terc(woj + pow + gmi + (rodz != null ? rodz : "")),
+                unwrap(soap.getNAZWA()),
+                RodzajGminy.fromValue(rodz),
+                toPowiat(soap),
+                toWojewodztwo(soap),
+                parseDate(unwrap(soap.getSTANNA()))
+        );
+    }
+
+    public static String unwrap(JAXBElement<String> element) {
         return (element == null || element.isNil()) ? null : element.getValue();
     }
 
-    static LocalDate parseDate(String rawDate) {
+    public static LocalDate parseDate(String rawDate) {
         if (rawDate == null || rawDate.isBlank()) {
             return null;
         }
@@ -55,7 +78,7 @@ class TerytMapper {
         throw new IllegalStateException("Nieobsługiwany wzorzec daty z API GUS: " + rawDate);
     }
 
-    static XMLGregorianCalendar toXmlGregorianCalendar(LocalDate date) {
+    public static XMLGregorianCalendar toXmlGregorianCalendar(LocalDate date) {
         try {
             return DatatypeFactory.newInstance().newXMLGregorianCalendar(
                     date.getYear(),

@@ -62,4 +62,33 @@ class TerytClientIntegrationTest {
                     .isAfter(LocalDate.of(2000, 1, 1));
         }
     }
+
+    @Test
+    void shouldFetchPowiatyForWojewodztwo() {
+        LocalDate safeDate = LocalDate.of(2024, 1, 1);
+        var wojId = new pl.bajty.teryt.model.Terc("14"); // Mazowieckie
+
+        List<pl.bajty.teryt.model.Powiat> powiaty = terytClient.getPowiaty(wojId, safeDate);
+
+        assertThat(powiaty)
+                .isNotNull()
+                .isNotEmpty();
+
+        assertThat(powiaty.getFirst().wojewodztwo().id().value()).isEqualTo("14");
+    }
+
+    @Test
+    void shouldFetchGminyForPowiat() {
+        LocalDate safeDate = LocalDate.of(2024, 1, 1);
+        var wojId = new pl.bajty.teryt.model.Terc("14");
+        var powId = new pl.bajty.teryt.model.Terc("1402"); // ciechanowski
+
+        List<pl.bajty.teryt.model.Gmina> gminy = terytClient.getGminy(powId, wojId, safeDate);
+
+        assertThat(gminy)
+                .isNotNull()
+                .isNotEmpty();
+
+        assertThat(gminy.getFirst().powiat().id().value()).isEqualTo("1402");
+    }
 }
