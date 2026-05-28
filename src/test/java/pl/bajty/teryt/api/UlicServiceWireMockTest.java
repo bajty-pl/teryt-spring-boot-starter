@@ -2,8 +2,8 @@ package pl.bajty.teryt.api;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pl.bajty.teryt.model.Simc;
-import pl.bajty.teryt.model.Ulica;
+import pl.bajty.teryt.model.dto.Simc;
+import pl.bajty.teryt.model.dto.Ulica;
 
 import java.time.LocalDate;
 import java.util.List;

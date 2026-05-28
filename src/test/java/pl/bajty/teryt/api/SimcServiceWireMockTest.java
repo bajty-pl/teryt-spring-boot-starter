@@ -1,9 +1,10 @@
 package pl.bajty.teryt.api;
 
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.Miejscowosc;
+import pl.bajty.teryt.model.dto.StanSimc;
+import pl.bajty.teryt.model.dto.Terc;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -49,7 +50,7 @@ class SimcServiceWireMockTest extends AbstractTerytClientWireMockTest {
         Miejscowosc m = miejscowosci.getFirst();
         assertThat(m.id().value()).isEqualTo("0910626");
         assertThat(m.nazwa()).isEqualTo("Ciechanów");
-        assertThat(m.wojewodztwo().nazwa()).isEqualTo("MAZOWIECKIE");
+        assertThat(m.gmina().powiat().wojewodztwo().nazwa()).isEqualTo("MAZOWIECKIE");
         assertThat(m.gmina().nazwa()).isEqualTo("Ciechanów");
 
         wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_MIEJSCOWOSCI_W_GMINIE)

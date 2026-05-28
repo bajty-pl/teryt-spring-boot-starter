@@ -2,7 +2,8 @@ package pl.bajty.teryt.internal;
 
 import jakarta.xml.bind.JAXBElement;
 import pl.bajty.teryt.internal.soap.generated.JednostkaTerytorialna;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.*;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
@@ -54,7 +55,6 @@ public class TerytMapper {
                 unwrap(soap.getNAZWA()),
                 RodzajGminy.fromValue(rodz),
                 powiat,
-                powiat.wojewodztwo(),
                 powiat.stanNa()
         );
     }
@@ -75,9 +75,7 @@ public class TerytMapper {
                 unwrap(soap.getNazwa()),
                 null,
                 null,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                gmina
         );
     }
 
@@ -99,9 +97,7 @@ public class TerytMapper {
                 unwrap(soap.getNazwa()),
                 RodzajMiejscowosci.fromValue(unwrap(soap.getRM())),
                 symPodst != null ? new Simc(symPodst) : null,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                gmina
         );
     }
 
@@ -121,19 +117,14 @@ public class TerytMapper {
                 unwrap(soap.getNazwaMiejscowosci()),
                 null,
                 null,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                gmina
         );
 
         return new Ulica(
                 new Ulic(unwrap(soap.getIdentyfikatorUlicy())),
                 unwrap(soap.getNazwa()),
-                unwrap(soap.getCecha()),
-                miejscowosc,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                CechaUlicy.fromValue(unwrap(soap.getCecha())),
+                miejscowosc
         );
     }
 
@@ -153,9 +144,7 @@ public class TerytMapper {
                 null,
                 null,
                 null,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                gmina
         );
 
         String nazwa1 = unwrap(soap.getNazwa1());
@@ -165,11 +154,8 @@ public class TerytMapper {
         return new Ulica(
                 new Ulic(unwrap(soap.getSymbolUlicy())),
                 nazwaPelna,
-                unwrap(soap.getCecha()),
-                miejscowosc,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                CechaUlicy.fromValue(unwrap(soap.getCecha())),
+                miejscowosc
         );
     }
 
@@ -189,26 +175,75 @@ public class TerytMapper {
                 unwrap(soap.getMiejscowosc()),
                 null,
                 null,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                gmina
         );
 
         return new Ulica(
                 new Ulic(unwrap(soap.getSymbol())),
                 unwrap(soap.getNazwa()),
-                unwrap(soap.getCecha()),
-                miejscowosc,
-                gmina,
-                gmina != null ? gmina.powiat() : null,
-                gmina != null ? gmina.wojewodztwo() : null
+                CechaUlicy.fromValue(unwrap(soap.getCecha())),
+                miejscowosc
         );
     }
 
     private static Gmina toGmina(String woj, String wojNazwa, String pow, String powNazwa, String gmi, String gmiNazwa, String rodz) {
         Wojewodztwo wojewodztwo = woj != null ? new Wojewodztwo(new Terc(woj), wojNazwa, null) : null;
         Powiat powiat = (woj != null && pow != null) ? new Powiat(new Terc(woj + pow), powNazwa, null, wojewodztwo, null) : null;
-        return (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : EMPTY)), gmiNazwa, RodzajGminy.fromValue(rodz), powiat, wojewodztwo, null) : null;
+        return (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : EMPTY)), gmiNazwa, RodzajGminy.fromValue(rodz), powiat, null) : null;
+    }
+
+    public static pl.bajty.teryt.model.dto.ZweryfikowanyAdres toZweryfikowanyAdres(pl.bajty.teryt.internal.soap.generated.ZweryfikowanyAdres soap) {
+        Gmina gmina = toGmina(
+                unwrap(soap.getSymbolWoj()),
+                unwrap(soap.getNazwaWoj()),
+                unwrap(soap.getSymbolPow()),
+                unwrap(soap.getNazwaPow()),
+                unwrap(soap.getSymbolGmi()),
+                unwrap(soap.getNazwaGmi()),
+                unwrap(soap.getSymbolRodzajuGmi())
+        );
+
+        Miejscowosc miejscowosc = new Miejscowosc(
+                new Simc(unwrap(soap.getSymbolMiejscowosci())),
+                unwrap(soap.getNazwaMiejscowosci()),
+                RodzajMiejscowosci.fromValue(unwrap(soap.getRodzajMiejscowosci())),
+                null,
+                gmina
+        );
+
+        Ulica ulica = null;
+        if (unwrap(soap.getSymUl()) != null) {
+            ulica = new Ulica(
+                    new Ulic(unwrap(soap.getSymUl())),
+                    unwrap(soap.getNazwaUlicyWPelnymBrzmieniu()),
+                    CechaUlicy.fromValue(unwrap(soap.getNazwaCechy())),
+                    miejscowosc
+            );
+        }
+
+        return new pl.bajty.teryt.model.dto.ZweryfikowanyAdres(miejscowosc, ulica);
+    }
+
+    public static pl.bajty.teryt.model.dto.ZweryfikowanyAdres toZweryfikowanyAdres(pl.bajty.teryt.internal.soap.generated.ZweryfikowanyAdresBezUlic soap) {
+        Gmina gmina = toGmina(
+                unwrap(soap.getSymbolWoj()),
+                unwrap(soap.getNazwaWoj()),
+                unwrap(soap.getSymbolPow()),
+                unwrap(soap.getNazwaPow()),
+                unwrap(soap.getSymbolGmi()),
+                unwrap(soap.getNazwaGmi()),
+                unwrap(soap.getSymbolRodzajuGmi())
+        );
+
+        Miejscowosc miejscowosc = new Miejscowosc(
+                new Simc(unwrap(soap.getSymbolMiejscowosci())),
+                unwrap(soap.getNazwaMiejscowosci()),
+                RodzajMiejscowosci.fromValue(unwrap(soap.getRodzajMiejscowosci())),
+                null,
+                gmina
+        );
+
+        return new pl.bajty.teryt.model.dto.ZweryfikowanyAdres(miejscowosc, null);
     }
 
     public static String unwrap(JAXBElement<String> element) {

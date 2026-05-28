@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.RodzajKatalogu;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -73,7 +74,7 @@ class TerytClientIntegrationTest {
                 .isNotNull()
                 .isNotEmpty();
 
-        assertThat(powiaty.getFirst().wojewodztwo().id().value()).isEqualTo("14");
+        assertThat(powiaty.getFirst().id().getWojewodztwoId()).isEqualTo("14");
     }
 
     @Test
@@ -87,7 +88,7 @@ class TerytClientIntegrationTest {
         assertThat(gminy)
                 .isNotNull()
                 .isNotEmpty();
-        assertThat(gminy.getFirst().powiat().id().value()).isEqualTo("1402");
+        assertThat(gminy.getFirst().id().getPowiatId()).isEqualTo("02");
     }
 
     @Test
@@ -127,5 +128,21 @@ class TerytClientIntegrationTest {
 
         assertThat(ulice).isNotNull().isNotEmpty();
         assertThat(ulice.stream().anyMatch(u -> u.nazwa().contains("Akacjowa"))).isTrue();
+    }
+
+    @Test
+    void shouldVerifyAddressForMiejscowosc() {
+        List<ZweryfikowanyAdres> adresy = terytClient.weryfikujAdresDlaMiejscowosci("Ciechanów");
+
+        assertThat(adresy).isNotNull().isNotEmpty();
+        assertThat(adresy.getFirst().miejscowosc().nazwa()).containsIgnoringCase("Ciechanów");
+    }
+
+    @Test
+    void shouldVerifyAddressForUlica() {
+        List<ZweryfikowanyAdres> adresy = terytClient.weryfikujAdresDlaUlic("Akacjowa", "Ciechanów");
+
+        assertThat(adresy).isNotNull().isNotEmpty();
+        assertThat(adresy.getFirst().ulica().nazwa()).containsIgnoringCase("Akacjowa");
     }
 }

@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.addressing.client.ActionCallback;
 import pl.bajty.teryt.internal.soap.generated.*;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.RodzajPowiatu;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -173,7 +174,7 @@ public class TercService {
     }
 
     public List<Gmina> getGminy(Powiat powiat, LocalDate stanNa) {
-        return getGminyInternal(powiat.wojewodztwo().id().value(), powiat.id().value().substring(2), stanNa);
+        return getGminyInternal(powiat.id().getWojewodztwoId(), powiat.id().getPowiatId(), stanNa);
     }
 
     public List<Gmina> getGminy(Powiat powiat) {
