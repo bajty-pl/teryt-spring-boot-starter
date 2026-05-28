@@ -2,7 +2,10 @@ package pl.bajty.teryt.internal;
 
 import lombok.RequiredArgsConstructor;
 import pl.bajty.teryt.api.TerytClient;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.RodzajGminy;
+import pl.bajty.teryt.model.enums.RodzajKatalogu;
+import pl.bajty.teryt.model.enums.RodzajRaportu;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.RodzajKatalogu;
 
 import java.time.LocalDate;
 import java.util.List;

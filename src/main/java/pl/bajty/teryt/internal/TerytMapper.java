@@ -2,7 +2,10 @@ package pl.bajty.teryt.internal;
 
 import jakarta.xml.bind.JAXBElement;
 import pl.bajty.teryt.internal.soap.generated.JednostkaTerytorialna;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.RodzajGminy;
+import pl.bajty.teryt.model.enums.RodzajMiejscowosci;
+import pl.bajty.teryt.model.enums.RodzajPowiatu;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;

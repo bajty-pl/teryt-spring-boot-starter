@@ -1,7 +1,7 @@
 package pl.bajty.teryt.internal;
 
-import pl.bajty.teryt.model.PlacUlica;
-import pl.bajty.teryt.model.PunktAdresowy;
+import pl.bajty.teryt.model.dto.PlacUlica;
+import pl.bajty.teryt.model.dto.PunktAdresowy;
 
 class EmuiaService {
 

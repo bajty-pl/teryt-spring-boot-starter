@@ -3,7 +3,9 @@ package pl.bajty.teryt.api;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.RodzajGminy;
+import pl.bajty.teryt.model.enums.RodzajPowiatu;
 
 import java.time.LocalDate;
 import java.util.List;

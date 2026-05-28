@@ -5,9 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.addressing.client.ActionCallback;
 import pl.bajty.teryt.internal.soap.generated.*;
-import pl.bajty.teryt.model.Simc;
-import pl.bajty.teryt.model.Terc;
-import pl.bajty.teryt.model.Ulic;
+import pl.bajty.teryt.model.dto.Simc;
+import pl.bajty.teryt.model.dto.Terc;
+import pl.bajty.teryt.model.dto.Ulic;
+import pl.bajty.teryt.model.dto.Ulica;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class UlicService {
     private final WebServiceTemplate webServiceTemplate;
     private final ObjectFactory objectFactory = new ObjectFactory();
 
-    public List<pl.bajty.teryt.model.Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa) {
+    public List<Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa) {
         var request = new PobierzListeUlicDlaMiejscowosci();
         request.setMsc(objectFactory.createPobierzListeUlicDlaMiejscowosciMsc(miejscowoscId.value()));
         request.setDataStanu(TerytMapper.toXmlGregorianCalendar(stanNa));
@@ -41,7 +42,7 @@ public class UlicService {
                 .toList();
     }
 
-    public List<pl.bajty.teryt.model.Ulica> wyszukajUlice(String nazwa) {
+    public List<Ulica> wyszukajUlice(String nazwa) {
         var request = new WyszukajUlice();
         request.setNazwaulicy(objectFactory.createWyszukajUliceNazwaulicy(nazwa));
 
@@ -60,7 +61,7 @@ public class UlicService {
                 .toList();
     }
 
-    public List<pl.bajty.teryt.model.Ulica> wyszukajUlice(Ulic id) {
+    public List<Ulica> wyszukajUlice(Ulic id) {
         var request = new WyszukajUliceWRejestrze();
         request.setIdentyfikator(objectFactory.createWyszukajUliceWRejestrzeIdentyfikator(id.value()));
 
@@ -79,7 +80,7 @@ public class UlicService {
                 .toList();
     }
 
-    public List<pl.bajty.teryt.model.Ulica> wyszukajUlice(String nazwa, Terc id) {
+    public List<Ulica> wyszukajUlice(String nazwa, Terc id) {
         var request = new WyszukajUliceWRejestrze();
         request.setNazwa(objectFactory.createWyszukajUliceWRejestrzeNazwa(nazwa));
 

@@ -11,10 +11,10 @@ import pl.bajty.teryt.internal.soap.generated.PobierzDateAktualnegoKatTerc;
 import pl.bajty.teryt.internal.soap.generated.PobierzDateAktualnegoKatTercResponse;
 import pl.bajty.teryt.internal.soap.generated.PobierzDateAktualnegoKatUlic;
 import pl.bajty.teryt.internal.soap.generated.PobierzDateAktualnegoKatUlicResponse;
-import pl.bajty.teryt.model.PlikKatalogu;
-import pl.bajty.teryt.model.PlikZmiany;
-import pl.bajty.teryt.model.RodzajKatalogu;
-import pl.bajty.teryt.model.Zmiana;
+import pl.bajty.teryt.model.dto.PlikKatalogu;
+import pl.bajty.teryt.model.dto.PlikZmiany;
+import pl.bajty.teryt.model.enums.RodzajKatalogu;
+import pl.bajty.teryt.model.dto.Zmiana;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.net.URI;

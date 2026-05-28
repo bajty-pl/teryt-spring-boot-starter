@@ -5,10 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.addressing.client.ActionCallback;
 import pl.bajty.teryt.internal.soap.generated.*;
-import pl.bajty.teryt.model.Gmina;
-import pl.bajty.teryt.model.RodzajGminy;
-import pl.bajty.teryt.model.StanSimc;
-import pl.bajty.teryt.model.Terc;
+import pl.bajty.teryt.model.dto.Gmina;
+import pl.bajty.teryt.model.dto.Miejscowosc;
+import pl.bajty.teryt.model.enums.RodzajGminy;
+import pl.bajty.teryt.model.dto.StanSimc;
+import pl.bajty.teryt.model.dto.Terc;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -41,35 +42,35 @@ public class SimcService {
                 .toList();
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Gmina gmina) {
+    List<Miejscowosc> getMiejscowosci(Gmina gmina) {
         return getMiejscowosci(gmina.id(), LocalDate.now(), false);
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa) {
+    List<Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa) {
         return getMiejscowosci(gmina.id(), stanNa, false);
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Gmina gmina, boolean zSymbolem) {
+    List<Miejscowosc> getMiejscowosci(Gmina gmina, boolean zSymbolem) {
         return getMiejscowosci(gmina.id(), LocalDate.now(), zSymbolem);
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa, boolean zSymbolem) {
+    List<Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa, boolean zSymbolem) {
         return getMiejscowosci(gmina.id(), stanNa, zSymbolem);
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Terc gminaId) {
+    List<Miejscowosc> getMiejscowosci(Terc gminaId) {
         return getMiejscowosci(gminaId, LocalDate.now(), false);
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa) {
+    List<Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa) {
         return getMiejscowosci(gminaId, stanNa, false);
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Terc gminaId, boolean zSymbolem) {
+    List<Miejscowosc> getMiejscowosci(Terc gminaId, boolean zSymbolem) {
         return getMiejscowosci(gminaId, LocalDate.now(), zSymbolem);
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa, boolean zSymbolem) {
+    List<Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa, boolean zSymbolem) {
         if (zSymbolem) {
             var request = new PobierzListeMiejscowosciWGminieZSymbolem();
             request.setWoj(objectFactory.createPobierzListeMiejscowosciWGminieZSymbolemWoj(gminaId.getWojewodztwoId()));
@@ -114,7 +115,7 @@ public class SimcService {
         }
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> getMiejscowosci(RodzajGminy rodzajGminy, LocalDate stanNa) {
+    List<Miejscowosc> getMiejscowosci(RodzajGminy rodzajGminy, LocalDate stanNa) {
         var request = new PobierzListeMiejscowosciWRodzajuGminy();
         request.setSymbolRodz(objectFactory.createPobierzListeMiejscowosciWRodzajuGminySymbolRodz(rodzajGminy.getValue()));
         request.setDataStanu(TerytMapper.toXmlGregorianCalendar(stanNa));
@@ -134,7 +135,7 @@ public class SimcService {
                 .toList();
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> wyszukajMiejscowosc(String nazwa) {
+    List<Miejscowosc> wyszukajMiejscowosc(String nazwa) {
         var request = new WyszukajMiejscowosc();
         request.setNazwaMiejscowosci(objectFactory.createWyszukajMiejscowoscNazwaMiejscowosci(nazwa));
 
@@ -153,7 +154,7 @@ public class SimcService {
                 .toList();
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> wyszukajMiejscowosc(Terc id) {
+    List<Miejscowosc> wyszukajMiejscowosc(Terc id) {
         var request = new WyszukajMiejscowosc();
         request.setIdentyfikatorMiejscowosci(objectFactory.createWyszukajMiejscowoscIdentyfikatorMiejscowosci(id.value()));
 
@@ -172,7 +173,7 @@ public class SimcService {
                 .toList();
     }
 
-    List<pl.bajty.teryt.model.Miejscowosc> wyszukajMiejscowosc(String nazwa, Terc id) {
+    List<Miejscowosc> wyszukajMiejscowosc(String nazwa, Terc id) {
         var request = new WyszukajMiejscowoscWJPT();
         request.setNazwaMiejscowosci(objectFactory.createWyszukajMiejscowoscWJPTNazwaMiejscowosci(nazwa));
         request.setNazwaWoj(objectFactory.createWyszukajMiejscowoscWJPTNazwaWoj(id.getWojewodztwoId()));

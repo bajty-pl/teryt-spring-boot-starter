@@ -1,9 +1,10 @@
 package pl.bajty.teryt.api;
 
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pl.bajty.teryt.model.*;
+import pl.bajty.teryt.model.dto.Miejscowosc;
+import pl.bajty.teryt.model.dto.StanSimc;
+import pl.bajty.teryt.model.dto.Terc;
 
 import java.time.LocalDate;
 import java.util.List;

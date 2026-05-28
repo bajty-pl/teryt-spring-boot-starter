@@ -1,8 +1,8 @@
 package pl.bajty.teryt.internal;
 
 import org.springframework.stereotype.Service;
-import pl.bajty.teryt.model.Simc;
-import pl.bajty.teryt.model.ZweryfikowanyAdres;
+import pl.bajty.teryt.model.dto.Simc;
+import pl.bajty.teryt.model.dto.ZweryfikowanyAdres;
 
 import java.util.List;
 

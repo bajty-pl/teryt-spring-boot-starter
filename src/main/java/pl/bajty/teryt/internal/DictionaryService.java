@@ -1,7 +1,7 @@
 package pl.bajty.teryt.internal;
 
 import org.springframework.stereotype.Service;
-import pl.bajty.teryt.model.Slownik;
+import pl.bajty.teryt.model.dto.Slownik;
 
 import java.util.List;
 
