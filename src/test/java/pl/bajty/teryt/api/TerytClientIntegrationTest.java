@@ -129,4 +129,20 @@ class TerytClientIntegrationTest {
         assertThat(ulice).isNotNull().isNotEmpty();
         assertThat(ulice.stream().anyMatch(u -> u.nazwa().contains("Akacjowa"))).isTrue();
     }
+
+    @Test
+    void shouldVerifyAddressForMiejscowosc() {
+        List<ZweryfikowanyAdres> adresy = terytClient.weryfikujAdresDlaMiejscowosci("Ciechanów");
+
+        assertThat(adresy).isNotNull().isNotEmpty();
+        assertThat(adresy.getFirst().miejscowosc()).isEqualTo("Ciechanów");
+    }
+
+    @Test
+    void shouldVerifyAddressForUlica() {
+        List<ZweryfikowanyAdres> adresy = terytClient.weryfikujAdresDlaUlic("Akacjowa", "Ciechanów");
+
+        assertThat(adresy).isNotNull().isNotEmpty();
+        assertThat(adresy.getFirst().ulica()).isEqualTo("Akacjowa");
+    }
 }

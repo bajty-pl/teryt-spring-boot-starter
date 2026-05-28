@@ -102,8 +102,9 @@ public class TerytAutoConfiguration {
         TercService tercService = new TercService(webServiceTemplate);
         SimcService simcService = new SimcService(webServiceTemplate);
         UlicService ulicService = new UlicService(webServiceTemplate);
+        VerifyService verifyService = new VerifyService(webServiceTemplate);
         FilesService filesService = new FilesService(webServiceTemplate);
 
-        return new TerytClientImpl(authService, tercService, simcService, ulicService, filesService);
+        return new TerytClientImpl(authService, tercService, simcService, ulicService, verifyService, filesService);
     }
 }

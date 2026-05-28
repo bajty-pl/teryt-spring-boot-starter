@@ -16,6 +16,7 @@ public class TerytClientImpl implements TerytClient {
     private final TercService tercService;
     private final SimcService simcService;
     private final UlicService ulicService;
+    private final VerifyService verifyService;
     private final FilesService filesService;
 
     @Override
@@ -275,17 +276,17 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<ZweryfikowanyAdres> weryfikujAdresDlaMiejscowosci(String nazwaMiejscowosci) {
-        return List.of();
+        return verifyService.weryfikujAdresDlaMiejscowosci(nazwaMiejscowosci);
     }
 
     @Override
     public List<ZweryfikowanyAdres> weryfikujAdresWMiejscowosci(String nazwaMiejscowosci, Simc symMiejscowosci) {
-        return List.of();
+        return verifyService.weryfikujAdresWMiejscowosci(nazwaMiejscowosci, symMiejscowosci);
     }
 
     @Override
     public List<ZweryfikowanyAdres> weryfikujAdresDlaUlic(String nazwaUlicy, String nazwaMiejscowosci) {
-        return List.of();
+        return verifyService.weryfikujAdresDlaUlic(nazwaUlicy, nazwaMiejscowosci);
     }
 
     @Override

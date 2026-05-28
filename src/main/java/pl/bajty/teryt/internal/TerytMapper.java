@@ -214,6 +214,46 @@ public class TerytMapper {
         return (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : EMPTY)), gmiNazwa, RodzajGminy.fromValue(rodz), powiat, wojewodztwo, null) : null;
     }
 
+    public static pl.bajty.teryt.model.dto.ZweryfikowanyAdres toZweryfikowanyAdres(pl.bajty.teryt.internal.soap.generated.ZweryfikowanyAdres soap) {
+        return new pl.bajty.teryt.model.dto.ZweryfikowanyAdres(
+                unwrap(soap.getNazwaWoj()),
+                unwrap(soap.getSymbolWoj()),
+                unwrap(soap.getNazwaPow()),
+                unwrap(soap.getSymbolPow()),
+                unwrap(soap.getNazwaGmi()),
+                unwrap(soap.getSymbolGmi()),
+                unwrap(soap.getRodzajGmi()),
+                unwrap(soap.getSymbolRodzajuGmi()),
+                unwrap(soap.getNazwaMiejscowosci()),
+                unwrap(soap.getSymbolMiejscowosci()),
+                unwrap(soap.getRodzajMiejscowosci()),
+                unwrap(soap.getHistorycznyRodzajMiejscowosci()),
+                unwrap(soap.getNazwaUlicyWPelnymBrzmieniu()),
+                unwrap(soap.getSymUl()),
+                unwrap(soap.getNazwaCechy())
+        );
+    }
+
+    public static pl.bajty.teryt.model.dto.ZweryfikowanyAdres toZweryfikowanyAdres(pl.bajty.teryt.internal.soap.generated.ZweryfikowanyAdresBezUlic soap) {
+        return new pl.bajty.teryt.model.dto.ZweryfikowanyAdres(
+                unwrap(soap.getNazwaWoj()),
+                unwrap(soap.getSymbolWoj()),
+                unwrap(soap.getNazwaPow()),
+                unwrap(soap.getSymbolPow()),
+                unwrap(soap.getNazwaGmi()),
+                unwrap(soap.getSymbolGmi()),
+                unwrap(soap.getRodzajGmi()),
+                unwrap(soap.getSymbolRodzajuGmi()),
+                unwrap(soap.getNazwaMiejscowosci()),
+                unwrap(soap.getSymbolMiejscowosci()),
+                unwrap(soap.getRodzajMiejscowosci()),
+                unwrap(soap.getHistorycznyRodzajMiejscowosci()),
+                null,
+                null,
+                null
+        );
+    }
+
     public static String unwrap(JAXBElement<String> element) {
         return (element == null || element.isNil()) ? null : element.getValue();
     }
