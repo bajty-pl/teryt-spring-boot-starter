@@ -1,0 +1,12 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body>
+        <PobierzSlownikCechULICResponse xmlns="http://tempuri.org/">
+            <PobierzSlownikCechULICResult xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <a:string>ul.</a:string>
+                <a:string>al.</a:string>
+                <a:string>pl.</a:string>
+                <a:string>skwer</a:string>
+            </PobierzSlownikCechULICResult>
+        </PobierzSlownikCechULICResponse>
+    </s:Body>
+</s:Envelope>

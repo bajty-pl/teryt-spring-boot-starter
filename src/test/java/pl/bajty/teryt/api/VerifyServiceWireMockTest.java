@@ -35,8 +35,8 @@ class VerifyServiceWireMockTest extends AbstractTerytClientWireMockTest {
 
         assertThat(adresy).hasSize(1);
         ZweryfikowanyAdres a = adresy.getFirst();
-        assertThat(a.miejscowosc()).isEqualTo("Ciechanów");
-        assertThat(a.symbolMiejscowosci()).isEqualTo("0928525");
+        assertThat(a.miejscowosc().nazwa()).isEqualTo("Ciechanów");
+        assertThat(a.miejscowosc().id().value()).isEqualTo("0928525");
 
         wireMockServer.verify(verifySoapAction(ACTION_WYSZUKAJ_MIEJSCOWOSC).withRequestBody(containing("Ciechanów")));
         wireMockServer.verify(verifySoapAction(ACTION_WERYFIKUJ_ADRES_DLA_MIEJSCOWOSCI).withRequestBody(containing("0928525")));
@@ -50,7 +50,7 @@ class VerifyServiceWireMockTest extends AbstractTerytClientWireMockTest {
         List<ZweryfikowanyAdres> adresy = terytClient.weryfikujAdresWMiejscowosci("Ciechanów", new Simc("0928525"));
 
         assertThat(adresy).hasSize(1);
-        assertThat(adresy.getFirst().symbolMiejscowosci()).isEqualTo("0928525");
+        assertThat(adresy.getFirst().miejscowosc().id().value()).isEqualTo("0928525");
 
         wireMockServer.verify(verifySoapAction(ACTION_WERYFIKUJ_ADRES_DLA_MIEJSCOWOSCI).withRequestBody(containing("0928525")));
     }
@@ -65,8 +65,8 @@ class VerifyServiceWireMockTest extends AbstractTerytClientWireMockTest {
 
         assertThat(adresy).hasSize(1);
         ZweryfikowanyAdres a = adresy.getFirst();
-        assertThat(a.ulica()).isEqualTo("Akacjowa");
-        assertThat(a.symbolUlicy()).isEqualTo("00012");
+        assertThat(a.ulica().nazwa()).isEqualTo("Akacjowa");
+        assertThat(a.ulica().id().value()).isEqualTo("00012");
 
         wireMockServer.verify(verifySoapAction(ACTION_WYSZUKAJ_ULICE).withRequestBody(containing("Akacjowa")));
         wireMockServer.verify(verifySoapAction(ACTION_WERYFIKUJ_ADRES_DLA_ULIC).withRequestBody(containing("00012")));

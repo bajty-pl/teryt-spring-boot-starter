@@ -20,6 +20,22 @@ class UlicServiceWireMockTest extends AbstractTerytClientWireMockTest {
     private static final String ACTION_WYSZUKAJ_ULICE = "ITerytWs1/WyszukajUlice";
     private static final String RESPONSE_WYSZUKAJ_ULICE = "WyszukajUliceResponse.xml";
 
+    private static final String ACTION_POBIERZ_SLOWNIK_CECH_ULIC = "ITerytWs1/PobierzSlownikCechULIC";
+    private static final String RESPONSE_POBIERZ_SLOWNIK_CECH_ULIC = "PobierzSlownikCechULICResponse.xml";
+
+    @Test
+    @DisplayName("getSlownikCechULIC() zwraca listę cech")
+    void getSlownikCechULICShouldReturnList() {
+        stubSoapOk(ACTION_POBIERZ_SLOWNIK_CECH_ULIC, RESPONSE_POBIERZ_SLOWNIK_CECH_ULIC);
+
+        var cechy = terytClient.getSlownikCechULIC();
+
+        assertThat(cechy).isNotEmpty();
+        assertThat(cechy.stream().map(s -> s.getNazwa())).contains("ul.", "al.", "pl.", "skwer");
+
+        wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_SLOWNIK_CECH_ULIC));
+    }
+
     @Test
     @DisplayName("getUlice(mscId, stanNa) zwraca listę ulic")
     void getUliceShouldReturnList() {
