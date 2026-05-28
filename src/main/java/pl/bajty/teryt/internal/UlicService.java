@@ -105,18 +105,4 @@ public class UlicService {
                 .map(TerytMapper::toUlica)
                 .toList();
     }
-    public List<String> getSlownikCechULIC() {
-        var request = new PobierzSlownikCechULIC();
-
-        var response = (PobierzSlownikCechULICResponse) webServiceTemplate.marshalSendAndReceive(
-                request,
-                new ActionCallback(URI.create("http://tempuri.org/ITerytWs1/PobierzSlownikCechULIC"))
-        );
-
-        return Optional.ofNullable(response)
-                .map(PobierzSlownikCechULICResponse::getPobierzSlownikCechULICResult)
-                .map(JAXBElement::getValue)
-                .map(ArrayOfstring::getString)
-                .orElse(Collections.emptyList());
-    }
 }
