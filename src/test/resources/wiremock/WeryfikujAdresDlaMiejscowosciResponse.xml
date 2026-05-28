@@ -1,0 +1,24 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/WeryfikujAdresDlaMiejscowosciResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <WeryfikujAdresDlaMiejscowosciResponse xmlns="http://tempuri.org/">
+            <WeryfikujAdresDlaMiejscowosciResult xmlns:d="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <d:ZweryfikowanyAdresBezUlic>
+                    <d:NazwaGmi>Ciechanów</d:NazwaGmi>
+                    <d:NazwaMiejscowosci>Ciechanów</d:NazwaMiejscowosci>
+                    <d:NazwaPow>ciechanowski</d:NazwaPow>
+                    <d:NazwaWoj>MAZOWIECKIE</d:NazwaWoj>
+                    <d:RodzajGmi>gmina miejska</d:RodzajGmi>
+                    <d:RodzajMiejscowosci>miasto</d:RodzajMiejscowosci>
+                    <d:SymbolGmi>01</d:SymbolGmi>
+                    <d:SymbolMiejscowosci>0928525</d:SymbolMiejscowosci>
+                    <d:SymbolPow>02</d:SymbolPow>
+                    <d:SymbolRodzajuGmi>1</d:SymbolRodzajuGmi>
+                    <d:SymbolWoj>14</d:SymbolWoj>
+                </d:ZweryfikowanyAdresBezUlic>
+            </WeryfikujAdresDlaMiejscowosciResult>
+        </WeryfikujAdresDlaMiejscowosciResponse>
+    </s:Body>
+</s:Envelope>
