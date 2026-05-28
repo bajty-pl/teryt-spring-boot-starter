@@ -3,6 +3,7 @@ package pl.bajty.teryt.api;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pl.bajty.teryt.model.dto.Simc;
+import pl.bajty.teryt.model.dto.Slownik;
 import pl.bajty.teryt.model.dto.Ulica;
 
 import java.time.LocalDate;
@@ -31,7 +32,7 @@ class UlicServiceWireMockTest extends AbstractTerytClientWireMockTest {
         var cechy = terytClient.getSlownikCechULIC();
 
         assertThat(cechy).isNotEmpty();
-        assertThat(cechy.stream().map(s -> s.getNazwa())).contains("ul.", "al.", "pl.", "skwer");
+        assertThat(cechy.stream().map(Slownik::getNazwa)).contains("ul.", "al.", "pl.", "skwer");
 
         wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_SLOWNIK_CECH_ULIC));
     }

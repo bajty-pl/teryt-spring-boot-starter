@@ -326,9 +326,7 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Slownik> getSlownikCechULIC() {
-        return ulicService.getSlownikCechULIC().stream()
-                .map(cecha -> (Slownik) new SlownikDTO(cecha, cecha))
-                .toList();
+        return List.of();
     }
 
     @Override
