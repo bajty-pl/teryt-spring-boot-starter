@@ -74,7 +74,7 @@ class TerytClientIntegrationTest {
                 .isNotNull()
                 .isNotEmpty();
 
-        assertThat(powiaty.getFirst().wojewodztwo().id().value()).isEqualTo("14");
+        assertThat(powiaty.getFirst().id().getWojewodztwoId()).isEqualTo("14");
     }
 
     @Test
@@ -88,7 +88,7 @@ class TerytClientIntegrationTest {
         assertThat(gminy)
                 .isNotNull()
                 .isNotEmpty();
-        assertThat(gminy.getFirst().powiat().id().value()).isEqualTo("1402");
+        assertThat(gminy.getFirst().id().getPowiatId()).isEqualTo("02");
     }
 
     @Test
@@ -135,7 +135,7 @@ class TerytClientIntegrationTest {
         List<ZweryfikowanyAdres> adresy = terytClient.weryfikujAdresDlaMiejscowosci("Ciechanów");
 
         assertThat(adresy).isNotNull().isNotEmpty();
-        assertThat(adresy.getFirst().miejscowosc()).isEqualTo("Ciechanów");
+        assertThat(adresy.getFirst().miejscowosc().nazwa()).containsIgnoringCase("Ciechanów");
     }
 
     @Test
@@ -143,6 +143,6 @@ class TerytClientIntegrationTest {
         List<ZweryfikowanyAdres> adresy = terytClient.weryfikujAdresDlaUlic("Akacjowa", "Ciechanów");
 
         assertThat(adresy).isNotNull().isNotEmpty();
-        assertThat(adresy.getFirst().ulica()).isEqualTo("Akacjowa");
+        assertThat(adresy.getFirst().ulica().nazwa()).containsIgnoringCase("Akacjowa");
     }
 }

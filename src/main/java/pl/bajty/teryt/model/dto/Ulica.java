@@ -6,9 +6,6 @@ public record Ulica(
         Ulic id,
         String nazwa,
         CechaUlicy cecha,
-        Miejscowosc miejscowosc,
-        Gmina gmina,
-        Powiat powiat,
-        Wojewodztwo wojewodztwo
+        Miejscowosc miejscowosc
 ) {
 }

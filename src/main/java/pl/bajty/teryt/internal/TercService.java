@@ -174,7 +174,7 @@ public class TercService {
     }
 
     public List<Gmina> getGminy(Powiat powiat, LocalDate stanNa) {
-        return getGminyInternal(powiat.wojewodztwo().id().value(), powiat.id().value().substring(2), stanNa);
+        return getGminyInternal(powiat.id().getWojewodztwoId(), powiat.id().getPowiatId(), stanNa);
     }
 
     public List<Gmina> getGminy(Powiat powiat) {

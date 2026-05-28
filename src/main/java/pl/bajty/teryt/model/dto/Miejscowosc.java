@@ -7,8 +7,6 @@ public record Miejscowosc(
         String nazwa,
         RodzajMiejscowosci rodzajMiejscowosci,
         Simc symbolPodstawowy,
-        Gmina gmina,
-        Powiat powiat,
-        Wojewodztwo wojewodztwo
+        Gmina gmina
 ) {
 }

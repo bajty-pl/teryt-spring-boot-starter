@@ -50,7 +50,7 @@ class SimcServiceWireMockTest extends AbstractTerytClientWireMockTest {
         Miejscowosc m = miejscowosci.getFirst();
         assertThat(m.id().value()).isEqualTo("0910626");
         assertThat(m.nazwa()).isEqualTo("Ciechanów");
-        assertThat(m.wojewodztwo().nazwa()).isEqualTo("MAZOWIECKIE");
+        assertThat(m.gmina().powiat().wojewodztwo().nazwa()).isEqualTo("MAZOWIECKIE");
         assertThat(m.gmina().nazwa()).isEqualTo("Ciechanów");
 
         wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_MIEJSCOWOSCI_W_GMINIE)

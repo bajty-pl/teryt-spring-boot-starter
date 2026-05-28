@@ -9,6 +9,5 @@ public record Gmina(
         String nazwa,
         RodzajGminy rodzajGminy,
         Powiat powiat,
-        Wojewodztwo wojewodztwo,
         LocalDate stanNa) {
 }
