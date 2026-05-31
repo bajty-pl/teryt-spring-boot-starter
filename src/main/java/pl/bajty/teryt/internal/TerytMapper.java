@@ -50,15 +50,27 @@ public class TerytMapper {
     }
 
     public static Gmina toGmina(JednostkaTerytorialna soap) {
-        Powiat powiat = toPowiat(soap);
-        String rodz = unwrap(soap.getRODZ());
+        Wojewodztwo wojewodztwo = toWojewodztwo(soap);
+        String rodsGmi = unwrap(soap.getRODZ());
+
+        String tercValue = unwrap(soap.getWOJ()) + unwrap(soap.getPOW()) + unwrap(soap.getGMI()) + (rodsGmi != null ? rodsGmi : EMPTY);
+        if (tercValue.length() == 6) {
+             // Brak rodzaju gminy - dopełniamy pustym lub obsługujemy? Terc.java wymaga 7 dla gminy.
+             // W JednostkaTerytorialna zazwyczaj RODZ jest obecny.
+        }
 
         return new Gmina(
-                new Terc(powiat.id().value() + unwrap(soap.getGMI()) + (rodz != null ? rodz : EMPTY)),
+                new Terc(tercValue),
                 unwrap(soap.getNAZWA()),
-                RodzajGminy.fromKod(rodz),
-                powiat,
-                powiat.stanNa()
+                RodzajGminy.fromKod(rodsGmi),
+                new Powiat(
+                        new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
+                        null,
+                        null,
+                        wojewodztwo,
+                        wojewodztwo.stanNa()
+                ),
+                wojewodztwo.stanNa()
         );
     }
 
@@ -190,9 +202,26 @@ public class TerytMapper {
     }
 
     private static Gmina toGmina(String woj, String wojNazwa, String pow, String powNazwa, String gmi, String gmiNazwa, String rodz) {
-        Wojewodztwo wojewodztwo = woj != null ? new Wojewodztwo(new Terc(woj), wojNazwa, null) : null;
-        Powiat powiat = (woj != null && pow != null) ? new Powiat(new Terc(woj + pow), powNazwa, null, wojewodztwo, null) : null;
-        return (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : EMPTY)), gmiNazwa, RodzajGminy.fromKod(rodz), powiat, null) : null;
+        Wojewodztwo wojewodztwo = null;
+        if (woj != null && (woj.length() == 2 || woj.length() == 4 || woj.length() == 7)) {
+            wojewodztwo = new Wojewodztwo(new Terc(woj), wojNazwa, null);
+        }
+
+        Powiat powiat = null;
+        if (woj != null && pow != null) {
+            String powTerc = woj + pow;
+            if (powTerc.length() == 2 || powTerc.length() == 4 || powTerc.length() == 7) {
+                powiat = new Powiat(new Terc(powTerc), powNazwa, null, wojewodztwo, null);
+            }
+        }
+
+        if (woj != null && pow != null && gmi != null) {
+            String gmiTerc = woj + pow + gmi + (rodz != null ? rodz : EMPTY);
+            if (gmiTerc.length() == 2 || gmiTerc.length() == 4 || gmiTerc.length() == 7) {
+                return new Gmina(new Terc(gmiTerc), gmiNazwa, RodzajGminy.fromKod(rodz), powiat, null);
+            }
+        }
+        return null;
     }
 
     public static pl.bajty.teryt.model.dto.ZweryfikowanyAdres toZweryfikowanyAdres(pl.bajty.teryt.internal.soap.generated.ZweryfikowanyAdres soap) {

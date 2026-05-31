@@ -22,11 +22,14 @@ public enum RodzajGminy implements Slownik {
     }
 
     public static RodzajGminy fromKod(String kod) {
+        if (kod == null || kod.isBlank()) {
+            return null;
+        }
         for (RodzajGminy r : RodzajGminy.values()) {
-            if (r.kod.equals(kod)) {
+            if (r.kod.equalsIgnoreCase(kod.trim())) {
                 return r;
             }
         }
-        throw new IllegalArgumentException("Nieznany kod rodzaju gminy: " + kod);
+        return null;
     }
 }

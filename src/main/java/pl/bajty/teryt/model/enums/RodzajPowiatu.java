@@ -19,12 +19,14 @@ public enum RodzajPowiatu implements Slownik {
     }
 
     public static RodzajPowiatu fromKod(String kod) {
+        if (kod == null || kod.isBlank()) {
+            return null;
+        }
         for (RodzajPowiatu r : RodzajPowiatu.values()) {
-            // equalsIgnoreCase jest bezpieczne na wypadek null, jeśli wywołujemy je na r.kod
-            if (r.kod.equalsIgnoreCase(kod)) {
+            if (r.kod.equalsIgnoreCase(kod.trim())) {
                 return r;
             }
         }
-        throw new IllegalArgumentException("Nieznany kod rodzaju powiatu: " + kod);
+        return null;
     }
 }

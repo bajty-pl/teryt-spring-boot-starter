@@ -17,11 +17,14 @@ public enum RodzajMiejscowosci implements Slownik {
     }
 
     public static RodzajMiejscowosci fromKod(String kod) {
+        if (kod == null || kod.isBlank()) {
+            return null;
+        }
         for (RodzajMiejscowosci r : RodzajMiejscowosci.values()) {
-            if (r.kod.equals(kod)) {
+            if (r.kod.equalsIgnoreCase(kod.trim())) {
                 return r;
             }
         }
-        throw new IllegalArgumentException("Nieznany kod rodzaju miejscowości: " + kod);
+        return null;
     }
 }

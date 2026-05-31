@@ -85,20 +85,20 @@ class TerytClientIntegrationTest {
 
         List<Gmina> gminy = terytClient.getGminy(powId, wojId, safeDate);
 
-        assertThat(gminy)
-                .isNotNull()
+        assertThat(gminy).isNotNull()
                 .isNotEmpty();
         assertThat(gminy.getFirst().id().getPowiatId()).isEqualTo("02");
+        assertThat(gminy.getFirst().rodzajGminy()).isNotNull();
     }
 
     @Test
-    void shouldFetchMiejscowosciForGmina() {
+    void shouldFetchMiejscowosciWithDetailsForGmina() {
         LocalDate safeDate = LocalDate.of(2024, 1, 1);
         var gminaId = new Terc("1402011"); // m. Ciechanów
 
-        List<Miejscowosc> miejscowosci = terytClient.getMiejscowosci(gminaId, safeDate);
+        List<Miejscowosc> miejscowosci = terytClient.getMiejscowosci(gminaId, safeDate, true);
 
-        assertThat(miejscowosci).isNotNull();
+        assertThat(miejscowosci).isNotNull().isNotEmpty();
     }
 
     @Test
@@ -119,6 +119,7 @@ class TerytClientIntegrationTest {
         assertThat(ulice).isNotNull();
         if (!ulice.isEmpty()) {
             assertThat(ulice.getFirst().miejscowosc().id().value()).isEqualTo("0928525");
+            assertThat(ulice.getFirst().cecha()).isNotNull();
         }
     }
 

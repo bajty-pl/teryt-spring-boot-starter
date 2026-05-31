@@ -32,6 +32,9 @@ class UlicServiceWireMockTest extends AbstractTerytClientWireMockTest {
         Ulica u = ulice.getFirst();
         assertThat(u.id().value()).isEqualTo("00012");
         assertThat(u.nazwa()).isEqualTo("Akacjowa");
+        assertThat(u.cecha()).isEqualTo(pl.bajty.teryt.model.enums.CechaUlicy.ULICA);
+        assertThat(u.cecha().getKod()).isEqualTo("ul.");
+        assertThat(u.cecha().getNazwa()).isEqualTo("Ulica");
         assertThat(u.miejscowosc().id().value()).isEqualTo("0928525");
 
         wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_ULIC_DLA_MIEJSCOWOSCI)
