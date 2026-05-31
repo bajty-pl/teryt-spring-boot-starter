@@ -3,7 +3,6 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
-@Getter
 public enum RodzajGminy implements Slownik {
     MIEJSKA("1", "Gmina miejska"),
     WIEJSKA("2", "Gmina wiejska"),
@@ -13,7 +12,9 @@ public enum RodzajGminy implements Slownik {
     DZIELNICA_W_M_ST_WARSZAWA("8", "Dzielnica m. st. Warszawy"),
     DELEGATURA("9", "Delegatura");
 
+    @Getter(onMethod_ = @Override)
     private final String kod;
+    @Getter(onMethod_ = @Override)
     private final String nazwa;
 
     RodzajGminy(String kod, String nazwa) {

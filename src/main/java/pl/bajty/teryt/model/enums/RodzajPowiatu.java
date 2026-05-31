@@ -1,16 +1,15 @@
 package pl.bajty.teryt.model.enums;
 
 import lombok.Getter;
-
-import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
-@Getter
 public enum RodzajPowiatu implements Slownik {
     POWIAT("p", "Powiat"),
     MIASTO_NA_PRAWACH_POWIATU("m", "Miasto na prawach powiatu");
 
+    @Getter(onMethod_ = @Override)
     private final String kod;
+    @Getter(onMethod_ = @Override)
     private final String nazwa;
 
     RodzajPowiatu(String kod, String nazwa) {

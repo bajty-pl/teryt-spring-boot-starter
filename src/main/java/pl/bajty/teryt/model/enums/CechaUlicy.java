@@ -3,7 +3,6 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
-@Getter
 public enum CechaUlicy implements Slownik {
     ULICA("ul.", "Ulica"),
     ALEJA("al.", "Aleja"),
@@ -21,7 +20,9 @@ public enum CechaUlicy implements Slownik {
     WYBRZEZE("wybrzeże", "Wybrzeże"),
     INNE("", "Inne");
 
+    @Getter(onMethod_ = @Override)
     private final String kod;
+    @Getter(onMethod_ = @Override)
     private final String nazwa;
 
     CechaUlicy(String kod, String nazwa) {
