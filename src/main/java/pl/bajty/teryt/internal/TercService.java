@@ -142,7 +142,7 @@ public class TercService {
                 .map(nts -> new Powiat(
                         new Terc(TerytMapper.unwrap(nts.getWOJ()) + TerytMapper.unwrap(nts.getPOW())),
                         TerytMapper.unwrap(nts.getNAZWA()),
-                        RodzajPowiatu.fromValue(TerytMapper.unwrap(nts.getRODZ())),
+                        RodzajPowiatu.fromKod(TerytMapper.unwrap(nts.getRODZ())),
                         new Wojewodztwo(new Terc(TerytMapper.unwrap(nts.getWOJ())), null, null),
                         TerytMapper.parseDate(TerytMapper.unwrap(nts.getSTANNA()))
                 ))

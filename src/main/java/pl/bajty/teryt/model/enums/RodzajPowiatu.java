@@ -2,23 +2,29 @@ package pl.bajty.teryt.model.enums;
 
 import lombok.Getter;
 
+import lombok.Getter;
+import pl.bajty.teryt.model.interfaces.Slownik;
+
 @Getter
-public enum RodzajPowiatu {
-    POWIAT("p"),
-    MIASTO_NA_PRAWACH_POWIATU("m");
+public enum RodzajPowiatu implements Slownik {
+    POWIAT("p", "Powiat"),
+    MIASTO_NA_PRAWACH_POWIATU("m", "Miasto na prawach powiatu");
 
-    private final String value;
+    private final String kod;
+    private final String nazwa;
 
-    RodzajPowiatu(String value) {
-        this.value = value;
+    RodzajPowiatu(String kod, String nazwa) {
+        this.kod = kod;
+        this.nazwa = nazwa;
     }
 
-    public static RodzajPowiatu fromValue(String value) {
+    public static RodzajPowiatu fromKod(String kod) {
         for (RodzajPowiatu r : RodzajPowiatu.values()) {
-            if (r.value.equalsIgnoreCase(value)) {
+            // equalsIgnoreCase jest bezpieczne na wypadek null, jeśli wywołujemy je na r.kod
+            if (r.kod.equalsIgnoreCase(kod)) {
                 return r;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Nieznany kod rodzaju powiatu: " + kod);
     }
 }

@@ -43,7 +43,7 @@ public class TerytMapper {
         return new Powiat(
                 new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
                 unwrap(soap.getNAZWA()),
-                RodzajPowiatu.fromValue(unwrap(soap.getRODZ())),
+                RodzajPowiatu.fromKod(unwrap(soap.getRODZ())),
                 wojewodztwo,
                 wojewodztwo.stanNa()
         );
