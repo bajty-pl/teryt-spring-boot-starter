@@ -54,9 +54,8 @@ public class TerytMapper {
         String rodsGmi = unwrap(soap.getRODZ());
 
         String tercValue = unwrap(soap.getWOJ()) + unwrap(soap.getPOW()) + unwrap(soap.getGMI()) + (rodsGmi != null ? rodsGmi : EMPTY);
-        if (tercValue.length() == 6) {
-             // Brak rodzaju gminy - dopełniamy pustym lub obsługujemy? Terc.java wymaga 7 dla gminy.
-             // W JednostkaTerytorialna zazwyczaj RODZ jest obecny.
+        if (tercValue.length() == 6 && rodsGmi == null) {
+            throw new IllegalArgumentException("Brak rodzaju gminy (RODZ) dla jednostki: " + unwrap(soap.getNAZWA()));
         }
 
         return new Gmina(
@@ -216,7 +215,11 @@ public class TerytMapper {
         }
 
         if (woj != null && pow != null && gmi != null) {
-            String gmiTerc = woj + pow + gmi + (rodz != null ? rodz : EMPTY);
+            String rodsGmi = (rodz != null ? rodz : EMPTY);
+            String gmiTerc = woj + pow + gmi + rodsGmi;
+            if (gmiTerc.length() == 6 && rodsGmi.isEmpty()) {
+                return null;
+            }
             if (gmiTerc.length() == 2 || gmiTerc.length() == 4 || gmiTerc.length() == 7) {
                 return new Gmina(new Terc(gmiTerc), gmiNazwa, RodzajGminy.fromKod(rodz), powiat, null);
             }
