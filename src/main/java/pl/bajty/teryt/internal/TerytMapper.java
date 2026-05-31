@@ -98,7 +98,7 @@ public class TerytMapper {
         return new Miejscowosc(
                 new Simc(unwrap(soap.getSymbol())),
                 unwrap(soap.getNazwa()),
-                RodzajMiejscowosci.fromValue(unwrap(soap.getRM())),
+                RodzajMiejscowosci.fromKod(unwrap(soap.getRM())),
                 symPodst != null ? new Simc(symPodst) : null,
                 gmina
         );
@@ -209,7 +209,7 @@ public class TerytMapper {
         Miejscowosc miejscowosc = new Miejscowosc(
                 new Simc(unwrap(soap.getSymbolMiejscowosci())),
                 unwrap(soap.getNazwaMiejscowosci()),
-                RodzajMiejscowosci.fromValue(unwrap(soap.getRodzajMiejscowosci())),
+                RodzajMiejscowosci.fromKod(unwrap(soap.getRodzajMiejscowosci())),
                 null,
                 gmina
         );
@@ -241,7 +241,7 @@ public class TerytMapper {
         Miejscowosc miejscowosc = new Miejscowosc(
                 new Simc(unwrap(soap.getSymbolMiejscowosci())),
                 unwrap(soap.getNazwaMiejscowosci()),
-                RodzajMiejscowosci.fromValue(unwrap(soap.getRodzajMiejscowosci())),
+                RodzajMiejscowosci.fromKod(unwrap(soap.getRodzajMiejscowosci())),
                 null,
                 gmina
         );
