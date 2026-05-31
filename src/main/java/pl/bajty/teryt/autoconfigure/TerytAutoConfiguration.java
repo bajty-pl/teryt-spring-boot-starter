@@ -15,6 +15,7 @@ import pl.bajty.teryt.internal.*;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -64,7 +65,7 @@ public class TerytAutoConfiguration {
         if (properties.testEnvironment()) {
             log.warn("Using test environment with relaxed SSL validation");
             TrustManager[] trustAllCerts = new TrustManager[]{
-                    new javax.net.ssl.X509TrustManager() {
+                    new X509TrustManager() {
                         public X509Certificate[] getAcceptedIssuers() {
                             return null;
                         }

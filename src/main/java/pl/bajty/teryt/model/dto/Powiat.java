@@ -3,6 +3,7 @@ package pl.bajty.teryt.model.dto;
 
 import pl.bajty.teryt.model.enums.PoziomJednostkiTerytorialnej;
 import pl.bajty.teryt.model.enums.RodzajPowiatu;
+import pl.bajty.teryt.model.interfaces.JednostkaTerytorialna;
 
 import java.time.LocalDate;
 

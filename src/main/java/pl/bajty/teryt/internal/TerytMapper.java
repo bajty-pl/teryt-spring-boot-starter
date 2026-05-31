@@ -3,7 +3,10 @@ package pl.bajty.teryt.internal;
 import jakarta.xml.bind.JAXBElement;
 import pl.bajty.teryt.internal.soap.generated.JednostkaTerytorialna;
 import pl.bajty.teryt.model.dto.*;
-import pl.bajty.teryt.model.enums.*;
+import pl.bajty.teryt.model.enums.CechaUlicy;
+import pl.bajty.teryt.model.enums.RodzajGminy;
+import pl.bajty.teryt.model.enums.RodzajMiejscowosci;
+import pl.bajty.teryt.model.enums.RodzajPowiatu;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
@@ -53,7 +56,7 @@ public class TerytMapper {
         return new Gmina(
                 new Terc(powiat.id().value() + unwrap(soap.getGMI()) + (rodz != null ? rodz : EMPTY)),
                 unwrap(soap.getNAZWA()),
-                RodzajGminy.fromValue(rodz),
+                RodzajGminy.fromKod(rodz),
                 powiat,
                 powiat.stanNa()
         );
@@ -189,7 +192,7 @@ public class TerytMapper {
     private static Gmina toGmina(String woj, String wojNazwa, String pow, String powNazwa, String gmi, String gmiNazwa, String rodz) {
         Wojewodztwo wojewodztwo = woj != null ? new Wojewodztwo(new Terc(woj), wojNazwa, null) : null;
         Powiat powiat = (woj != null && pow != null) ? new Powiat(new Terc(woj + pow), powNazwa, null, wojewodztwo, null) : null;
-        return (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : EMPTY)), gmiNazwa, RodzajGminy.fromValue(rodz), powiat, null) : null;
+        return (woj != null && pow != null && gmi != null) ? new Gmina(new Terc(woj + pow + gmi + (rodz != null ? rodz : EMPTY)), gmiNazwa, RodzajGminy.fromKod(rodz), powiat, null) : null;
     }
 
     public static pl.bajty.teryt.model.dto.ZweryfikowanyAdres toZweryfikowanyAdres(pl.bajty.teryt.internal.soap.generated.ZweryfikowanyAdres soap) {

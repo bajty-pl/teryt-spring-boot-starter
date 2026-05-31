@@ -1,4 +1,4 @@
-package pl.bajty.teryt.model.dto;
+package pl.bajty.teryt.model.interfaces;
 
 public interface Slownik {
 
