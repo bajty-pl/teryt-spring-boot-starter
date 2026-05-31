@@ -126,7 +126,7 @@ public class TerytMapper {
         return new Ulica(
                 new Ulic(unwrap(soap.getIdentyfikatorUlicy())),
                 unwrap(soap.getNazwa()),
-                CechaUlicy.fromValue(unwrap(soap.getCecha())),
+                CechaUlicy.fromKod(unwrap(soap.getCecha())),
                 miejscowosc
         );
     }
@@ -157,7 +157,7 @@ public class TerytMapper {
         return new Ulica(
                 new Ulic(unwrap(soap.getSymbolUlicy())),
                 nazwaPelna,
-                CechaUlicy.fromValue(unwrap(soap.getCecha())),
+                CechaUlicy.fromKod(unwrap(soap.getCecha())),
                 miejscowosc
         );
     }
@@ -184,7 +184,7 @@ public class TerytMapper {
         return new Ulica(
                 new Ulic(unwrap(soap.getSymbol())),
                 unwrap(soap.getNazwa()),
-                CechaUlicy.fromValue(unwrap(soap.getCecha())),
+                CechaUlicy.fromKod(unwrap(soap.getCecha())),
                 miejscowosc
         );
     }
@@ -219,7 +219,7 @@ public class TerytMapper {
             ulica = new Ulica(
                     new Ulic(unwrap(soap.getSymUl())),
                     unwrap(soap.getNazwaUlicyWPelnymBrzmieniu()),
-                    CechaUlicy.fromValue(unwrap(soap.getNazwaCechy())),
+                    CechaUlicy.fromKod(unwrap(soap.getNazwaCechy())),
                     miejscowosc
             );
         }

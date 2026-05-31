@@ -1,35 +1,40 @@
 package pl.bajty.teryt.model.enums;
 
 import lombok.Getter;
+import pl.bajty.teryt.model.interfaces.Slownik;
 
 @Getter
-public enum CechaUlicy {
-    ULICA("ul."),
-    ALEJA("al."),
-    PLAC("pl."),
-    SKWER("skwer"),
-    BULWAR("bulw."),
-    RONDO("rondo"),
-    PARK("park"),
-    RYNEK("rynek"),
-    SZOSA("szosa"),
-    DROGA("droga"),
-    OSIEDLE("os."),
-    OGROD("ogród"),
-    WYSPA("wyspa"),
-    WYBRZEZE("wybrzeże"),
-    INNE("");
+public enum CechaUlicy implements Slownik {
+    ULICA("ul.", "Ulica"),
+    ALEJA("al.", "Aleja"),
+    PLAC("pl.", "Plac"),
+    SKWER("skwer", "Skwer"),
+    BULWAR("bulw.", "Bulwar"),
+    RONDO("rondo", "Rondo"),
+    PARK("park", "Park"),
+    RYNEK("rynek", "Rynek"),
+    SZOSA("szosa", "Szosa"),
+    DROGA("droga", "Droga"),
+    OSIEDLE("os.", "Osiedle"),
+    OGROD("ogród", "Ogród"),
+    WYSPA("wyspa", "Wyspa"),
+    WYBRZEZE("wybrzeże", "Wybrzeże"),
+    INNE("", "Inne");
 
-    private final String value;
+    private final String kod;
+    private final String nazwa;
 
-    CechaUlicy(String value) {
-        this.value = value;
+    CechaUlicy(String kod, String nazwa) {
+        this.kod = kod;
+        this.nazwa = nazwa;
     }
 
-    public static CechaUlicy fromValue(String value) {
-        if (value == null) return INNE;
+    public static CechaUlicy fromKod(String kod) {
+        if (kod == null) {
+            return INNE;
+        }
         for (CechaUlicy c : CechaUlicy.values()) {
-            if (c.value.equalsIgnoreCase(value.trim())) {
+            if (c.kod.equalsIgnoreCase(kod.trim())) {
                 return c;
             }
         }
