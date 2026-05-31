@@ -58,4 +58,24 @@ class SimcServiceWireMockTest extends AbstractTerytClientWireMockTest {
                 .withRequestBody(containing("02"))
                 .withRequestBody(containing("01")));
     }
+    @Test
+    @DisplayName("getMiejscowosci(gminaId, zSymbolem=true) zwraca listę miejscowości z RodzajMiejscowosci")
+    void getMiejscowosciWithSymbolShouldReturnList() {
+        stubSoapOk("ITerytWs1/PobierzListeMiejscowosciWGminieZSymbolem", "PobierzListeMiejscowosciWGminieZSymbolemResponse.xml");
+
+        Terc gminaId = new Terc("1402011");
+        List<Miejscowosc> miejscowosci = terytClient.getMiejscowosci(gminaId, true);
+
+        assertThat(miejscowosci).hasSize(1);
+        Miejscowosc m = miejscowosci.getFirst();
+        assertThat(m.id().value()).isEqualTo("0910626");
+        assertThat(m.rodzajMiejscowosci()).isEqualTo(pl.bajty.teryt.model.enums.RodzajMiejscowosci.MIEJSCOWOSC_PODSTAWOWA);
+        assertThat(m.rodzajMiejscowosci().getKod()).isEqualTo("P");
+        assertThat(m.rodzajMiejscowosci().getNazwa()).isEqualTo("Miejscowość podstawowa");
+
+        wireMockServer.verify(verifySoapAction("ITerytWs1/PobierzListeMiejscowosciWGminieZSymbolem")
+                .withRequestBody(containing("14"))
+                .withRequestBody(containing("02"))
+                .withRequestBody(containing("01")));
+    }
 }

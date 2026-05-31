@@ -1,21 +1,28 @@
 package pl.bajty.teryt.model.enums;
 
 import lombok.Getter;
+import pl.bajty.teryt.model.interfaces.Slownik;
 
-@Getter
-public enum RodzajPowiatu {
-    POWIAT("p"),
-    MIASTO_NA_PRAWACH_POWIATU("m");
+public enum RodzajPowiatu implements Slownik {
+    POWIAT("p", "Powiat"),
+    MIASTO_NA_PRAWACH_POWIATU("m", "Miasto na prawach powiatu");
 
-    private final String value;
+    @Getter(onMethod_ = @Override)
+    private final String kod;
+    @Getter(onMethod_ = @Override)
+    private final String nazwa;
 
-    RodzajPowiatu(String value) {
-        this.value = value;
+    RodzajPowiatu(String kod, String nazwa) {
+        this.kod = kod;
+        this.nazwa = nazwa;
     }
 
-    public static RodzajPowiatu fromValue(String value) {
+    public static RodzajPowiatu fromKod(String kod) {
+        if (kod == null || kod.isBlank()) {
+            return null;
+        }
         for (RodzajPowiatu r : RodzajPowiatu.values()) {
-            if (r.value.equalsIgnoreCase(value)) {
+            if (r.kod.equalsIgnoreCase(kod.trim())) {
                 return r;
             }
         }

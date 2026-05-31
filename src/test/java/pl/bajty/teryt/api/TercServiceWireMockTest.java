@@ -78,9 +78,12 @@ class TercServiceWireMockTest extends AbstractTerytClientWireMockTest {
         List<Powiat> powiaty = terytClient.getPowiaty(new Terc("14"), date);
 
         assertThat(powiaty).hasSize(1);
-        assertThat(powiaty.getFirst().id().value()).isEqualTo("1402");
-        assertThat(powiaty.getFirst().nazwa()).isEqualTo("ciechanowski");
-        assertThat(powiaty.getFirst().rodzajPowiatu()).isEqualTo(RodzajPowiatu.POWIAT);
+        Powiat p = powiaty.getFirst();
+        assertThat(p.id().value()).isEqualTo("1402");
+        assertThat(p.nazwa()).isEqualTo("ciechanowski");
+        assertThat(p.rodzajPowiatu()).isEqualTo(RodzajPowiatu.POWIAT);
+        assertThat(p.rodzajPowiatu().getKod()).isEqualTo("p");
+        assertThat(p.rodzajPowiatu().getNazwa()).isEqualTo("Powiat");
 
         wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_POWIATOW)
                 .withRequestBody(containing("14"))
@@ -96,9 +99,12 @@ class TercServiceWireMockTest extends AbstractTerytClientWireMockTest {
         List<Gmina> gminy = terytClient.getGminy(new Terc("1402"), new Terc("14"), date);
 
         assertThat(gminy).hasSize(1);
-        assertThat(gminy.getFirst().id().value()).isEqualTo("1402011");
-        assertThat(gminy.getFirst().nazwa()).isEqualTo("Ciechanów");
-        assertThat(gminy.getFirst().rodzajGminy()).isEqualTo(RodzajGminy.MIEJSKA);
+        Gmina g = gminy.getFirst();
+        assertThat(g.id().value()).isEqualTo("1402011");
+        assertThat(g.nazwa()).isEqualTo("Ciechanów");
+        assertThat(g.rodzajGminy()).isEqualTo(RodzajGminy.MIEJSKA);
+        assertThat(g.rodzajGminy().getKod()).isEqualTo("1");
+        assertThat(g.rodzajGminy().getNazwa()).isEqualTo("Gmina miejska");
 
         wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_GMIN)
                 .withRequestBody(containing("14"))

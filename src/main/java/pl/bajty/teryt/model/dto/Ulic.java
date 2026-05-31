@@ -1,5 +1,7 @@
 package pl.bajty.teryt.model.dto;
 
+import pl.bajty.teryt.model.interfaces.KodTeryt;
+
 import java.util.regex.Pattern;
 
 public record Ulic(String value) implements KodTeryt {

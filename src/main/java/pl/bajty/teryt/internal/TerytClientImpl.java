@@ -6,6 +6,7 @@ import pl.bajty.teryt.model.dto.*;
 import pl.bajty.teryt.model.enums.RodzajGminy;
 import pl.bajty.teryt.model.enums.RodzajKatalogu;
 import pl.bajty.teryt.model.enums.RodzajRaportu;
+import pl.bajty.teryt.model.interfaces.Slownik;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -117,7 +117,7 @@ public class SimcService {
 
     List<Miejscowosc> getMiejscowosci(RodzajGminy rodzajGminy, LocalDate stanNa) {
         var request = new PobierzListeMiejscowosciWRodzajuGminy();
-        request.setSymbolRodz(objectFactory.createPobierzListeMiejscowosciWRodzajuGminySymbolRodz(rodzajGminy.getValue()));
+        request.setSymbolRodz(objectFactory.createPobierzListeMiejscowosciWRodzajuGminySymbolRodz(rodzajGminy.getKod()));
         request.setDataStanu(TerytMapper.toXmlGregorianCalendar(stanNa));
 
         var response = (PobierzListeMiejscowosciWRodzajuGminyResponse) webServiceTemplate.marshalSendAndReceive(

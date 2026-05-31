@@ -1,14 +1,16 @@
 package pl.bajty.teryt.internal;
 
 import org.springframework.stereotype.Service;
-import pl.bajty.teryt.model.dto.Slownik;
+import pl.bajty.teryt.model.enums.RodzajGminy;
+import pl.bajty.teryt.model.interfaces.Slownik;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 class DictionaryService {
     List<Slownik> getSlownikRodzajowGmin() {
-        return List.of();
+        return Arrays.asList(RodzajGminy.values());
     }
 
     List<Slownik> getSlownikPoziomowJednostekTerytorialnych() {

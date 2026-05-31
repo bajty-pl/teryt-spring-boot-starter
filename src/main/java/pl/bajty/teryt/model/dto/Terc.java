@@ -1,6 +1,7 @@
 package pl.bajty.teryt.model.dto;
 
 import pl.bajty.teryt.model.enums.PoziomJednostkiTerytorialnej;
+import pl.bajty.teryt.model.interfaces.KodTeryt;
 
 import java.util.regex.Pattern;
 
