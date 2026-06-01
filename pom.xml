@@ -6,7 +6,7 @@
 
     <groupId>pl.bajty.teryt</groupId>
     <artifactId>teryt-spring-boot-starter</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.8.0</version>
 
     <name>TERYT Starter</name>
     <description>Spring Boot Starter do integracji z bazą TERYT (TERYT Ws1)</description>
@@ -82,6 +82,8 @@
         <dependency>
             <groupId>org.springframework.ws</groupId>
             <artifactId>spring-ws-security</artifactId>
+            <!--  PATCH  -->
+            <version>4.0.17</version>
         </dependency>
 
         <dependency>
@@ -101,6 +103,13 @@
             <artifactId>wiremock-standalone</artifactId>
             <version>${org.wiremock.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--    PATCH    -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.3.1-jre</version>
         </dependency>
     </dependencies>
 
