@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Rodzaje gmin oraz jednostek pomocniczych w podziale terytorialnym.
+ */
 public enum RodzajGminy implements Slownik {
     MIEJSKA("1", "Gmina miejska"),
     WIEJSKA("2", "Gmina wiejska"),

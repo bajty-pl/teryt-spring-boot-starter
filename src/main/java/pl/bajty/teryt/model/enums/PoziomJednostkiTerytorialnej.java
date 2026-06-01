@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Poziomy jednostek podziału terytorialnego kraju.
+ */
 public enum PoziomJednostkiTerytorialnej implements Slownik {
     WOJEWODZTWO("woj", "Województwo", 2),
     POWIAT("pow", "Powiat", 4),

@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Poziomy klasyfikacji Jednostek Terytorialnych do Celów Statystycznych (NUTS).
+ */
 public enum PoziomNuts implements Slownik {
     MAKROREGION_NUTS1("NUTS1", "Makroregion (NUTS 1)"),
     REGION_NUTS2("NUTS2", "Region (NUTS 2)"),

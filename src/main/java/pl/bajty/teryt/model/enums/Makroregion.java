@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Makroregiony Polski zgodnie z klasyfikacją NUTS 1.
+ */
 @RequiredArgsConstructor
 public enum Makroregion implements Slownik {
 

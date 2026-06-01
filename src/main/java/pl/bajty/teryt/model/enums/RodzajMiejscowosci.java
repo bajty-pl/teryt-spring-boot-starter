@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Rodzaje miejscowości (podstawowa lub część miejscowości).
+ */
 public enum RodzajMiejscowosci implements Slownik {
     MIEJSCOWOSC_PODSTAWOWA("P", "Miejscowość podstawowa"),
     CZESC_MIEJSCOWOSCI("C", "Część miejscowości");

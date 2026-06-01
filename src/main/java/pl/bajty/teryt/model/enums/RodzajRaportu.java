@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Rodzaje raportów statystycznych generowanych z systemu TERYT.
+ */
 public enum RodzajRaportu implements Slownik {
     LICZBA_JEDNOSTEK_TERC("TERC", "Liczba jednostek TERC"),
     LICZBA_MIEJSCOWOSCI_WIEJSKICH("WIEJSKIE", "Liczba miejscowości wiejskich"),

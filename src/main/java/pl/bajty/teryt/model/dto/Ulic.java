@@ -4,6 +4,12 @@ import pl.bajty.teryt.model.interfaces.KodTeryt;
 
 import java.util.regex.Pattern;
 
+/**
+ * Reprezentuje kod ULIC (System identyfikatorów i nazw ulic).
+ * Kod ULIC składa się z 5 cyfr.
+ *
+ * @param value Wartość kodu ULIC.
+ */
 public record Ulic(String value) implements KodTeryt {
 
     private static final Pattern ULIC_PATTERN = Pattern.compile("^\\d{5}$");

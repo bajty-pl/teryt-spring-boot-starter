@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Rodzaje katalogów dostępnych w systemie TERYT.
+ */
 public enum RodzajKatalogu implements Slownik {
     NTS("NTS", "Katalog NTS (Jednostki terytorialne)"),
     SIMC("SIMC", "Katalog SIMC (Miejscowości)"),

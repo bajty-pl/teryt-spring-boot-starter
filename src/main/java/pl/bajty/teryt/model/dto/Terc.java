@@ -5,6 +5,12 @@ import pl.bajty.teryt.model.interfaces.KodTeryt;
 
 import java.util.regex.Pattern;
 
+/**
+ * Reprezentuje kod TERC (System identyfikatorów i nazw jednostek podziału terytorialnego).
+ * Kod TERC może mieć długość 2 (województwo), 4 (powiat) lub 7 cyfr (gmina).
+ *
+ * @param value Wartość kodu TERC.
+ */
 public record Terc(String value) implements KodTeryt {
 
     private static final Pattern TERC_PATTERN = Pattern.compile("\\d{2}|\\d{4}|\\d{7}");

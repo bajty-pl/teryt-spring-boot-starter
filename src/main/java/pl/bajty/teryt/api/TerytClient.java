@@ -593,6 +593,7 @@ public interface TerytClient {
      * Aktualizuje punkt adresowy w systemie EMUiA.
      *
      * @param punktAdresowy Obiekt punktu adresowego.
+     * @throws UnsupportedOperationException Zawsze, ponieważ funkcja czeka na implementację.
      */
     void updateEMUiAAddressPoint(PunktAdresowy punktAdresowy);
 
@@ -600,6 +601,7 @@ public interface TerytClient {
      * Aktualizuje dane o ulicy/placu w systemie EMUiA.
      *
      * @param placUlica Obiekt ulicy/placu.
+     * @throws UnsupportedOperationException Zawsze, ponieważ funkcja czeka na implementację.
      */
     void updateEMUiAStreet(PlacUlica placUlica);
 }

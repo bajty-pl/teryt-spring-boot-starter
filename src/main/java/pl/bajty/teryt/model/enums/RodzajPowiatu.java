@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Rodzaje powiatów (powiat ziemski lub miasto na prawach powiatu).
+ */
 public enum RodzajPowiatu implements Slownik {
     POWIAT("p", "Powiat"),
     MIASTO_NA_PRAWACH_POWIATU("m", "Miasto na prawach powiatu");

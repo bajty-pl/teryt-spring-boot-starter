@@ -7,6 +7,15 @@ import pl.bajty.teryt.model.interfaces.JednostkaTerytorialna;
 
 import java.time.LocalDate;
 
+/**
+ * Reprezentuje powiat w systemie TERYT.
+ *
+ * @param id             Identyfikator TERC powiatu.
+ * @param nazwa          Nazwa powiatu.
+ * @param rodzajPowiatu  Rodzaj powiatu (ziemski, miasto na prawach powiatu).
+ * @param wojewodztwo    Województwo, do którego należy powiat.
+ * @param stanNa         Data stanu danych.
+ */
 public record Powiat(
         Terc id,
         String nazwa,
