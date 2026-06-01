@@ -106,7 +106,8 @@ public class TerytAutoConfiguration {
         VerifyService verifyService = new VerifyService(webServiceTemplate);
         FilesService filesService = new FilesService(webServiceTemplate);
         DictionaryService dictionaryService = new DictionaryService();
+        RegionService regionService = new RegionService(webServiceTemplate);
 
-        return new TerytClientImpl(authService, tercService, simcService, ulicService, verifyService, filesService, dictionaryService);
+        return new TerytClientImpl(authService, tercService, simcService, ulicService, verifyService, filesService, dictionaryService, regionService);
     }
 }

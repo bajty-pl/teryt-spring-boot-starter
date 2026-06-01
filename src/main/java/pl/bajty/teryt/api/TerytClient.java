@@ -128,8 +128,6 @@ public interface TerytClient {
 
     PlikKatalogu getStanTerc(LocalDate stanNa);
 
-    List<StanUlic> getStanUlic(LocalDate stanNa);
-
     List<StanUlic> getStanUlic();
 
     Integer getRaport(RodzajRaportu rodzajRaportu);

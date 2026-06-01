@@ -1,6 +1,7 @@
 package pl.bajty.teryt.internal;
 
 import jakarta.xml.bind.JAXBElement;
+import pl.bajty.teryt.internal.soap.generated.JednostkaNomenklaturyNTS;
 import pl.bajty.teryt.internal.soap.generated.JednostkaTerytorialna;
 import pl.bajty.teryt.model.dto.*;
 import pl.bajty.teryt.model.enums.CechaUlicy;
@@ -308,6 +309,24 @@ public class TerytMapper {
         }
 
         throw new IllegalStateException("Nieobsługiwany wzorzec daty z API GUS: " + rawDate);
+    }
+
+    public static Region toRegion(JednostkaNomenklaturyNTS soap) {
+        return new Region(
+                unwrap(soap.getREGION()),
+                unwrap(soap.getNAZWA()),
+                parseDate(unwrap(soap.getSTANNA()))
+        );
+    }
+
+    public static Podregion toPodregion(JednostkaNomenklaturyNTS soap) {
+        return new Podregion(
+                unwrap(soap.getPODREG()),
+                unwrap(soap.getNAZWA()),
+                new Terc(unwrap(soap.getWOJ())),
+                null,
+                parseDate(unwrap(soap.getSTANNA()))
+        );
     }
 
     public static XMLGregorianCalendar toXmlGregorianCalendar(LocalDate date) {

@@ -1,4 +1,6 @@
 package pl.bajty.teryt.model.dto;
 
-public record StanUlic() {
+import java.time.LocalDate;
+
+public record StanUlic(LocalDate data) {
 }
