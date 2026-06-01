@@ -1,6 +1,7 @@
 package pl.bajty.teryt.api;
 
 import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.Makroregion;
 import pl.bajty.teryt.model.enums.RodzajGminy;
 import pl.bajty.teryt.model.enums.RodzajKatalogu;
 import pl.bajty.teryt.model.enums.RodzajRaportu;
@@ -128,6 +129,8 @@ public interface TerytClient {
     PlikKatalogu getStanTerc(LocalDate stanNa);
 
     List<StanUlic> getStanUlic(LocalDate stanNa);
+
+    List<StanUlic> getStanUlic();
 
     Integer getRaport(RodzajRaportu rodzajRaportu);
 

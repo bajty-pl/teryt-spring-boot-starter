@@ -3,6 +3,7 @@ package pl.bajty.teryt.internal;
 import lombok.RequiredArgsConstructor;
 import pl.bajty.teryt.api.TerytClient;
 import pl.bajty.teryt.model.dto.*;
+import pl.bajty.teryt.model.enums.Makroregion;
 import pl.bajty.teryt.model.enums.RodzajGminy;
 import pl.bajty.teryt.model.enums.RodzajKatalogu;
 import pl.bajty.teryt.model.enums.RodzajRaportu;
@@ -19,6 +20,8 @@ public class TerytClientImpl implements TerytClient {
     private final UlicService ulicService;
     private final VerifyService verifyService;
     private final FilesService filesService;
+    private final DictionaryService dictionaryService;
+    private final RegionService regionService;
 
     @Override
     public boolean isLoggedIn() {
@@ -201,31 +204,6 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
-    public List<Podregion> getPodregiony(Wojewodztwo wojewodztwo, LocalDate stanNa) {
-        return List.of();
-    }
-
-    @Override
-    public List<Podregion> getPodregiony(Terc wojewodztwoId, LocalDate stanNa) {
-        return List.of();
-    }
-
-    @Override
-    public List<Region> getRegiony(LocalDate stanNa) {
-        return List.of();
-    }
-
-    @Override
-    public Makroregion getMakroregion(Wojewodztwo wojewodztwo) {
-        return null;
-    }
-
-    @Override
-    public Makroregion getMakroregion(Terc wojewodztwoId) {
-        return null;
-    }
-
-    @Override
     public List<StanSimc> getStanSimc() {
         return simcService.getStanSimc();
     }
@@ -236,8 +214,8 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
-    public List<StanUlic> getStanUlic(LocalDate stanNa) {
-        return List.of();
+    public List<StanUlic> getStanUlic() {
+        return ulicService.getStanUlic();
     }
 
     @Override
@@ -292,42 +270,42 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public List<Slownik> getSlownikRodzajowGmin() {
-        return List.of();
+        return dictionaryService.getSlownikRodzajowGmin();
     }
 
     @Override
     public List<Slownik> getSlownikPoziomowJednostekTerytorialnych() {
-        return List.of();
+        return dictionaryService.getSlownikPoziomowJednostekTerytorialnych();
     }
 
     @Override
     public List<Slownik> getSlownikRodzajowMiejscowosci() {
-        return List.of();
+        return dictionaryService.getSlownikRodzajowMiejscowosci();
     }
 
     @Override
     public List<Slownik> getSlownikRodzajowRaportow() {
-        return List.of();
+        return dictionaryService.getSlownikRodzajowRaportow();
     }
 
     @Override
     public List<Slownik> getSlownikRodzajowPowiatow() {
-        return List.of();
+        return dictionaryService.getSlownikRodzajowPowiatow();
     }
 
     @Override
     public List<Slownik> getSlownikRodzajowKatalogow() {
-        return List.of();
+        return dictionaryService.getSlownikRodzajowKatalogow();
     }
 
     @Override
     public List<Slownik> getSlownikMakroregionow() {
-        return List.of();
+        return dictionaryService.getSlownikMakroregionow();
     }
 
     @Override
     public List<Slownik> getSlownikCechULIC() {
-        return List.of();
+        return dictionaryService.getSlownikCechUlic();
     }
 
     @Override
@@ -338,5 +316,30 @@ public class TerytClientImpl implements TerytClient {
     @Override
     public void updateEMUiAStreet(PlacUlica placUlica) {
 
+    }
+
+    @Override
+    public List<Podregion> getPodregiony(Wojewodztwo wojewodztwo, LocalDate stanNa) {
+        return regionService.getPodregiony(wojewodztwo, stanNa);
+    }
+
+    @Override
+    public List<Podregion> getPodregiony(Terc wojewodztwoId, LocalDate stanNa) {
+        return regionService.getPodregiony(wojewodztwoId, stanNa);
+    }
+
+    @Override
+    public List<Region> getRegiony(LocalDate stanNa) {
+        return regionService.getRegiony(stanNa);
+    }
+
+    @Override
+    public Makroregion getMakroregion(Wojewodztwo wojewodztwo) {
+        return regionService.getMakroregion(wojewodztwo.id());
+    }
+
+    @Override
+    public Makroregion getMakroregion(Terc wojewodztwoId) {
+        return regionService.getMakroregion(wojewodztwoId);
     }
 }

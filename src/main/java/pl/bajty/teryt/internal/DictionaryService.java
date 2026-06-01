@@ -1,43 +1,43 @@
 package pl.bajty.teryt.internal;
 
 import org.springframework.stereotype.Service;
-import pl.bajty.teryt.model.enums.RodzajGminy;
+import pl.bajty.teryt.model.enums.*;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Service
-class DictionaryService {
+public class DictionaryService {
     List<Slownik> getSlownikRodzajowGmin() {
         return Arrays.asList(RodzajGminy.values());
     }
 
     List<Slownik> getSlownikPoziomowJednostekTerytorialnych() {
-        return List.of();
+        return Arrays.asList(PoziomJednostkiTerytorialnej.values());
     }
 
     List<Slownik> getSlownikRodzajowMiejscowosci() {
-        return List.of();
+        return Arrays.asList(RodzajMiejscowosci.values());
     }
 
     List<Slownik> getSlownikRodzajowRaportow() {
-        return List.of();
+        return Arrays.asList(RodzajRaportu.values());
     }
 
     List<Slownik> getSlownikRodzajowPowiatow() {
-        return List.of();
+        return Arrays.asList(RodzajPowiatu.values());
     }
 
     List<Slownik> getSlownikRodzajowKatalogow() {
-        return List.of();
+        return Arrays.asList(RodzajKatalogu.values());
     }
 
     List<Slownik> getSlownikMakroregionow() {
-        return List.of();
+        return Arrays.asList(PoziomNuts.values());
     }
 
     List<Slownik> getSlownikCechUlic() {
-        return List.of();
+        return Arrays.asList(CechaUlicy.values());
     }
 }
