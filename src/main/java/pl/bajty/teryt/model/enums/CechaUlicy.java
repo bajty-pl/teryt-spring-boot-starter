@@ -3,6 +3,9 @@ package pl.bajty.teryt.model.enums;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
+/**
+ * Typy cech ulic (np. ulica, aleja, plac).
+ */
 public enum CechaUlicy implements Slownik {
     ULICA("ul.", "Ulica"),
     ALEJA("al.", "Aleja"),

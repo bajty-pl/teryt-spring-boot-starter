@@ -1,0 +1,16 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzListeRegionowResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzListeRegionowResponse xmlns="http://tempuri.org/">
+            <PobierzListeRegionowResult xmlns:b="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:JednostkaNomenklaturyNTS>
+                    <b:NAZWA>REGION CENTRALNY</b:NAZWA>
+                    <b:REGION>1</b:REGION>
+                    <b:STANNA>2024-01-01</b:STANNA>
+                </b:JednostkaNomenklaturyNTS>
+            </PobierzListeRegionowResult>
+        </PobierzListeRegionowResponse>
+    </s:Body>
+</s:Envelope>

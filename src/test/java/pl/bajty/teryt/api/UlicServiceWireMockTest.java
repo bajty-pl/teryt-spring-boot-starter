@@ -3,6 +3,7 @@ package pl.bajty.teryt.api;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pl.bajty.teryt.model.dto.Simc;
+import pl.bajty.teryt.model.dto.StanUlic;
 import pl.bajty.teryt.model.dto.Ulica;
 
 import java.time.LocalDate;
@@ -19,6 +20,22 @@ class UlicServiceWireMockTest extends AbstractTerytClientWireMockTest {
 
     private static final String ACTION_WYSZUKAJ_ULICE = "ITerytWs1/WyszukajUlice";
     private static final String RESPONSE_WYSZUKAJ_ULICE = "WyszukajUliceResponse.xml";
+
+    private static final String ACTION_POBIERZ_LISTE_STANOW_ULIC = "ITerytWs1/PobierzListeStanowUlic";
+    private static final String RESPONSE_POBIERZ_LISTE_STANOW_ULIC = "PobierzListeStanowUlicResponse.xml";
+
+    @Test
+    @DisplayName("getStanUlic() zwraca listę dat stanu")
+    void getStanUlicShouldReturnList() {
+        stubSoapOk(ACTION_POBIERZ_LISTE_STANOW_ULIC, RESPONSE_POBIERZ_LISTE_STANOW_ULIC);
+
+        List<StanUlic> stany = terytClient.getStanUlic();
+
+        assertThat(stany).hasSize(1);
+        assertThat(stany.getFirst().data()).isEqualTo(LocalDate.of(2024, 1, 1));
+
+        wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_LISTE_STANOW_ULIC));
+    }
 
     @Test
     @DisplayName("getUlice(mscId, stanNa) zwraca listę ulic")

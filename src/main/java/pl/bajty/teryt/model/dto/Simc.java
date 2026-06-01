@@ -4,6 +4,12 @@ import pl.bajty.teryt.model.interfaces.KodTeryt;
 
 import java.util.regex.Pattern;
 
+/**
+ * Reprezentuje kod SIMC (System identyfikatorów i nazw miejscowości).
+ * Kod SIMC składa się z 7 cyfr.
+ *
+ * @param value Wartość kodu SIMC.
+ */
 public record Simc(String value) implements KodTeryt {
 
     private static final Pattern SIMC_PATTERN = Pattern.compile("^\\d{7}$");

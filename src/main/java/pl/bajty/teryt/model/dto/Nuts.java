@@ -4,6 +4,11 @@ import pl.bajty.teryt.model.enums.PoziomNuts;
 
 import java.util.regex.Pattern;
 
+/**
+ * Reprezentuje kod NUTS (Nomenklatura Jednostek Terytorialnych do Celów Statystycznych).
+ *
+ * @param value Wartość kodu NUTS.
+ */
 public record Nuts(String value) {
 
     private static final Pattern NUTS_PATTERN = Pattern.compile("^PL\\d{1,3}$");

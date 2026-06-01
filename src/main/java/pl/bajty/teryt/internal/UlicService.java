@@ -7,6 +7,7 @@ import org.springframework.ws.soap.addressing.client.ActionCallback;
 import pl.bajty.teryt.internal.soap.generated.*;
 import pl.bajty.teryt.model.dto.Simc;
 import pl.bajty.teryt.model.dto.Terc;
+import pl.bajty.teryt.model.dto.StanUlic;
 import pl.bajty.teryt.model.dto.Ulic;
 import pl.bajty.teryt.model.dto.Ulica;
 
@@ -103,6 +104,24 @@ public class UlicService {
                 .orElse(Collections.emptyList())
                 .stream()
                 .map(TerytMapper::toUlica)
+                .toList();
+    }
+
+    public List<StanUlic> getStanUlic() {
+        var request = new PobierzListeStanowUlic();
+
+        var response = (PobierzListeStanowUlicResponse) webServiceTemplate.marshalSendAndReceive(
+                request,
+                new ActionCallback(URI.create("http://tempuri.org/ITerytWs1/PobierzListeStanowUlic"))
+        );
+
+        return Optional.ofNullable(response)
+                .map(PobierzListeStanowUlicResponse::getPobierzListeStanowUlicResult)
+                .map(JAXBElement::getValue)
+                .map(ArrayOfstring::getString)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(date -> new StanUlic(TerytMapper.parseDate(date)))
                 .toList();
     }
 }
