@@ -310,12 +310,12 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public void updateEMUiAAddressPoint(PunktAdresowy punktAdresowy) {
-
+        throw new UnsupportedOperationException("Metoda updateEMUiAAddressPoint nie jest jeszcze zaimplementowana.");
     }
 
     @Override
     public void updateEMUiAStreet(PlacUlica placUlica) {
-
+        throw new UnsupportedOperationException("Metoda updateEMUiAStreet nie jest jeszcze zaimplementowana.");
     }
 
     @Override
