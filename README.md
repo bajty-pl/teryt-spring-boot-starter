@@ -64,7 +64,7 @@ Do pliku `pom.xml` w swoim projekcie dodaj:
 <dependency>
     <groupId>pl.bajty.teryt</groupId>
     <artifactId>teryt-spring-boot-starter</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.9.0</version>
 </dependency>
 ```
 
