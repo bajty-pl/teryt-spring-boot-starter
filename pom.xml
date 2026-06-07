@@ -6,7 +6,7 @@
 
     <groupId>pl.bajty.teryt</groupId>
     <artifactId>teryt-spring-boot-starter</artifactId>
-    <version>0.8.0</version>
+    <version>0.9.0</version>
 
     <name>TERYT Starter</name>
     <description>Spring Boot Starter do integracji z bazą TERYT (TERYT Ws1)</description>

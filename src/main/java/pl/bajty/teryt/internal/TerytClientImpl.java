@@ -11,6 +11,8 @@ import pl.bajty.teryt.model.interfaces.Slownik;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class TerytClientImpl implements TerytClient {
@@ -34,13 +36,23 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
+    public DanePliku downloadCatalogFileData(RodzajKatalogu type) {
+        return DanePliku.from(downloadCatalogFile(type));
+    }
+
+    @Override
     public PlikKatalogu downloadCatalogFile(RodzajKatalogu type) {
-        return null;
+        return filesService.downloadCatalogFile(type);
+    }
+
+    @Override
+    public DanePliku downloadZmianyFileData(RodzajKatalogu type, LocalDate stanOd, LocalDate stanDo) {
+        return DanePliku.from(downloadZmianyFile(type, stanOd, stanDo));
     }
 
     @Override
     public PlikKatalogu downloadZmianyFile(RodzajKatalogu type, LocalDate stanOd, LocalDate stanDo) {
-        return null;
+        return filesService.downloadZmianyFile(type, stanOd, stanDo);
     }
 
     @Override
@@ -66,6 +78,13 @@ public class TerytClientImpl implements TerytClient {
     @Override
     public List<Wojewodztwo> getWojewodztwa(Region region, LocalDate stanNa) {
         return tercService.getWojewodztwa(region, stanNa);
+    }
+
+    @Override
+    public Optional<Wojewodztwo> getWojewodztwo(Terc id) {
+        return tercService.getWojewodztwa(LocalDate.now()).stream()
+                .filter(w -> w.id().value().equals(id.value()))
+                .findFirst();
     }
 
     @Override
@@ -96,6 +115,13 @@ public class TerytClientImpl implements TerytClient {
     @Override
     public List<Powiat> getPowiaty(String podregionId, LocalDate stanNa) {
         return tercService.getPowiaty(podregionId, stanNa);
+    }
+
+    @Override
+    public Optional<Powiat> getPowiat(Terc id) {
+        return tercService.getPowiaty(Objects.requireNonNull(id.getParentId()), LocalDate.now()).stream()
+                .filter(p -> p.id().value().equals(id.value()))
+                .findFirst();
     }
 
     @Override
@@ -149,6 +175,13 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
+    public Optional<Gmina> getGmina(Terc id) {
+        return tercService.getGminy(id.getWojewodztwoTerc(), id.getPowiatTerc(), LocalDate.now()).stream()
+                .filter(g -> g.id().value().equals(id.value()))
+                .findFirst();
+    }
+
+    @Override
     public List<Miejscowosc> getMiejscowosci(Gmina gmina) {
         return simcService.getMiejscowosci(gmina);
     }
@@ -194,6 +227,13 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
+    public Optional<Miejscowosc> getMiejscowosc(Simc id) {
+        return simcService.wyszukajMiejscowosc(id.value()).stream()
+                .filter(m -> m.id().value().equals(id.value()))
+                .findFirst();
+    }
+
+    @Override
     public List<Ulica> getUlice(Miejscowosc miejscowosc, LocalDate stanNa) {
         return ulicService.getUlice(miejscowosc.id(), stanNa);
     }
@@ -204,6 +244,13 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
+    public Optional<Ulica> getUlica(Ulic id, Simc miejscowoscId) {
+        return ulicService.getUlice(miejscowoscId, LocalDate.now()).stream()
+                .filter(u -> u.id().value().equals(id.value()))
+                .findFirst();
+    }
+
+    @Override
     public List<StanSimc> getStanSimc() {
         return simcService.getStanSimc();
     }
@@ -211,6 +258,11 @@ public class TerytClientImpl implements TerytClient {
     @Override
     public PlikKatalogu getStanTerc(LocalDate stanNa) {
         return tercService.getStanTerc(stanNa);
+    }
+
+    @Override
+    public DanePliku getStanTercData(LocalDate stanNa) {
+        return DanePliku.from(getStanTerc(stanNa));
     }
 
     @Override

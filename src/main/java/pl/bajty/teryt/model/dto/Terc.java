@@ -51,4 +51,20 @@ public record Terc(String value) implements KodTeryt {
     public String getRodzajGminyId() {
         return value.length() >= 7 ? value.substring(6, 7) : null;
     }
+
+    public Terc getWojewodztwoTerc() {
+        return new Terc(getWojewodztwoId());
+    }
+
+    public Terc getPowiatTerc() {
+        return value.length() >= 4 ? new Terc(value.substring(0, 4)) : null;
+    }
+
+    public Terc getParentId() {
+        return switch (value.length()) {
+            case 4 -> getWojewodztwoTerc();
+            case 7 -> getPowiatTerc();
+            default -> null;
+        };
+    }
 }
