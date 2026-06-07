@@ -1,0 +1,14 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a="http://www.w3.org/2005/08/addressing">
+    <s:Header>
+        <a:Action>http://tempuri.org/ITerytWs1/PobierzZmianyTercUrzedowyResponse</a:Action>
+    </s:Header>
+    <s:Body>
+        <PobierzZmianyTercUrzedowyResponse xmlns="http://tempuri.org/">
+            <PobierzZmianyTercUrzedowyResult xmlns:b="http://schemas.datacontract.org/2004/07/TerytUslugaWs1" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:nazwa_pliku>TERC_Zmiany_2024.zip</b:nazwa_pliku>
+                <b:opis>Zmiany TERC</b:opis>
+                <b:plik_zawartosc>VGVzdG93YSB6YXdhcnRvxZvEhyB6bWlhbg==</b:plik_zawartosc>
+            </PobierzZmianyTercUrzedowyResult>
+        </PobierzZmianyTercUrzedowyResponse>
+    </s:Body>
+</s:Envelope>

@@ -146,4 +146,13 @@ class TerytClientIntegrationTest {
         assertThat(adresy).isNotNull().isNotEmpty();
         assertThat(adresy.getFirst().ulica().nazwa()).containsIgnoringCase("Akacjowa");
     }
+
+    @Test
+    void shouldDownloadCatalogFileData() {
+        DanePliku dane = terytClient.getStanTercData(LocalDate.of(2024, 1, 1));
+
+        assertThat(dane).isNotNull();
+        assertThat(dane.nazwa()).isNotBlank();
+        assertThat(dane.zawartosc()).isNotEmpty();
+    }
 }

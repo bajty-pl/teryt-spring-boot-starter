@@ -9,6 +9,7 @@ import pl.bajty.teryt.model.enums.RodzajPowiatu;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.containing;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -127,6 +128,45 @@ class TercServiceWireMockTest extends AbstractTerytClientWireMockTest {
 
         wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_KATALOG_TERC)
                 .withRequestBody(containing("2024-05-15")));
+    }
+
+    @Test
+    @DisplayName("getStanTercData(date) zwraca DanePliku z rozkodowaną zawartością")
+    void getStanTercDataShouldReturnDanePliku() {
+        LocalDate date = LocalDate.of(2024, 5, 15);
+        stubSoapOk(ACTION_POBIERZ_KATALOG_TERC, RESPONSE_POBIERZ_KATALOG_TERC);
+
+        DanePliku dane = terytClient.getStanTercData(date);
+
+        assertThat(dane).isNotNull();
+        assertThat(dane.nazwa()).isEqualTo("TERC_Urzedowy_2024-05-15.zip");
+        assertThat(dane.zawartosc()).isNotEmpty();
+        // Base64 "VGVzdG93YSB6YXdhcnRvxZvEhyBwbGlrdQ==" decodes to "Testowa zawartość pliku"
+        assertThat(new String(dane.zawartosc())).isEqualTo("Testowa zawartość pliku");
+
+        wireMockServer.verify(verifySoapAction(ACTION_POBIERZ_KATALOG_TERC)
+                .withRequestBody(containing("2024-05-15")));
+    }
+
+    @Test
+    @DisplayName("getWojewodztwo(id) zwraca Optional z województwem")
+    void getWojewodztwoShouldReturnOptional() {
+        stubSoapOk(ACTION_POBIERZ_LISTE_WOJEWODZTW, RESPONSE_POBIERZ_LISTE_WOJEWODZTW);
+
+        Optional<Wojewodztwo> wojewodztwo = terytClient.getWojewodztwo(new Terc("14"));
+
+        assertThat(wojewodztwo).isPresent();
+        assertThat(wojewodztwo.get().nazwa()).isEqualTo("MAZOWIECKIE");
+    }
+
+    @Test
+    @DisplayName("getWojewodztwo(id) zwraca pusty Optional gdy nie znaleziono")
+    void getWojewodztwoShouldReturnEmptyOptional() {
+        stubSoapOk(ACTION_POBIERZ_LISTE_WOJEWODZTW, RESPONSE_POBIERZ_LISTE_WOJEWODZTW);
+
+        Optional<Wojewodztwo> wojewodztwo = terytClient.getWojewodztwo(new Terc("99"));
+
+        assertThat(wojewodztwo).isEmpty();
     }
 
     @Test

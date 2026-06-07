@@ -9,6 +9,7 @@ import pl.bajty.teryt.model.interfaces.Slownik;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interfejs klienta usługi TERYT (Krajowy Rejestr Urzędowy Podziału Terytorialnego Kraju).
@@ -40,7 +41,7 @@ public interface TerytClient {
     LocalDate getCatalogDate(RodzajKatalogu type);
 
     /**
-     * Pobiera pełny plik katalogu o podanym rodzaju.
+     * Pobiera pełny plik katalogu o podanym rodzaju (zawartość zakodowana w Base64).
      *
      * @param type Rodzaj katalogu.
      * @return Obiekt zawierający dane pliku katalogu.
@@ -48,7 +49,15 @@ public interface TerytClient {
     PlikKatalogu downloadCatalogFile(RodzajKatalogu type);
 
     /**
-     * Pobiera plik zmian dla podanego katalogu w określonym przedziale czasowym.
+     * Pobiera pełny plik katalogu o podanym rodzaju (zawartość rozkodowana).
+     *
+     * @param type Rodzaj katalogu.
+     * @return Obiekt zawierający rozkodowane dane pliku katalogu.
+     */
+    DanePliku downloadCatalogFileData(RodzajKatalogu type);
+
+    /**
+     * Pobiera plik zmian dla podanego katalogu w określonym przedziale czasowym (zawartość zakodowana w Base64).
      *
      * @param type    Rodzaj katalogu.
      * @param stanOd Początek przedziału czasowego.
@@ -56,6 +65,16 @@ public interface TerytClient {
      * @return Obiekt zawierający dane pliku zmian.
      */
     PlikKatalogu downloadZmianyFile(RodzajKatalogu type, LocalDate stanOd, LocalDate stanDo);
+
+    /**
+     * Pobiera plik zmian dla podanego katalogu w określonym przedziale czasowym (zawartość rozkodowana).
+     *
+     * @param type    Rodzaj katalogu.
+     * @param stanOd Początek przedziału czasowego.
+     * @param stanDo Koniec przedziału czasowego.
+     * @return Obiekt zawierający rozkodowane dane pliku zmian.
+     */
+    DanePliku downloadZmianyFileData(RodzajKatalogu type, LocalDate stanOd, LocalDate stanDo);
 
     /**
      * Pobiera listę plików zmian dla podanego katalogu w określonym przedziale czasowym.
@@ -107,6 +126,14 @@ public interface TerytClient {
      * @return Lista województw w regionie.
      */
     List<Wojewodztwo> getWojewodztwa(Region region, LocalDate stanNa);
+
+    /**
+     * Pobiera dane pojedynczego województwa o podanym identyfikatorze TERC.
+     *
+     * @param id Identyfikator TERC województwa.
+     * @return Optional zawierający województwo lub pusty, jeśli nie znaleziono.
+     */
+    Optional<Wojewodztwo> getWojewodztwo(Terc id);
 
     // Powiaty
 
@@ -160,6 +187,14 @@ public interface TerytClient {
      * @return Lista powiatów.
      */
     List<Powiat> getPowiaty(String podregionId, LocalDate stanNa);
+
+    /**
+     * Pobiera dane pojedynczego powiatu o podanym identyfikatorze TERC.
+     *
+     * @param id Identyfikator TERC powiatu.
+     * @return Optional zawierający powiat lub pusty, jeśli nie znaleziono.
+     */
+    Optional<Powiat> getPowiat(Terc id);
 
     // Gminy
 
@@ -248,6 +283,14 @@ public interface TerytClient {
      */
     List<Gmina> getGminy(Terc powiatId, Terc wojewodztwoId);
 
+    /**
+     * Pobiera dane pojedynczej gminy o podanym identyfikatorze TERC.
+     *
+     * @param id Identyfikator TERC gminy.
+     * @return Optional zawierający gminę lub pusty, jeśli nie znaleziono.
+     */
+    Optional<Gmina> getGmina(Terc id);
+
     // ==========================================
     // 4. Miejscowości i Ulice (SIMC / ULIC)
     // ==========================================
@@ -335,6 +378,14 @@ public interface TerytClient {
      */
     List<Miejscowosc> getMiejscowosci(RodzajGminy rodzajGminy, LocalDate stanNa);
 
+    /**
+     * Pobiera dane pojedynczej miejscowości o podanym identyfikatorze SIMC.
+     *
+     * @param id Identyfikator SIMC miejscowości.
+     * @return Optional zawierający miejscowość lub pusty, jeśli nie znaleziono.
+     */
+    Optional<Miejscowosc> getMiejscowosc(Simc id);
+
     // Ulice
 
     /**
@@ -354,6 +405,15 @@ public interface TerytClient {
      * @return Lista ulic.
      */
     List<Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa);
+
+    /**
+     * Pobiera dane pojedynczej ulicy o podanych identyfikatorach.
+     *
+     * @param id            Identyfikator ULIC ulicy.
+     * @param miejscowoscId Identyfikator SIMC miejscowości.
+     * @return Optional zawierający ulicę lub pusty, jeśli nie znaleziono.
+     */
+    Optional<Ulica> getUlica(Ulic id, Simc miejscowoscId);
 
     // ==========================================
     // 5. Podział statystyczny (NUTS / KTS)
@@ -419,12 +479,20 @@ public interface TerytClient {
     List<StanSimc> getStanSimc();
 
     /**
-     * Pobiera stan katalogu TERC na podany dzień.
+     * Pobiera stan katalogu TERC na podany dzień (zawartość zakodowana w Base64).
      *
      * @param stanNa Data stanu danych.
      * @return Obiekt zawierający dane katalogu TERC.
      */
     PlikKatalogu getStanTerc(LocalDate stanNa);
+
+    /**
+     * Pobiera stan katalogu TERC na podany dzień (zawartość rozkodowana).
+     *
+     * @param stanNa Data stanu danych.
+     * @return Obiekt zawierający rozkodowane dane katalogu TERC.
+     */
+    DanePliku getStanTercData(LocalDate stanNa);
 
     /**
      * Pobiera aktualny stan katalogu ulic (ULIC).
