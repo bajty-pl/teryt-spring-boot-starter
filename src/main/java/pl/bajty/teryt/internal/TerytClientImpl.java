@@ -11,6 +11,7 @@ import pl.bajty.teryt.model.interfaces.Slownik;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -118,7 +119,7 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public Optional<Powiat> getPowiat(Terc id) {
-        return tercService.getPowiaty(id.getParentId(), LocalDate.now()).stream()
+        return tercService.getPowiaty(Objects.requireNonNull(id.getParentId()), LocalDate.now()).stream()
                 .filter(p -> p.id().value().equals(id.value()))
                 .findFirst();
     }
