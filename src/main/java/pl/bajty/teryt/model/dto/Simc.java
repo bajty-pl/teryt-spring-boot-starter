@@ -27,4 +27,11 @@ public record Simc(String value) implements KodTeryt {
             throw new IllegalArgumentException(INVALID_SIMC_FORMAT_MESSAGE);
         }
     }
+
+    public static boolean isCorrectCode(String value) {
+        if (value == null || value.isBlank()) {
+            return false;
+        }
+        return SIMC_PATTERN.matcher(value.trim()).matches();
+    }
 }

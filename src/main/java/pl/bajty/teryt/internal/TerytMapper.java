@@ -40,24 +40,25 @@ public class TerytMapper {
     }
 
     public static Powiat toPowiat(JednostkaTerytorialna soap) {
-        Wojewodztwo wojewodztwo = toWojewodztwo(soap);
+        LocalDate stanNa = parseDate(unwrap(soap.getSTANNA()));
         return new Powiat(
                 new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
                 unwrap(soap.getNAZWA()),
                 RodzajPowiatu.fromKod(unwrap(soap.getRODZ())),
-                wojewodztwo,
-                wojewodztwo.stanNa()
+                new Wojewodztwo(new Terc(unwrap(soap.getWOJ())), null, stanNa),
+                stanNa
         );
     }
 
     public static Gmina toGmina(JednostkaTerytorialna soap) {
-        Wojewodztwo wojewodztwo = toWojewodztwo(soap);
         String rodsGmi = unwrap(soap.getRODZ());
 
         String tercValue = unwrap(soap.getWOJ()) + unwrap(soap.getPOW()) + unwrap(soap.getGMI()) + (rodsGmi != null ? rodsGmi : EMPTY);
         if (tercValue.length() == 6 && rodsGmi == null) {
             throw new IllegalArgumentException("Brak rodzaju gminy (RODZ) dla jednostki: " + unwrap(soap.getNAZWA()));
         }
+
+        LocalDate stanNa = parseDate(unwrap(soap.getSTANNA()));
 
         return new Gmina(
                 new Terc(tercValue),
@@ -67,10 +68,10 @@ public class TerytMapper {
                         new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
                         null,
                         null,
-                        wojewodztwo,
-                        wojewodztwo.stanNa()
+                        new Wojewodztwo(new Terc(unwrap(soap.getWOJ())), null, stanNa),
+                        stanNa
                 ),
-                wojewodztwo.stanNa()
+                stanNa
         );
     }
 

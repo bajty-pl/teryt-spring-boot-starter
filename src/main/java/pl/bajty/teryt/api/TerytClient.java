@@ -130,6 +130,14 @@ public interface TerytClient {
     /**
      * Pobiera dane pojedynczego województwa o podanym identyfikatorze TERC.
      *
+     * @param id Identyfikator TERC województwa (2 cyfry).
+     * @return Optional zawierający województwo lub pusty, jeśli nie znaleziono lub kod jest niepoprawny.
+     */
+    Optional<Wojewodztwo> getWojewodztwo(String id);
+
+    /**
+     * Pobiera dane pojedynczego województwa o podanym identyfikatorze TERC.
+     *
      * @param id Identyfikator TERC województwa.
      * @return Optional zawierający województwo lub pusty, jeśli nie znaleziono.
      */
@@ -187,6 +195,14 @@ public interface TerytClient {
      * @return Lista powiatów.
      */
     List<Powiat> getPowiaty(String podregionId, LocalDate stanNa);
+
+    /**
+     * Pobiera dane pojedynczego powiatu o podanym identyfikatorze TERC.
+     *
+     * @param id Identyfikator TERC powiatu (4 cyfry).
+     * @return Optional zawierający powiat lub pusty, jeśli nie znaleziono lub kod jest niepoprawny.
+     */
+    Optional<Powiat> getPowiat(String id);
 
     /**
      * Pobiera dane pojedynczego powiatu o podanym identyfikatorze TERC.
@@ -286,6 +302,14 @@ public interface TerytClient {
     /**
      * Pobiera dane pojedynczej gminy o podanym identyfikatorze TERC.
      *
+     * @param id Identyfikator TERC gminy (7 cyfr).
+     * @return Optional zawierający gminę lub pusty, jeśli nie znaleziono lub kod jest niepoprawny.
+     */
+    Optional<Gmina> getGmina(String id);
+
+    /**
+     * Pobiera dane pojedynczej gminy o podanym identyfikatorze TERC.
+     *
      * @param id Identyfikator TERC gminy.
      * @return Optional zawierający gminę lub pusty, jeśli nie znaleziono.
      */
@@ -381,6 +405,14 @@ public interface TerytClient {
     /**
      * Pobiera dane pojedynczej miejscowości o podanym identyfikatorze SIMC.
      *
+     * @param id Identyfikator SIMC miejscowości (7 cyfr).
+     * @return Optional zawierający miejscowość lub pusty, jeśli nie znaleziono lub kod jest niepoprawny.
+     */
+    Optional<Miejscowosc> getMiejscowosc(String id);
+
+    /**
+     * Pobiera dane pojedynczej miejscowości o podanym identyfikatorze SIMC.
+     *
      * @param id Identyfikator SIMC miejscowości.
      * @return Optional zawierający miejscowość lub pusty, jeśli nie znaleziono.
      */
@@ -405,6 +437,15 @@ public interface TerytClient {
      * @return Lista ulic.
      */
     List<Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa);
+
+    /**
+     * Pobiera dane pojedynczej ulicy o podanych identyfikatorach.
+     *
+     * @param id            Identyfikator ULIC ulicy (5 cyfr).
+     * @param miejscowoscId Identyfikator SIMC miejscowości (7 cyfr).
+     * @return Optional zawierający ulicę lub pusty, jeśli nie znaleziono lub kody są niepoprawne.
+     */
+    Optional<Ulica> getUlica(String id, String miejscowoscId);
 
     /**
      * Pobiera dane pojedynczej ulicy o podanych identyfikatorach.

@@ -9,6 +9,7 @@ import pl.bajty.teryt.model.dto.Gmina;
 import pl.bajty.teryt.model.dto.Miejscowosc;
 import pl.bajty.teryt.model.enums.RodzajGminy;
 import pl.bajty.teryt.model.dto.StanSimc;
+import pl.bajty.teryt.model.dto.Simc;
 import pl.bajty.teryt.model.dto.Terc;
 
 import java.net.URI;
@@ -135,9 +136,13 @@ public class SimcService {
                 .toList();
     }
 
-    List<Miejscowosc> wyszukajMiejscowosc(String nazwa) {
+    List<Miejscowosc> wyszukajMiejscowosc(String kodLubNazwa) {
         var request = new WyszukajMiejscowosc();
-        request.setNazwaMiejscowosci(objectFactory.createWyszukajMiejscowoscNazwaMiejscowosci(nazwa));
+        if (Simc.isCorrectCode(kodLubNazwa)) {
+            request.setIdentyfikatorMiejscowosci(objectFactory.createWyszukajMiejscowoscIdentyfikatorMiejscowosci(kodLubNazwa));
+        } else {
+            request.setNazwaMiejscowosci(objectFactory.createWyszukajMiejscowoscNazwaMiejscowosci(kodLubNazwa));
+        }
 
         var response = (WyszukajMiejscowoscResponse) webServiceTemplate.marshalSendAndReceive(
                 request,
@@ -155,22 +160,7 @@ public class SimcService {
     }
 
     List<Miejscowosc> wyszukajMiejscowosc(Terc id) {
-        var request = new WyszukajMiejscowosc();
-        request.setIdentyfikatorMiejscowosci(objectFactory.createWyszukajMiejscowoscIdentyfikatorMiejscowosci(id.value()));
-
-        var response = (WyszukajMiejscowoscResponse) webServiceTemplate.marshalSendAndReceive(
-                request,
-                new ActionCallback(URI.create("http://tempuri.org/ITerytWs1/WyszukajMiejscowosc"))
-        );
-
-        return Optional.ofNullable(response)
-                .map(WyszukajMiejscowoscResponse::getWyszukajMiejscowoscResult)
-                .map(JAXBElement::getValue)
-                .map(ArrayOfMiejscowosc::getMiejscowosc)
-                .orElse(Collections.emptyList())
-                .stream()
-                .map(TerytMapper::toMiejscowosc)
-                .toList();
+        return wyszukajMiejscowosc(id.value());
     }
 
     List<Miejscowosc> wyszukajMiejscowosc(String nazwa, Terc id) {
