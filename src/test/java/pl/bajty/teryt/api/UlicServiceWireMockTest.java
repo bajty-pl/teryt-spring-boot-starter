@@ -24,6 +24,12 @@ class UlicServiceWireMockTest extends AbstractTerytClientWireMockTest {
     private static final String ACTION_POBIERZ_LISTE_STANOW_ULIC = "ITerytWs1/PobierzListeStanowUlic";
     private static final String RESPONSE_POBIERZ_LISTE_STANOW_ULIC = "PobierzListeStanowUlicResponse.xml";
 
+    private static final String ACTION_WYSZUKAJ_MIEJSCOWOSC = "ITerytWs1/WyszukajMiejscowosc";
+    private static final String RESPONSE_WYSZUKAJ_MIEJSCOWOSC = "WyszukajMiejscowoscResponse.xml";
+
+    private static final String ACTION_POBIERZ_LISTE_MIEJSCOWOSCI_W_GMINIE_Z_SYMBOLEM = "ITerytWs1/PobierzListeMiejscowosciWGminieZSymbolem";
+    private static final String RESPONSE_POBIERZ_LISTE_MIEJSCOWOSCI_W_GMINIE_Z_SYMBOLEM = "PobierzListeMiejscowosciWGminieZSymbolemResponse.xml";
+
     @Test
     @DisplayName("getStanUlic() zwraca listę dat stanu")
     void getStanUlicShouldReturnList() {
@@ -40,6 +46,8 @@ class UlicServiceWireMockTest extends AbstractTerytClientWireMockTest {
     @Test
     @DisplayName("getUlice(mscId, stanNa) zwraca listę ulic")
     void getUliceShouldReturnList() {
+        stubSoapOk(ACTION_WYSZUKAJ_MIEJSCOWOSC, RESPONSE_WYSZUKAJ_MIEJSCOWOSC);
+        stubSoapOk(ACTION_POBIERZ_LISTE_MIEJSCOWOSCI_W_GMINIE_Z_SYMBOLEM, RESPONSE_POBIERZ_LISTE_MIEJSCOWOSCI_W_GMINIE_Z_SYMBOLEM);
         stubSoapOk(ACTION_POBIERZ_LISTE_ULIC_DLA_MIEJSCOWOSCI, RESPONSE_POBIERZ_LISTE_ULIC_DLA_MIEJSCOWOSCI);
 
         Simc mscId = new Simc("0928525");

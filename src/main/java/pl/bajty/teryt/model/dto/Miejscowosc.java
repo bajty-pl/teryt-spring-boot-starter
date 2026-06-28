@@ -1,5 +1,6 @@
 package pl.bajty.teryt.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.bajty.teryt.model.enums.RodzajMiejscowosci;
 
 /**
@@ -12,10 +13,10 @@ import pl.bajty.teryt.model.enums.RodzajMiejscowosci;
  * @param gmina             Gmina, w której znajduje się miejscowość.
  */
 public record Miejscowosc(
-        Simc id,
-        String nazwa,
-        RodzajMiejscowosci rodzajMiejscowosci,
-        Simc symbolPodstawowy,
-        Gmina gmina
+        @JsonProperty("id") Simc id,
+        @JsonProperty("nazwa") String nazwa,
+        @JsonProperty("rodzajMiejscowosci") RodzajMiejscowosci rodzajMiejscowosci,
+        @JsonProperty("symbolPodstawowy") Simc symbolPodstawowy,
+        @JsonProperty("gmina") Gmina gmina
 ) {
 }

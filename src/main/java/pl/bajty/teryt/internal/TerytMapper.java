@@ -41,10 +41,15 @@ public class TerytMapper {
 
     public static Powiat toPowiat(JednostkaTerytorialna soap) {
         LocalDate stanNa = parseDate(unwrap(soap.getSTANNA()));
+        Terc id = new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW()));
+        RodzajPowiatu rodzaj = RodzajPowiatu.fromKod(unwrap(soap.getRODZ()));
+        if (rodzaj == null) {
+            rodzaj = resolveRodzajPowiatu(id);
+        }
         return new Powiat(
-                new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
+                id,
                 unwrap(soap.getNAZWA()),
-                RodzajPowiatu.fromKod(unwrap(soap.getRODZ())),
+                rodzaj,
                 new Wojewodztwo(new Terc(unwrap(soap.getWOJ())), null, stanNa),
                 stanNa
         );
@@ -60,14 +65,15 @@ public class TerytMapper {
 
         LocalDate stanNa = parseDate(unwrap(soap.getSTANNA()));
 
+        Terc powTerc = new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW()));
         return new Gmina(
                 new Terc(tercValue),
                 unwrap(soap.getNAZWA()),
                 RodzajGminy.fromKod(rodsGmi),
                 new Powiat(
-                        new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
+                        powTerc,
                         null,
-                        null,
+                        resolveRodzajPowiatu(powTerc),
                         new Wojewodztwo(new Terc(unwrap(soap.getWOJ())), null, stanNa),
                         stanNa
                 ),
@@ -112,6 +118,28 @@ public class TerytMapper {
                 new Simc(unwrap(soap.getSymbol())),
                 unwrap(soap.getNazwa()),
                 RodzajMiejscowosci.fromKod(unwrap(soap.getRM())),
+                symPodst != null ? new Simc(symPodst) : null,
+                gmina
+        );
+    }
+
+    public static Miejscowosc toMiejscowosc(pl.bajty.teryt.internal.soap.generated.WyszukanaMiejscowosc soap) {
+        Gmina gmina = toGmina(
+                unwrap(soap.getWoj()),
+                unwrap(soap.getWojewodztwo()),
+                unwrap(soap.getPow()),
+                unwrap(soap.getPowiat()),
+                unwrap(soap.getGmi()),
+                unwrap(soap.getGmina()),
+                unwrap(soap.getRodzajGminy())
+        );
+
+        String symPodst = unwrap(soap.getSymbolPodst());
+
+        return new Miejscowosc(
+                new Simc(unwrap(soap.getSymbol())),
+                unwrap(soap.getNazwa()),
+                RodzajMiejscowosci.fromKod(unwrap(soap.getRm())),
                 symPodst != null ? new Simc(symPodst) : null,
                 gmina
         );
@@ -204,14 +232,14 @@ public class TerytMapper {
 
     private static Gmina toGmina(String woj, String wojNazwa, String pow, String powNazwa, String gmi, String gmiNazwa, String rodz) {
         Wojewodztwo wojewodztwo = null;
-        if (woj != null && (woj.length() == 2 || woj.length() == 4 || woj.length() == 7)) {
+        if (woj != null && (woj.length() == 2 || woj.length() == 4 || woj.length() == 6 || woj.length() == 7)) {
             wojewodztwo = new Wojewodztwo(new Terc(woj), wojNazwa, null);
         }
 
         Powiat powiat = null;
         if (woj != null && pow != null) {
             String powTerc = woj + pow;
-            if (powTerc.length() == 2 || powTerc.length() == 4 || powTerc.length() == 7) {
+            if (powTerc.length() == 2 || powTerc.length() == 4 || powTerc.length() == 6 || powTerc.length() == 7) {
                 powiat = new Powiat(new Terc(powTerc), powNazwa, null, wojewodztwo, null);
             }
         }
@@ -219,10 +247,7 @@ public class TerytMapper {
         if (woj != null && pow != null && gmi != null) {
             String rodsGmi = (rodz != null ? rodz : EMPTY);
             String gmiTerc = woj + pow + gmi + rodsGmi;
-            if (gmiTerc.length() == 6 && rodsGmi.isEmpty()) {
-                return null;
-            }
-            if (gmiTerc.length() == 2 || gmiTerc.length() == 4 || gmiTerc.length() == 7) {
+            if (gmiTerc.length() == 2 || gmiTerc.length() == 4 || gmiTerc.length() == 6 || gmiTerc.length() == 7) {
                 return new Gmina(new Terc(gmiTerc), gmiNazwa, RodzajGminy.fromKod(rodz), powiat, null);
             }
         }
@@ -284,7 +309,11 @@ public class TerytMapper {
     }
 
     public static String unwrap(JAXBElement<String> element) {
-        return (element == null || element.isNil()) ? null : element.getValue();
+        if (element == null || element.isNil()) {
+            return null;
+        }
+        String val = element.getValue();
+        return val != null ? val.trim() : null;
     }
 
     public static LocalDate parseDate(String rawDate) {
@@ -296,7 +325,12 @@ public class TerytMapper {
 
         try {
             if (ISO_DATE_PREFIX_PATTERN.matcher(trimmedDate).matches()) {
-                String dateOnly = trimmedDate.contains(DATE_SEPARATOR_T) ? trimmedDate.split(DATE_SEPARATOR_T)[0] : trimmedDate;
+                String dateOnly = trimmedDate;
+                if (dateOnly.contains(DATE_SEPARATOR_T)) {
+                    dateOnly = dateOnly.split(DATE_SEPARATOR_T)[0];
+                } else if (dateOnly.contains(DATE_SEPARATOR_SPACE)) {
+                    dateOnly = dateOnly.split(DATE_SEPARATOR_SPACE)[0];
+                }
                 return LocalDate.parse(dateOnly, DateTimeFormatter.ISO_LOCAL_DATE);
             }
 
@@ -343,5 +377,18 @@ public class TerytMapper {
         } catch (DatatypeConfigurationException e) {
             throw new IllegalStateException("Krytyczny błąd konfiguracji parsera dat XML", e);
         }
+    }
+
+    public static RodzajPowiatu resolveRodzajPowiatu(Terc id) {
+        String value = id.value();
+        if (value != null && value.length() >= 4) {
+            try {
+                int powCode = Integer.parseInt(value.substring(2, 4));
+                return powCode >= 61 ? RodzajPowiatu.MIASTO_NA_PRAWACH_POWIATU : RodzajPowiatu.POWIAT;
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+        return null;
     }
 }

@@ -1,11 +1,13 @@
 package pl.bajty.teryt.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
 /**
  * Rodzaje gmin oraz jednostek pomocniczych w podziale terytorialnym.
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum RodzajGminy implements Slownik {
     MIEJSKA("1", "Gmina miejska"),
     WIEJSKA("2", "Gmina wiejska"),

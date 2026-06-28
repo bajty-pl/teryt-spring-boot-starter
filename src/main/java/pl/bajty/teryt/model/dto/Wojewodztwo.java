@@ -1,5 +1,6 @@
 package pl.bajty.teryt.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.bajty.teryt.model.enums.PoziomJednostkiTerytorialnej;
 import pl.bajty.teryt.model.interfaces.JednostkaTerytorialna;
 
@@ -13,9 +14,9 @@ import java.time.LocalDate;
  * @param stanNa  Data stanu danych.
  */
 public record Wojewodztwo(
-        Terc id,
-        String nazwa,
-        LocalDate stanNa
+        @JsonProperty("id") Terc id,
+        @JsonProperty("nazwa") String nazwa,
+        @JsonProperty("stanNa") LocalDate stanNa
 ) implements JednostkaTerytorialna {
     @Override
     public Terc id() {

@@ -23,6 +23,30 @@ public class UlicService {
     private final WebServiceTemplate webServiceTemplate;
     private final ObjectFactory objectFactory = new ObjectFactory();
 
+    public List<Ulica> getUlice(Simc miejscowoscId, Terc gminaId, LocalDate stanNa) {
+        var request = new PobierzListeUlicDlaMiejscowosci();
+        request.setWoj(objectFactory.createPobierzListeUlicDlaMiejscowosciWoj(gminaId.getWojewodztwoId()));
+        request.setPow(objectFactory.createPobierzListeUlicDlaMiejscowosciPow(gminaId.getPowiatId()));
+        request.setGmi(objectFactory.createPobierzListeUlicDlaMiejscowosciGmi(gminaId.getGminaId()));
+        request.setRodzaj(objectFactory.createPobierzListeUlicDlaMiejscowosciRodzaj(gminaId.getRodzajGminyId()));
+        request.setMsc(objectFactory.createPobierzListeUlicDlaMiejscowosciMsc(miejscowoscId.value()));
+        request.setDataStanu(TerytMapper.toXmlGregorianCalendar(stanNa));
+
+        var response = (PobierzListeUlicDlaMiejscowosciResponse) webServiceTemplate.marshalSendAndReceive(
+                request,
+                new ActionCallback(URI.create("http://tempuri.org/ITerytWs1/PobierzListeUlicDlaMiejscowosci"))
+        );
+
+        return Optional.ofNullable(response)
+                .map(PobierzListeUlicDlaMiejscowosciResponse::getPobierzListeUlicDlaMiejscowosciResult)
+                .map(JAXBElement::getValue)
+                .map(ArrayOfUlicaDrzewo::getUlicaDrzewo)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(TerytMapper::toUlica)
+                .toList();
+    }
+
     public List<Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa) {
         var request = new PobierzListeUlicDlaMiejscowosci();
         request.setMsc(objectFactory.createPobierzListeUlicDlaMiejscowosciMsc(miejscowoscId.value()));

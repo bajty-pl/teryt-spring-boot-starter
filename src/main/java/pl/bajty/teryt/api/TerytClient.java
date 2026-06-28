@@ -418,6 +418,15 @@ public interface TerytClient {
      */
     Optional<Miejscowosc> getMiejscowosc(Simc id);
 
+    /**
+     * Pobiera dane pojedynczej miejscowości o podanym identyfikatorze SIMC na dany dzień.
+     *
+     * @param id      Identyfikator SIMC miejscowości.
+     * @param stanNa  Data stanu danych.
+     * @return Optional zawierający miejscowość lub pusty, jeśli nie znaleziono.
+     */
+    Optional<Miejscowosc> getMiejscowosc(Simc id, LocalDate stanNa);
+
     // Ulice
 
     /**
@@ -455,6 +464,16 @@ public interface TerytClient {
      * @return Optional zawierający ulicę lub pusty, jeśli nie znaleziono.
      */
     Optional<Ulica> getUlica(Ulic id, Simc miejscowoscId);
+
+    /**
+     * Pobiera dane pojedynczej ulicy o podanych identyfikatorach na dany dzień.
+     *
+     * @param id            Identyfikator ULIC ulicy.
+     * @param miejscowoscId Identyfikator SIMC miejscowości.
+     * @param stanNa        Data stanu danych.
+     * @return Optional zawierający ulicę lub pusty, jeśli nie znaleziono.
+     */
+    Optional<Ulica> getUlica(Ulic id, Simc miejscowoscId, LocalDate stanNa);
 
     // ==========================================
     // 5. Podział statystyczny (NUTS / KTS)

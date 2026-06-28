@@ -1,7 +1,7 @@
 package pl.bajty.teryt.model.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -14,7 +14,7 @@ class TercSerializationRegressionTest {
         Gmina gmina = new Gmina(new Terc("0201011"), "Bolesławiec", null, pow, null);
 
         ObjectMapper mapper = new ObjectMapper();
-        
+
         assertDoesNotThrow(() -> {
             String json = mapper.writeValueAsString(gmina);
             if (!json.contains("\"id\":\"0201011\"")) {

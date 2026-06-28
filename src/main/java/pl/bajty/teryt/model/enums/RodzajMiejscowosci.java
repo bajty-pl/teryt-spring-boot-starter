@@ -1,11 +1,13 @@
 package pl.bajty.teryt.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
 /**
  * Rodzaje miejscowości (podstawowa lub część miejscowości).
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum RodzajMiejscowosci implements Slownik {
     MIEJSCOWOSC_PODSTAWOWA("P", "Miejscowość podstawowa"),
     CZESC_MIEJSCOWOSCI("C", "Część miejscowości");

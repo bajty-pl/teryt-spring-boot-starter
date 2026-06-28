@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  *
  * @param value Wartość kodu TERC.
  */
-public record Terc(String value) implements KodTeryt {
+public record Terc(@JsonValue String value) implements KodTeryt {
 
     private static final Pattern TERC_PATTERN = Pattern.compile("\\d{2}|\\d{4}|\\d{7}");
     private static final String BLANK_TERC_MESSAGE = "TERC code must not be blank.";
