@@ -44,11 +44,11 @@ public class SimcService {
     }
 
     List<Miejscowosc> getMiejscowosci(Gmina gmina) {
-        return getMiejscowosci(gmina.id(), LocalDate.now(), false);
+        return getMiejscowosci(gmina.id(), LocalDate.now(), true);
     }
 
     List<Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa) {
-        return getMiejscowosci(gmina.id(), stanNa, false);
+        return getMiejscowosci(gmina.id(), stanNa, true);
     }
 
     List<Miejscowosc> getMiejscowosci(Gmina gmina, boolean zSymbolem) {
@@ -60,11 +60,11 @@ public class SimcService {
     }
 
     List<Miejscowosc> getMiejscowosci(Terc gminaId) {
-        return getMiejscowosci(gminaId, LocalDate.now(), false);
+        return getMiejscowosci(gminaId, LocalDate.now(), true);
     }
 
     List<Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa) {
-        return getMiejscowosci(gminaId, stanNa, false);
+        return getMiejscowosci(gminaId, stanNa, true);
     }
 
     List<Miejscowosc> getMiejscowosci(Terc gminaId, boolean zSymbolem) {
@@ -153,6 +153,33 @@ public class SimcService {
                 .map(WyszukajMiejscowoscResponse::getWyszukajMiejscowoscResult)
                 .map(JAXBElement::getValue)
                 .map(ArrayOfMiejscowosc::getMiejscowosc)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(TerytMapper::toMiejscowosc)
+                .toList();
+    }
+
+    List<Miejscowosc> wyszukajMiejscowosc(String kodLubNazwa, LocalDate stanNa) {
+        return wyszukajMiejscowosc(kodLubNazwa);
+    }
+
+    List<Miejscowosc> getMiejscowosciWGminieZSymbolem(Terc gminaId, LocalDate stanNa) {
+        var request = new PobierzListeMiejscowosciWGminieZSymbolem();
+        request.setWoj(objectFactory.createPobierzListeMiejscowosciWGminieZSymbolemWoj(gminaId.getWojewodztwoId()));
+        request.setPow(objectFactory.createPobierzListeMiejscowosciWGminieZSymbolemPow(gminaId.getPowiatId()));
+        request.setGmi(objectFactory.createPobierzListeMiejscowosciWGminieZSymbolemGmi(gminaId.getGminaId()));
+        request.setRodz(objectFactory.createPobierzListeMiejscowosciWGminieZSymbolemRodz(gminaId.getRodzajGminyId()));
+        request.setDataStanu(TerytMapper.toXmlGregorianCalendar(stanNa));
+
+        var response = (PobierzListeMiejscowosciWGminieZSymbolemResponse) webServiceTemplate.marshalSendAndReceive(
+                request,
+                new ActionCallback(URI.create("http://tempuri.org/ITerytWs1/PobierzListeMiejscowosciWGminieZSymbolem"))
+        );
+
+        return Optional.ofNullable(response)
+                .map(PobierzListeMiejscowosciWGminieZSymbolemResponse::getPobierzListeMiejscowosciWGminieZSymbolemResult)
+                .map(JAXBElement::getValue)
+                .map(ArrayOfMiejscowoscPelna::getMiejscowoscPelna)
                 .orElse(Collections.emptyList())
                 .stream()
                 .map(TerytMapper::toMiejscowosc)

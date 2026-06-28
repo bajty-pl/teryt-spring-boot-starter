@@ -1,5 +1,6 @@
 package pl.bajty.teryt.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.bajty.teryt.model.enums.CechaUlicy;
 
 /**
@@ -11,9 +12,9 @@ import pl.bajty.teryt.model.enums.CechaUlicy;
  * @param miejscowosc Miejscowość, w której znajduje się ulica.
  */
 public record Ulica(
-        Ulic id,
-        String nazwa,
-        CechaUlicy cecha,
-        Miejscowosc miejscowosc
+        @JsonProperty("id") Ulic id,
+        @JsonProperty("nazwa") String nazwa,
+        @JsonProperty("cecha") CechaUlicy cecha,
+        @JsonProperty("miejscowosc") Miejscowosc miejscowosc
 ) {
 }

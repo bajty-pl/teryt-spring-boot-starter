@@ -1,11 +1,13 @@
 package pl.bajty.teryt.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import pl.bajty.teryt.model.interfaces.Slownik;
 
 /**
  * Typy cech ulic (np. ulica, aleja, plac).
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum CechaUlicy implements Slownik {
     ULICA("ul.", "Ulica"),
     ALEJA("al.", "Aleja"),

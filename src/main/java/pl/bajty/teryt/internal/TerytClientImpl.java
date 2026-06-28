@@ -262,19 +262,38 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public Optional<Miejscowosc> getMiejscowosc(Simc id) {
+        return getMiejscowosc(id, LocalDate.now());
+    }
+
+    @Override
+    public Optional<Miejscowosc> getMiejscowosc(Simc id, LocalDate stanNa) {
         return simcService.wyszukajMiejscowosc(id.value()).stream()
                 .filter(m -> m.id().value().equals(id.value()))
-                .findFirst();
+                .findFirst()
+                .map(base -> {
+                    if (base.gmina() != null) {
+                        return simcService.getMiejscowosciWGminieZSymbolem(base.gmina().id(), stanNa).stream()
+                                .filter(m -> m.id().value().equals(id.value()))
+                                .findFirst()
+                                .orElse(base);
+                    }
+                    return base;
+                });
     }
 
     @Override
     public List<Ulica> getUlice(Miejscowosc miejscowosc, LocalDate stanNa) {
+        if (miejscowosc.gmina() != null) {
+            return ulicService.getUlice(miejscowosc.id(), miejscowosc.gmina().id(), stanNa);
+        }
         return ulicService.getUlice(miejscowosc.id(), stanNa);
     }
 
     @Override
     public List<Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa) {
-        return ulicService.getUlice(miejscowoscId, stanNa);
+        return getMiejscowosc(miejscowoscId, stanNa)
+                .map(m -> getUlice(m, stanNa))
+                .orElseGet(() -> ulicService.getUlice(miejscowoscId, stanNa));
     }
 
     @Override
@@ -287,7 +306,12 @@ public class TerytClientImpl implements TerytClient {
 
     @Override
     public Optional<Ulica> getUlica(Ulic id, Simc miejscowoscId) {
-        return ulicService.getUlice(miejscowoscId, LocalDate.now()).stream()
+        return getUlica(id, miejscowoscId, LocalDate.now());
+    }
+
+    @Override
+    public Optional<Ulica> getUlica(Ulic id, Simc miejscowoscId, LocalDate stanNa) {
+        return getUlice(miejscowoscId, stanNa).stream()
                 .filter(u -> u.id().value().equals(id.value()))
                 .findFirst();
     }
