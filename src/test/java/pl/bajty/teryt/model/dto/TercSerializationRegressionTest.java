@@ -17,7 +17,7 @@ class TercSerializationRegressionTest {
         
         assertDoesNotThrow(() -> {
             String json = mapper.writeValueAsString(gmina);
-            if (!json.contains("\"value\":\"0201011\"")) {
+            if (!json.contains("\"id\":\"0201011\"")) {
                 throw new RuntimeException("Missing value in JSON");
             }
             if (json.length() > 2000) {

@@ -1,6 +1,8 @@
 package pl.bajty.teryt.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import pl.bajty.teryt.model.enums.PoziomJednostkiTerytorialnej;
 import pl.bajty.teryt.model.interfaces.KodTeryt;
 
@@ -19,6 +21,7 @@ public record Terc(String value) implements KodTeryt {
     private static final String INVALID_TERC_FORMAT_MESSAGE = "Invalid TERC code format.";
     private static final String UNREACHABLE_STATE_MESSAGE = "Unreachable TERC state - length validated in constructor.";
 
+    @JsonCreator
     public Terc {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(BLANK_TERC_MESSAGE);
@@ -35,6 +38,12 @@ public record Terc(String value) implements KodTeryt {
             return false;
         }
         return true;
+    }
+
+    @JsonValue
+    @Override
+    public String value() {
+        return value;
     }
 
     public PoziomJednostkiTerytorialnej poziomJednostkiTerytorialnej() {
