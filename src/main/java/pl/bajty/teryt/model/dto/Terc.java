@@ -28,6 +28,15 @@ public record Terc(String value) implements KodTeryt {
         }
     }
 
+    public static boolean isCorrectCode(String id) {
+        try {
+            new Terc(id);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
+    }
+
     public PoziomJednostkiTerytorialnej poziomJednostkiTerytorialnej() {
         return switch (value.length()) {
             case 2 -> PoziomJednostkiTerytorialnej.WOJEWODZTWO;
@@ -37,37 +46,37 @@ public record Terc(String value) implements KodTeryt {
         };
     }
 
-        @JsonIgnore
+    @JsonIgnore
     public String getWojewodztwoId() {
         return value.substring(0, 2);
     }
 
-        @JsonIgnore
+    @JsonIgnore
     public String getPowiatId() {
         return value.length() >= 4 ? value.substring(2, 4) : null;
     }
 
-        @JsonIgnore
+    @JsonIgnore
     public String getGminaId() {
         return value.length() >= 6 ? value.substring(4, 6) : null;
     }
 
-        @JsonIgnore
+    @JsonIgnore
     public String getRodzajGminyId() {
         return value.length() >= 7 ? value.substring(6, 7) : null;
     }
 
-        @JsonIgnore
+    @JsonIgnore
     public Terc getWojewodztwoTerc() {
         return new Terc(getWojewodztwoId());
     }
 
-        @JsonIgnore
+    @JsonIgnore
     public Terc getPowiatTerc() {
         return value.length() >= 4 ? new Terc(value.substring(0, 4)) : null;
     }
 
-        @JsonIgnore
+    @JsonIgnore
     public Terc getParentId() {
         return switch (value.length()) {
             case 4 -> getWojewodztwoTerc();
