@@ -41,10 +41,15 @@ public class TerytMapper {
 
     public static Powiat toPowiat(JednostkaTerytorialna soap) {
         LocalDate stanNa = parseDate(unwrap(soap.getSTANNA()));
+        Terc id = new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW()));
+        RodzajPowiatu rodzaj = RodzajPowiatu.fromKod(unwrap(soap.getRODZ()));
+        if (rodzaj == null) {
+            rodzaj = resolveRodzajPowiatu(id);
+        }
         return new Powiat(
-                new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
+                id,
                 unwrap(soap.getNAZWA()),
-                RodzajPowiatu.fromKod(unwrap(soap.getRODZ())),
+                rodzaj,
                 new Wojewodztwo(new Terc(unwrap(soap.getWOJ())), null, stanNa),
                 stanNa
         );
@@ -60,14 +65,15 @@ public class TerytMapper {
 
         LocalDate stanNa = parseDate(unwrap(soap.getSTANNA()));
 
+        Terc powTerc = new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW()));
         return new Gmina(
                 new Terc(tercValue),
                 unwrap(soap.getNAZWA()),
                 RodzajGminy.fromKod(rodsGmi),
                 new Powiat(
-                        new Terc(unwrap(soap.getWOJ()) + unwrap(soap.getPOW())),
+                        powTerc,
                         null,
-                        null,
+                        resolveRodzajPowiatu(powTerc),
                         new Wojewodztwo(new Terc(unwrap(soap.getWOJ())), null, stanNa),
                         stanNa
                 ),
@@ -343,5 +349,18 @@ public class TerytMapper {
         } catch (DatatypeConfigurationException e) {
             throw new IllegalStateException("Krytyczny błąd konfiguracji parsera dat XML", e);
         }
+    }
+
+    public static RodzajPowiatu resolveRodzajPowiatu(Terc id) {
+        String value = id.value();
+        if (value != null && value.length() >= 4) {
+            try {
+                int powCode = Integer.parseInt(value.substring(2, 4));
+                return powCode >= 61 ? RodzajPowiatu.MIASTO_NA_PRAWACH_POWIATU : RodzajPowiatu.POWIAT;
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+        return null;
     }
 }
