@@ -44,11 +44,11 @@ public class SimcService {
     }
 
     List<Miejscowosc> getMiejscowosci(Gmina gmina) {
-        return getMiejscowosci(gmina.id(), LocalDate.now(), true);
+        return getMiejscowosci(gmina.id(), LocalDate.now(), false);
     }
 
     List<Miejscowosc> getMiejscowosci(Gmina gmina, LocalDate stanNa) {
-        return getMiejscowosci(gmina.id(), stanNa, true);
+        return getMiejscowosci(gmina.id(), stanNa, false);
     }
 
     List<Miejscowosc> getMiejscowosci(Gmina gmina, boolean zSymbolem) {
@@ -60,11 +60,11 @@ public class SimcService {
     }
 
     List<Miejscowosc> getMiejscowosci(Terc gminaId) {
-        return getMiejscowosci(gminaId, LocalDate.now(), true);
+        return getMiejscowosci(gminaId, LocalDate.now(), false);
     }
 
     List<Miejscowosc> getMiejscowosci(Terc gminaId, LocalDate stanNa) {
-        return getMiejscowosci(gminaId, stanNa, true);
+        return getMiejscowosci(gminaId, stanNa, false);
     }
 
     List<Miejscowosc> getMiejscowosci(Terc gminaId, boolean zSymbolem) {
