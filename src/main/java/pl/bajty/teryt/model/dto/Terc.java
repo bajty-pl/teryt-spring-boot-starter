@@ -1,7 +1,6 @@
 package pl.bajty.teryt.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.bajty.teryt.model.enums.PoziomJednostkiTerytorialnej;
 import pl.bajty.teryt.model.interfaces.KodTeryt;
 
@@ -13,7 +12,7 @@ import java.util.regex.Pattern;
  *
  * @param value Wartość kodu TERC.
  */
-public record Terc(@JsonProperty("value") String value) implements KodTeryt {
+public record Terc(String value) implements KodTeryt {
 
     private static final Pattern TERC_PATTERN = Pattern.compile("\\d{2}|\\d{4}|\\d{7}");
     private static final String BLANK_TERC_MESSAGE = "TERC code must not be blank.";
@@ -29,7 +28,15 @@ public record Terc(@JsonProperty("value") String value) implements KodTeryt {
         }
     }
 
-    @JsonIgnore
+    public static boolean isCorrectCode(String id) {
+        try {
+            new Terc(id);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
+    }
+
     public PoziomJednostkiTerytorialnej poziomJednostkiTerytorialnej() {
         return switch (value.length()) {
             case 2 -> PoziomJednostkiTerytorialnej.WOJEWODZTWO;
@@ -76,12 +83,5 @@ public record Terc(@JsonProperty("value") String value) implements KodTeryt {
             case 7 -> getPowiatTerc();
             default -> null;
         };
-    }
-
-    public static boolean isCorrectCode(String value) {
-        if (value == null || value.isBlank()) {
-            return false;
-        }
-        return TERC_PATTERN.matcher(value).matches();
     }
 }
