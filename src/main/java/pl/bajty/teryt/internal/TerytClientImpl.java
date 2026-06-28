@@ -81,6 +81,14 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
+    public Optional<Wojewodztwo> getWojewodztwo(String id) {
+        if (!Terc.isCorrectCode(id)) {
+            return Optional.empty();
+        }
+        return getWojewodztwo(new Terc(id));
+    }
+
+    @Override
     public Optional<Wojewodztwo> getWojewodztwo(Terc id) {
         return tercService.getWojewodztwa(LocalDate.now()).stream()
                 .filter(w -> w.id().value().equals(id.value()))
@@ -115,6 +123,14 @@ public class TerytClientImpl implements TerytClient {
     @Override
     public List<Powiat> getPowiaty(String podregionId, LocalDate stanNa) {
         return tercService.getPowiaty(podregionId, stanNa);
+    }
+
+    @Override
+    public Optional<Powiat> getPowiat(String id) {
+        if (!Terc.isCorrectCode(id)) {
+            return Optional.empty();
+        }
+        return getPowiat(new Terc(id));
     }
 
     @Override
@@ -175,8 +191,18 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
+    public Optional<Gmina> getGmina(String id) {
+        if (!Terc.isCorrectCode(id)) {
+            return Optional.empty();
+        }
+        return getGmina(new Terc(id));
+    }
+
+    @Override
     public Optional<Gmina> getGmina(Terc id) {
-        return tercService.getGminy(id.getWojewodztwoTerc(), id.getPowiatTerc(), LocalDate.now()).stream()
+        String wojId = id.getWojewodztwoId();
+        String powId = id.getPowiatId();
+        return tercService.getGminyInternal(wojId, powId, LocalDate.now()).stream()
                 .filter(g -> g.id().value().equals(id.value()))
                 .findFirst();
     }
@@ -227,6 +253,14 @@ public class TerytClientImpl implements TerytClient {
     }
 
     @Override
+    public Optional<Miejscowosc> getMiejscowosc(String id) {
+        if (!Simc.isCorrectCode(id)) {
+            return Optional.empty();
+        }
+        return getMiejscowosc(new Simc(id));
+    }
+
+    @Override
     public Optional<Miejscowosc> getMiejscowosc(Simc id) {
         return simcService.wyszukajMiejscowosc(id.value()).stream()
                 .filter(m -> m.id().value().equals(id.value()))
@@ -241,6 +275,14 @@ public class TerytClientImpl implements TerytClient {
     @Override
     public List<Ulica> getUlice(Simc miejscowoscId, LocalDate stanNa) {
         return ulicService.getUlice(miejscowoscId, stanNa);
+    }
+
+    @Override
+    public Optional<Ulica> getUlica(String id, String miejscowoscId) {
+        if (!Ulic.isCorrectCode(id) || !Simc.isCorrectCode(miejscowoscId)) {
+            return Optional.empty();
+        }
+        return getUlica(new Ulic(id), new Simc(miejscowoscId));
     }
 
     @Override

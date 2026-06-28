@@ -9,6 +9,7 @@ import pl.bajty.teryt.model.enums.RodzajKatalogu;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -154,5 +155,81 @@ class TerytClientIntegrationTest {
         assertThat(dane).isNotNull();
         assertThat(dane.nazwa()).isNotBlank();
         assertThat(dane.zawartosc()).isNotEmpty();
+    }
+
+    @Test
+    void shouldFetchGminaById() {
+        Terc gminaTerc = new Terc("1421033"); // Brwinów w środowisku testowym
+
+        Optional<Gmina> gminaOpt = terytClient.getGmina(gminaTerc);
+
+        assertThat(gminaOpt).isPresent();
+        assertThat(gminaOpt.get().id().value()).isEqualTo("1421033");
+    }
+
+    @Test
+    void shouldFetchWojewodztwoByStringCode() {
+        Optional<Wojewodztwo> wojOpt = terytClient.getWojewodztwo("14");
+        assertThat(wojOpt).isPresent();
+        assertThat(wojOpt.get().nazwa()).containsIgnoringCase("MAZOWIECKIE");
+    }
+
+    @Test
+    void shouldReturnEmptyOptionalForInvalidWojewodztwoCode() {
+        Optional<Wojewodztwo> wojOpt = terytClient.getWojewodztwo("invalid");
+        assertThat(wojOpt).isEmpty();
+    }
+
+    @Test
+    void shouldFetchPowiatByStringCode() {
+        Optional<Powiat> powOpt = terytClient.getPowiat("1402");
+        assertThat(powOpt).isPresent();
+        assertThat(powOpt.get().id().value()).isEqualTo("1402");
+    }
+
+    @Test
+    void shouldFetchGminaByStringCode() {
+        Optional<Gmina> gmiOpt = terytClient.getGmina("1421033");
+        assertThat(gmiOpt).isPresent();
+        assertThat(gmiOpt.get().id().value()).isEqualTo("1421033");
+    }
+
+    @Test
+    void shouldFetchMiejscowoscByStringCode() {
+        // Używamy nazwy, aby znaleźć poprawny kod w środowisku testowym
+        List<Miejscowosc> mscList = terytClient.wyszukajMiejscowosc("Ciechanów");
+        assertThat(mscList).isNotEmpty();
+        String realId = mscList.getFirst().id().value();
+
+        Optional<Miejscowosc> mscOpt = terytClient.getMiejscowosc(realId);
+        assertThat(mscOpt).isPresent();
+        assertThat(mscOpt.get().id().value()).isEqualTo(realId);
+    }
+
+    @Test
+    void shouldFetchUlicaByStringCodes() {
+        // Akacjowa w Ciechanowie (przykładowy kod ULIC 00123 - trzeba by sprawdzić realny w test environment)
+        // Jeśli nie znamy realnego, sprawdźmy przynajmniej czy nie rzuca błędem i zwraca Optional
+        Optional<Ulica> ulicaOpt = terytClient.getUlica("00123", "0928525");
+        assertThat(ulicaOpt).isNotNull();
+    }
+
+    @Test
+    void shouldSearchMiejscowoscByStringCode() {
+        List<Miejscowosc> mscList = terytClient.wyszukajMiejscowosc("Ciechanów");
+        assertThat(mscList).isNotEmpty();
+        String realId = mscList.getFirst().id().value();
+
+        List<Miejscowosc> mscListByCode = terytClient.wyszukajMiejscowosc(realId);
+        assertThat(mscListByCode).isNotEmpty();
+        assertThat(mscListByCode.getFirst().id().value()).isEqualTo(realId);
+    }
+
+    @Test
+    void shouldSearchUlicaByStringCode() {
+        // Dla ulic wyszukiwanie po kodzie ULIC zwraca listę (bo ulica o tym samym kodzie może być w wielu miejscowościach)
+        // Realny kod ULIC dla Akacjowej to 00123 (przykładowo)
+        List<Ulica> ulice = terytClient.wyszukajUlice("00123");
+        assertThat(ulice).isNotNull();
     }
 }

@@ -189,7 +189,7 @@ public class TercService {
         );
     }
 
-    private List<Gmina> getGminyInternal(String wojId, String powId, LocalDate stanNa) {
+    public List<Gmina> getGminyInternal(String wojId, String powId, LocalDate stanNa) {
         var request = new PobierzListeGmin();
         request.setWoj(objectFactory.createPobierzListeGminWoj(wojId));
         request.setPow(objectFactory.createPobierzListeGminPow(powId));

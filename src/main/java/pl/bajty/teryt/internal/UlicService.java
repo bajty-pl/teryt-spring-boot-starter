@@ -43,9 +43,13 @@ public class UlicService {
                 .toList();
     }
 
-    public List<Ulica> wyszukajUlice(String nazwa) {
+    public List<Ulica> wyszukajUlice(String kodLubNazwa) {
         var request = new WyszukajUlice();
-        request.setNazwaulicy(objectFactory.createWyszukajUliceNazwaulicy(nazwa));
+        if (Ulic.isCorrectCode(kodLubNazwa)) {
+            return wyszukajUlice(new Ulic(kodLubNazwa));
+        } else {
+            request.setNazwaulicy(objectFactory.createWyszukajUliceNazwaulicy(kodLubNazwa));
+        }
 
         var response = (WyszukajUliceResponse) webServiceTemplate.marshalSendAndReceive(
                 request,
