@@ -109,10 +109,6 @@ public class UlicService {
                 .toList();
     }
 
-    public List<Ulica> wyszukajUlice(Ulic id, LocalDate stanNa) {
-        return wyszukajUlice(id);
-    }
-
     public List<Ulica> wyszukajUlice(String nazwa, Terc id) {
         var request = new WyszukajUliceWRejestrze();
         request.setNazwa(objectFactory.createWyszukajUliceWRejestrzeNazwa(nazwa));

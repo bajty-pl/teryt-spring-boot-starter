@@ -159,10 +159,6 @@ public class SimcService {
                 .toList();
     }
 
-    List<Miejscowosc> wyszukajMiejscowosc(String kodLubNazwa, LocalDate stanNa) {
-        return wyszukajMiejscowosc(kodLubNazwa);
-    }
-
     List<Miejscowosc> getMiejscowosciWGminieZSymbolem(Terc gminaId, LocalDate stanNa) {
         var request = new PobierzListeMiejscowosciWGminieZSymbolem();
         request.setWoj(objectFactory.createPobierzListeMiejscowosciWGminieZSymbolemWoj(gminaId.getWojewodztwoId()));
