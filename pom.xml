@@ -6,7 +6,7 @@
 
     <groupId>pl.bajty.teryt</groupId>
     <artifactId>teryt-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.1</version>
 
     <name>TERYT Starter</name>
     <description>Spring Boot Starter do integracji z bazą TERYT (TERYT Ws1)</description>
@@ -106,6 +106,12 @@
             <scope>test</scope>
         </dependency>
         
+        <dependency>
+            <groupId>pl.bajty.teryt</groupId>
+            <artifactId>teryt-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
