@@ -6,7 +6,7 @@
 
     <groupId>pl.bajty.teryt</groupId>
     <artifactId>teryt-spring-boot-starter</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.1</version>
 
     <name>TERYT Starter</name>
     <description>Spring Boot Starter do integracji z bazą TERYT (TERYT Ws1)</description>
@@ -50,6 +50,20 @@
         <org.wiremock.version>3.13.2</org.wiremock.version>
         <bouncycastle.version>1.84</bouncycastle.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>github-teryt-core</id>
+            <name>GitHub Bajty Apache Maven Packages - TERYT Core</name>
+            <url>https://maven.pkg.github.com/bajty-pl/teryt-core</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -105,12 +119,18 @@
             <version>${org.wiremock.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
+        <dependency>
+            <groupId>pl.bajty.teryt</groupId>
+            <artifactId>teryt-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
