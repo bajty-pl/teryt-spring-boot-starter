@@ -64,7 +64,8 @@ jobs:
           repositories: >
             [{"id": "github-teryt-core", "url": "https://maven.pkg.github.com/bajty-pl/teryt-core"}]
           servers: >
-            [{"id": "github-teryt-core", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]
+            [{"id": "github-teryt-core", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"},
+             {"id": "github", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]
 
       - name: Publish to GitHub Packages
         run: mvn --batch-mode deploy -DskipTests
