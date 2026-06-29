@@ -53,15 +53,9 @@
 
     <repositories>
         <repository>
-            <id>github-teryt-core</id>
+            <id>github</id>
             <name>GitHub Bajty Apache Maven Packages - TERYT Core</name>
             <url>https://maven.pkg.github.com/bajty-pl/teryt-core</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </repository>
     </repositories>
 
